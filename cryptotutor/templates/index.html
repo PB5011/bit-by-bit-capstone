@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>CryptoTutor Home</h1>
+<p>Welcome to CryptoTutor, a website developed by <em>Bit-by-Bit</em>!</p>
+<p>The forum has the following record counts:</p>
+<ul>
+    <li><strong>Questions:</strong> {{ num_questions }}</li>
+    <li><strong>Answered Questions:</strong> {{ num_answered }}</li>
+    <li><strong>Unanswered Questions:</strong> {{ num_unanswered }}</li>
+    <li><strong>Users:</strong> {{ num_users }}</li>
+</ul>
+{% endblock %}
