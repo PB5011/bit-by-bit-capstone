@@ -1,13 +1,51 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>CryptoTutor Home</h1>
-<p>Welcome to CryptoTutor, a website developed by <em>Bit-by-Bit</em>!</p>
-<p>The forum has the following record counts:</p>
+<h1>All Questions</h1>
+<button>Newest</button>
+<button>Most Popular</button>
+&nbsp;
+<button>Filter</button>
+
+<!-- here to show how to get info from the models.py file -->
+<!-- <p>The forum has the following record counts:</p>
 <ul>
     <li><strong>Questions:</strong> {{ num_questions }}</li>
     <li><strong>Answered Questions:</strong> {{ num_answered }}</li>
     <li><strong>Unanswered Questions:</strong> {{ num_unanswered }}</li>
     <li><strong>Users:</strong> {{ num_users }}</li>
-</ul>
+</ul> -->
+
+<div id="question-row">
+    <div id="stats-col"></div>
+    <div id="preview-col"></div>
+</div>
+<!-- trying to loop through and create a block for each question -->
+<script>
+    function question(title, body, points, answers, views) {
+        this.title = title;
+        this.body = body;
+        this.points = points;
+        this.answers = answers;
+        this.views = views;
+
+        let titleElement = document.createElement("h2");
+        titleElement.innerHTML = this.title;
+        document.getElementById("preview-col").appendChild(titleElement);
+
+        let bodyElement = document.createElement("p");
+        bodyElement.innerHTML = this.body;
+        document.getElementById("preview-col").appendChild(bodyElement);
+
+        let pointsElement = document.createElement("p");
+        pointsElement.innerHTML = this.points;
+        document.getElementById("stats-col").appendChild(pointsElement);
+
+        let divider = document.createElement("hr");
+        document.getElementById("question-row").appendChild(divider);
+    }
+
+    let questionOne = new question("Question One", "I need help!", 3, 2, 1);
+    let questionTwo = new question("Question Two", "I need help!", 1, 2, 3);
+</script>
 {% endblock %}

@@ -1,0 +1,21 @@
+/* .sidebar-nav {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+} */
+
+hr {
+    border-top: 3bx solid #bbb;
+}
+
+#stats-col {
+    float: left;
+    padding: 10px;
+    width: 25%;
+}
+
+#preview-col {
+    float: left;
+    padding: 10px;
+    width: 75%;
+}
