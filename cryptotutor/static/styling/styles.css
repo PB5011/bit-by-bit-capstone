@@ -1,0 +1,23 @@
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.mdc-drawer {
+    width: 12%;
+    height: 100vh;
+}
+
+.content-drawer {
+    /* note that if this + mdc-drawer width = 100 then this column will get pushed off screen */
+    width: 85%;
+}
+
+.question-content-title {
+    padding-bottom: 10px;
+}
+
+.question-card {
+    margin: 16px;
+}
+
