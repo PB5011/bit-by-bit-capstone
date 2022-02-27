@@ -16,16 +16,7 @@
     <span class="mdc-button__label">Filter</span>
 </button>
 
-<!-- here to show how to get info from the models.py file -->
-<!-- <p>The forum has the following record counts:</p>
-<ul>
-    <li><strong>Questions:</strong> {{ num_questions }}</li>
-    <li><strong>Answered Questions:</strong> {{ num_answered }}</li>
-    <li><strong>Unanswered Questions:</strong> {{ num_unanswered }}</li>
-    <li><strong>Users:</strong> {{ num_users }}</li>
-</ul> -->
-
-{% for question in questions%}
+{% for question in questions %}
 <div class="mdc-card question-card">
   <div class="mdc-layout-grid mdc-layout-grid--align-left">
     <div class="mdc-layout-grid__inner">
@@ -63,39 +54,4 @@
   </div>
 </div>
 {% endfor %}
-
-
-
-<div id="question-row">
-    <div id="stats-col"></div>
-    <div id="preview-col"></div>
-</div>
-<!-- trying to loop through and create a block for each question -->
-{% comment %} <script>
-    function question(title, body, points, answers, views) {
-        this.title = title;
-        this.body = body;
-        this.points = points;
-        this.answers = answers;
-        this.views = views;
-
-        let titleElement = document.createElement("h2");
-        titleElement.innerHTML = this.title;
-        document.getElementById("preview-col").appendChild(titleElement);
-
-        let bodyElement = document.createElement("p");
-        bodyElement.innerHTML = this.body;
-        document.getElementById("preview-col").appendChild(bodyElement);
-
-        let pointsElement = document.createElement("p");
-        pointsElement.innerHTML = this.points;
-        document.getElementById("stats-col").appendChild(pointsElement);
-
-        let divider = document.createElement("hr");
-        document.getElementById("question-row").appendChild(divider);
-    }
-
-    let questionOne = new question("Question One", "I need help!", 3, 2, 1);
-    let questionTwo = new question("Question Two", "I need help!", 1, 2, 3);
-</script> {% endcomment %}
 {% endblock %}

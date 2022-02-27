@@ -1,23 +1,16 @@
-/* .sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-} */
-
-hr {
-    border-top: 3bx solid #bbb;
-}
-
-#stats-col {
+.column {
     float: left;
     padding: 10px;
-    width: 25%;
 }
 
-#preview-col {
-    float: left;
-    padding: 10px;
-    width: 75%;
+.mdc-drawer {
+    width: 12%;
+    height: 100vh;
+}
+
+.content-drawer {
+    /* note that if this + mdc-drawer width = 100 then this column will get pushed off screen */
+    width: 85%;
 }
 
 .question-content-title {
