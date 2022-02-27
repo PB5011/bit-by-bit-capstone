@@ -23,5 +23,5 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cryptotutor/', include('cryptotutor.urls')),
-    path('', RedirectView.as_view(url='cryptotutor/')), #base URL redirect
+    path('', RedirectView.as_view(url='cryptotutor/', permanent=True)), #base URL redirect
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) #adding url mapping to serve static files (CSS, JS, etc)
