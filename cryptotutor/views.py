@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import User
 
 ### HOME PAGE ###
-def index(request): 
+def index(request):
     """View function for home page of site."""
 
     #TODO: get whatever is necessary for the page
@@ -22,6 +22,8 @@ def question(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
+    f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
+    context = json.load(f)
 
     #render html page
     return render(request, 'question.html', context=context)

@@ -57,3 +57,16 @@ td {
     width: auto;
     max-width: 1500px;
 }
+
+
+/* question viewer styling */
+.question-sidebar-action {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.question-sidebar-action-button {
+    min-width: 250px;
+    max-width: 250px;
+    align: left;
+}

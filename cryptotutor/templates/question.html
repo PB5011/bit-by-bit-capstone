@@ -1,6 +1,128 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-Hello World! This is where you can see an individual question.
+    <div class="content">
 
+        <div class="mdc-layout-grid mdc-layout-grid--align-left">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+                    <div>
+                        <h2>{{ title }}</h2>
+                        <h5>Submitted by: {{ author }}</h5>
+                        <p>{{ body }}</p>
+                    </div>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
+                    <div>
+                        <h2>Actions</h2>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
+                                <span class="mdc-button__label">Upvote</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
+                                <span class="mdc-button__label">Downvote</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
+                                <span class="mdc-button__label">Save for Later</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
+                                <span class="mdc-button__label">Edit Question</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">share</i>
+                                <span class="mdc-button__label">Share</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
+                                <span class="mdc-button__label">Submit Answer</span>
+                            </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
+                                <span class="mdc-button__ripple"></span>
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
+                                <span class="mdc-button__label">Delete Question</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <h3>{{ answerCount }} answers</h3>
+            {% for answer in answers %}
+                <div class="mdc-card question-card">
+                    <div class="mdc-layout-grid mdc-layout-grid--align-left">
+                        <div class="mdc-layout-grid__inner">
+                            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+                                <div>
+                                    <div class="question-content">
+                                        <div class="mdc-typography--headline5 question-content-title">{{ answer.title }}</div>
+                                        <div class="mdc-typography--body1">{{ answer.body }}</div>
+                                        <br>
+                                        <br>
+
+                                    </div>
+                                    <div class="mdc-card__ripple"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mdc-card__actions">
+                        <div class="mdc-card__action-buttons">
+                            <button class="mdc-button">
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
+                                <span class="mdc-button__label">{{ answer.points }}</span>
+                            </button>
+                            <button class="mdc-button">
+                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
+                            </button>
+                        </div>
+                        <button class="mdc-button mdc-button--outlined mdc-button--icon-leading">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">check</i>
+                            <span class="mdc-button__label">Mark as Answer</span>
+                        </button>
+                        <button class="mdc-button mdc-button--outlined mdc-button--icon-leading">
+                            <span class="mdc-button__ripple"></span>
+                            <i class="material-icons mdc-button__icon" aria-hidden="true">reply</i>
+                            <span class="mdc-button__label">Reply</span>
+                        </button>
+                        <div class="mdc-card__action-icons">
+                            <div class="mdc-typography--caption">Answer submitted by {{ answer.author }}</div>
+                            <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
+                                    title="Share">share
+                            </button>
+                            <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
+                                    title="More options">more_vert
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
