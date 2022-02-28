@@ -1,3 +1,4 @@
+/* base_generic styling */
 .column {
     float: left;
     padding: 10px;
@@ -13,6 +14,7 @@
     width: 85%;
 }
 
+/* index styling */
 .question-content-title {
     padding-bottom: 10px;
 }
@@ -21,3 +23,16 @@
     margin: 16px;
 }
 
+/* question-form styling */
+td {
+    padding-right: 15px;
+    height: 60px;
+}
+
+.mdc-text-field__input {
+    width: 750px;
+}
+
+.description {
+    height: 100px;
+}

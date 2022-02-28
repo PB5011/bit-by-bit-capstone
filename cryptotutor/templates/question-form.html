@@ -1,6 +1,92 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-Hello World! This is where you can ask a question.
+<h1>Question Submission</h1>
+<p>This is where you can submit a question for help from peers.</p>
 
+<table>
+    <tr>
+        <td>Student ID</td>
+        <td>
+        <label class="mdc-text-field mdc-text-field--outlined">
+            <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="student-id">ex. 123456</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="student-id">
+        </label>
+        </td>
+    </tr>
+    <tr>
+        <td>Student Name</td>
+        <td>
+        <label class="mdc-text-field mdc-text-field--outlined">
+            <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="student-name">ex. John Doe</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="student-name">
+        </label>
+        </td>
+    </tr>
+    <tr>
+        <td>Project VCS Link</td>
+        <td>
+        <label class="mdc-text-field mdc-text-field--outlined">
+            <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="vcs-link">ex. https://github.com/johndoe/project</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <input type="text" class="mdc-text-field__input" aria-labelledby="vcs-link">
+        </label>
+        </td>
+    </tr>
+    <tr>
+        <td>Code Fragments</td>
+        <td>
+        <!-- may want to have a file upload here instead depending on NiCad/clone detection -->
+        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
+            <span class="mdc-notched-outline">
+              <span class="mdc-notched-outline__leading"></span>
+              <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <span class="mdc-text-field__resizer">
+              <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments"></textarea>
+            </span>
+          </label>
+        </td>
+    </tr>
+    <tr>
+        <td>Error Type</td>
+        <td>
+        <!-- should be a dropdown list -->
+        </td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>
+        <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
+            <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__trailing"></span>
+            </span>
+            <span class="mdc-text-field__resizer">
+                <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="description">Please provide a detailed description of your problem and the solutions you have attempted.</textarea>
+            </span>
+            </label>
+        </td>
+    </tr>
+</table>
+<button class="mdc-button mdc-button--raised">
+    <span class="mdc-button__label">Submit</span>
+</button>
 {% endblock %}
