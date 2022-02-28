@@ -4,6 +4,12 @@
     padding: 10px;
 }
 
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
+}
+
 .mdc-drawer {
     width: 12%;
     height: 100vh;
@@ -35,4 +41,19 @@ td {
 
 .description {
     height: 100px;
+}
+
+.header {
+    padding: 30px;
+}
+
+.header-headline {
+    padding-left: 6px;
+}
+
+.content {
+    padding-left: 30px;
+    padding-right: 30px;
+    width: auto;
+    max-width: 1500px;
 }

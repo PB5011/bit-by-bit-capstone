@@ -1,57 +1,62 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>All Questions</h1>
-<button class="mdc-button foo-button">
-    <div class="mdc-button__ripple"></div>
-    <span class="mdc-button__label">Newest</span>
-</button>
-<button class="mdc-button foo-button">
-    <div class="mdc-button__ripple"></div>
-    <span class="mdc-button__label">Most Popular</span>
-</button>
-&nbsp;
-<button class="mdc-button foo-button">
-    <div class="mdc-button__ripple"></div>
-    <span class="mdc-button__label">Filter</span>
-</button>
-
-{% for question in questions %}
-<div class="mdc-card question-card">
-  <div class="mdc-layout-grid mdc-layout-grid--align-left">
-    <div class="mdc-layout-grid__inner">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-1 mdc-layout-grid--fixed-column-width">
-        {{ question.points }} votes
-        <br> {{ question.answers }} answers
-        <br> {{ question.views }} views
-      </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-11"> 
-        <div>
-          <div class="question-content">
-            <div class="mdc-typography--headline5 question-content-title">{{ question.title }}</div>
-            <div class="mdc-typography--body1">{{ question.body }}</div>
+<div class="mdc-typography--headline6 header">
+  <h1 class="header-headline">All Questions</h1>
+  <button class="mdc-button foo-button">
+      <div class="mdc-button__ripple"></div>
+      <span class="mdc-button__label">Newest</span>
+  </button>
+  <button class="mdc-button foo-button">
+      <div class="mdc-button__ripple"></div>
+      <span class="mdc-button__label">Most Popular</span>
+  </button>
+  &nbsp;
+  <button class="mdc-button foo-button">
+      <div class="mdc-button__ripple"></div>
+      <span class="mdc-button__label">Filter</span>
+  </button>
+</div>
+<div class="content">
+  {% for question in questions %}
+  <div class="mdc-card question-card">
+    <div class="mdc-layout-grid mdc-layout-grid--align-left">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
+          {{ question.points }} votes
+          <br>{{ question.answers }} answers
+          <br>{{ question.views }} views
+          <br><br>Submitted by:<br>
+          {{ question.author }}
+        </div>
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
+          <div>
+            <div class="question-content">
+              <div class="mdc-typography--headline5 question-content-title">{{ question.title }}</div>
+              <div class="mdc-typography--body1">{{ question.body }}</div>
+            </div>
+            <div class="mdc-card__ripple"></div>
           </div>
-          <div class="mdc-card__ripple"></div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="mdc-card__actions">
-    <div class="mdc-card__action-buttons">
-      <button class="mdc-button">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
-        <span class="mdc-button__label">{{ question.points }}</span>
-      </button>
-      <button class="mdc-button">
-        <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
-      </button>
-    </div>
-    <div class="mdc-card__action-icons">
-      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Share">share</button>
-      <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="More options">more_vert</button>
+    <div class="mdc-card__actions">
+      <div class="mdc-card__action-buttons">
+        <button class="mdc-button">
+          <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
+          <span class="mdc-button__label">{{ question.points }}</span>
+        </button>
+        <button class="mdc-button">
+          <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
+        </button>
+      </div>
+      <div class="mdc-card__action-icons">
+        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Share">share</button>
+        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="More options">more_vert</button>
+      </div>
     </div>
   </div>
+  {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}

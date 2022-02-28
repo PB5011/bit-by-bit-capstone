@@ -18,37 +18,35 @@
 <body class="mdc-typography">
     <div>
         {% block sidebar %}
-        <aside class="column mdc-drawer">
+        <aside class="column mdc-drawer mdc-drawer-app-content">
+          <div class="mdc-drawer__header">
+              <h3 class="mdc-drawer__title"><strong>CryptoTutor</strong></h3>
+          </div>
             <div class="mdc-drawer__content">
               <nav class="mdc-deprecated-list">
-                <a class="mdc-deprecated-list-item mdc-deprecated-list-item--activated" href="{% url 'index' %}" aria-current="page">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
+                <a class="mdc-deprecated-list-item" href="{% url 'index' %}" aria-current="page">
                   <span class="mdc-deprecated-list-item__text">Home</span>
                 </a>
                 <a class="mdc-deprecated-list-item" href="{% url 'question-form' %}">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
                   <span class="mdc-deprecated-list-item__text">Submit a Question</span>
                 </a>
                 <a class="mdc-deprecated-list-item" href="{% url 'code-form' %}">
-                    <span class="mdc-deprecated-list-item__ripple"></span>
                     <span class="mdc-deprecated-list-item__text">Compare Code</span>
                   </a>
                 <a class="mdc-deprecated-list-item" href="https://github.com/davidlentsch/bit-by-bit-capstone">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
-                  <span class="mdc-deprecated-list-item__text">Visit Our Github!</span>
+                  <span class="mdc-deprecated-list-item__text">Visit Our GitHub!</span>
                 </a>
                 <!-- FOR DEV ONLY - to simplify getting to html pages that aren't already on nav bar -->
-                <strong>DEV LINKS</strong>
+              <div class="mdc-drawer__header">
+                  <h3 class="mdc-drawer__title"><strong>DEV LINKS</strong></h3>
+              </div>
                 <a class="mdc-deprecated-list-item" href="{% url 'question' %}">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
                   <span class="mdc-deprecated-list-item__text">Sample Question</span>
                 </a>
                 <a class="mdc-deprecated-list-item" href="{% url 'code-selection' %}">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
                   <span class="mdc-deprecated-list-item__text">Code Selection</span>
                 </a>
                 <a class="mdc-deprecated-list-item" href="{% url 'diff-viewer' %}">
-                  <span class="mdc-deprecated-list-item__ripple"></span>
                   <span class="mdc-deprecated-list-item__text">Diff Viewer</span>
                 </a>
               </nav>
