@@ -1,6 +1,8 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<!-- TODO: fix label not disappearing when typing -->
+
 <div class="mdc-typography--headline6 header">
     <h1>Question Submission</h1>
     <p>This is where you can submit a question for help from peers.</p>
@@ -14,7 +16,7 @@
                 <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                    <span class="mdc-floating-label" id="student-id">ex. 123456</span>
+                    <!-- <span class="mdc-floating-label" id="student-id">ex. 123456</span> -->
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
                 </span>
@@ -29,7 +31,7 @@
                 <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                    <span class="mdc-floating-label" id="student-name">ex. John Doe</span>
+                    <!-- <span class="mdc-floating-label" id="student-name">ex. John Doe</span> -->
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
                 </span>
@@ -44,7 +46,7 @@
                 <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
                 <span class="mdc-notched-outline__notch">
-                    <span class="mdc-floating-label" id="vcs-link">ex. https://github.com/johndoe/project</span>
+                    <!-- <span class="mdc-floating-label" id="vcs-link">ex. https://github.com/johndoe/project</span> -->
                 </span>
                 <span class="mdc-notched-outline__trailing"></span>
                 </span>
@@ -53,14 +55,30 @@
             </td>
         </tr>
         <tr>
-            <td>Category</td>
+            <td>Categories</td>
             <td>
-            <!-- should be a dropdown list -->
+            <!-- turning this into a dropdown list that allows searching and multi select (a la sending an email to multiple recipients) would be best imo-->
+            <!-- mdc-chip-set gets the styling, NOT mdc-evolution-chip -->
+            <div class="mdc-chip-set mdc-chip-set--filter">
+                <div class="mdc-chip">
+                    <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
+                    <!-- will need to add actions/buttons -->
+                    <div class="mdc-chip__text">Tag One</div>
+                </div>
+                <div class="mdc-chip">
+                    <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
+                    <div class="mdc-chip__text">Tag Two</div>
+                </div>
+                <div class="mdc-chip">
+                    <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
+                    <div class="mdc-chip__text">Tag Three</div>
+                </div>
+            </div>
             </td>
         </tr>
     </table>
-    <br>
     <div>
+        <p>Description</p>
         <!-- Include stylesheet -->
         <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
         <link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.4.0/styles/default.min.css">
@@ -76,7 +94,7 @@
         <script src="/static/js/editorInit.js"></script>
     </div>
     <br>
-    <button class="mdc-button mdc-button--raised">
+    <button class="mdc-button mdc-button--raised mdc-ripple-surface">
         <span class="mdc-button__label">Submit</span>
     </button>
 
