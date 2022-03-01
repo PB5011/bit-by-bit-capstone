@@ -6,6 +6,7 @@ from xml.dom import minidom
 # Create your models here.
 class User(models.Model):
     """Class defining a user of CryptoTutor"""
+    #@@ -21,4 +23,14 @@ def get_absolute_url(self):
 
     #fields
     #TODO: flesh these out past the very basics
