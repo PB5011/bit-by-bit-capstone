@@ -1,5 +1,6 @@
 import json
 import os
+import difflib
 
 from django.shortcuts import render
 from .models import User,Nicad
@@ -11,6 +12,7 @@ def index(request):
     #TODO: get whatever is necessary for the page
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     context = {'questions':json.load(f)}
+    f.close()
     test = Nicad.callNicad()
 
     #render html page
@@ -22,9 +24,9 @@ def question(request):
     """View function for looking at an individual question."""
 
     #TODO: get whatever is necessary for the page
-    context = {}
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
     context = json.load(f)
+    f.close()
 
     #render html page
     return render(request, 'question.html', context=context)
@@ -68,7 +70,18 @@ def diffViewer(request):
     """View function for the diff viewer."""
 
     #TODO: get whatever is necessary for the page
-    context = {}
+    file1file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json"
+    file2file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json"
+
+
+    file1lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json",'U').readlines()
+    file2lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json",'U').readlines()
+
+    context = {
+        "file1": file1file,
+        "file2": file2file,
+        "diff": difflib.HtmlDiff().make_table(file1lines,file2lines,file1file,file2file)
+    }
 
     #render html page - will need to add context/data once it's retrieved above
     return render(request, 'diff-viewer.html', context=context)
