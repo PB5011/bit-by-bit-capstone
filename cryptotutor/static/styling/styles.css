@@ -68,5 +68,17 @@ td {
 .question-sidebar-action-button {
     min-width: 250px;
     max-width: 250px;
-    /* align: left; */
+    align: left;
+}
+
+/* code selection */
+.code-select-card {
+    margin: 16px;
+}
+
+pre code {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 10px;
 }
