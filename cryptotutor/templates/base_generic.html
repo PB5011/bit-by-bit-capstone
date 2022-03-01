@@ -13,6 +13,7 @@
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'styling/styles.css' %}">
+    {% block customcss %}{% endblock %}
 </head>    
 
 <body class="mdc-typography">

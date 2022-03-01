@@ -30,7 +30,7 @@
 }
 
 /* question-form styling */
-td {
+.question-field {
     padding-right: 15px;
     height: 60px;
 }
@@ -70,3 +70,4 @@ td {
     max-width: 250px;
     align: left;
 }
+
