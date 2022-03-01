@@ -30,7 +30,7 @@
 }
 
 /* question-form styling */
-td {
+.question-field {
     padding-right: 15px;
     height: 60px;
 }
@@ -69,4 +69,16 @@ td {
     min-width: 250px;
     max-width: 250px;
     align: left;
+}
+
+/* code selection */
+.code-select-card {
+    margin: 16px;
+}
+
+pre code {
+    background-color: #eee;
+    border: 1px solid #999;
+    display: block;
+    padding: 10px;
 }
