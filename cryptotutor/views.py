@@ -3,15 +3,17 @@ import os
 import difflib
 
 from django.shortcuts import render
-from .models import User
+from .models import User,Nicad
 
 ### HOME PAGE ###
-def index(request):
+def index(request): 
     """View function for home page of site."""
 
     #TODO: get whatever is necessary for the page
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     context = {'questions':json.load(f)}
+    f.close()
+    test = Nicad.callNicad()
 
     f.close()
 
@@ -26,6 +28,7 @@ def question(request):
     #TODO: get whatever is necessary for the page
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
     context = json.load(f)
+    f.close()
 
     f.close()
 
