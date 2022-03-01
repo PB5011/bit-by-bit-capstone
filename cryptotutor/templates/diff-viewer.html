@@ -1,6 +1,16 @@
 {% extends "base_generic.html" %}
 
+{% block customcss %}
+<link rel="stylesheet" href="/static/styling/diffviewer.css">
+{% endblock %}
+
 {% block content %}
-Hello World! This is where you can look at the diff-view for code fragments.
+<div class="mdc-typography--headline6 header">
+    <h1 class="header-headline">Diff Viewer</h1>
+</div>
+
+<div class="diff-content">
+    {{ diff|safe }}
+</div>
 
 {% endblock %}
