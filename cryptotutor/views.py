@@ -23,6 +23,8 @@ def question(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
+    f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
+    context = json.load(f)
 
     #render html page
     return render(request, 'question.html', context=context)
