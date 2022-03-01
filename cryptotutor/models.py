@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+import subprocess
+from xml.dom import minidom
 
 # Create your models here.
 class User(models.Model):
@@ -22,3 +24,13 @@ class User(models.Model):
     def __str__(self):
         """String for representing the User object (in Admin site etc.)"""
         return self.username + self.password
+
+class Nicad(models.Model):
+    """Class defining nicad use?"""
+
+    #methods
+    def callNicad():
+        subprocess.Popen(["nicad6", "functions", "java", "/home/capstone/Desktop/bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+        #file = minidom.parse('')
+        return True 
+

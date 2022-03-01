@@ -2,15 +2,16 @@ import json
 import os
 
 from django.shortcuts import render
-from .models import User
+from .models import User,Nicad
 
 ### HOME PAGE ###
-def index(request):
+def index(request): 
     """View function for home page of site."""
 
     #TODO: get whatever is necessary for the page
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     context = {'questions':json.load(f)}
+    test = Nicad.callNicad()
 
     #render html page
     return render(request, 'index.html', context=context)
@@ -22,8 +23,6 @@ def question(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
-    f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
-    context = json.load(f)
 
     #render html page
     return render(request, 'question.html', context=context)
