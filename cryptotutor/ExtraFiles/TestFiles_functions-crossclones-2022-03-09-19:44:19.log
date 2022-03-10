@@ -1,0 +1,79 @@
+
+Wed Mar  9 07:44:19 PM CST 2022
+/usr/local/lib/nicad6/tools/crossclones.x ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind.xml ../bit-by-bit-capstone/cryptotutor/ExtraFiles/SubmittedFiles_functions-blind.xml 0.30 10 2500 > ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30.xml
+Processing ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind.xml vs ../bit-by-bit-capstone/cryptotutor/ExtraFiles/SubmittedFiles_functions-blind.xml with difference threshold 30%, clone size 10 .. 2500 lines
+Reading system 1 pcs ... done.
+Total 2892/6000000 potential clones of 10 lines or more
+Used 5506/100000000 total pc lines
+Used 477350/600000000 unique line text chars
+ and 4921/12000000 unique lines
+Reading system 2 pcs  done.
+Total 2896/6000000 potential clones of 10 lines or more
+Used 5543/100000000 total pc lines
+Used 478024/600000000 unique line text chars
+ and 4927/12000000 unique lines
+Sorting pcs ... done.
+Finding clones .. done.
+Total 38179 pc comparisons
+Pruning embedded clone pairs .. done.
+Pruned 0 embedded clone pairs
+Found 6 clone pairs
+Generating XML output 
+== pc1file
+../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind.xml
+TestFiles_functions-blind.xml
+TestFiles
+functions-blind
+== pc2file
+../bit-by-bit-capstone/cryptotutor/ExtraFiles/SubmittedFiles_functions-blind.xml
+SubmittedFiles_functions-blind.xml
+SubmittedFiles
+
+. done.
+
+
+real	0m0.046s
+user	0m0.012s
+sys	0m0.029s
+
+Wed Mar  9 07:44:19 PM CST 2022
+
+Wed Mar  9 07:44:19 PM CST 2022
+/usr/local/lib/nicad6/tools/cloneclasses.x ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30.xml > ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes.xml
+Processing ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30.xml
+Reading clone pairs . done.
+Total 6 pairs
+Sorting pairs . done.
+Indexing pairs . done.
+Computing classes . done.
+Clustered clone pairs into 1 classes
+Generating XML output . done.
+
+
+real	0m0.049s
+user	0m0.011s
+sys	0m0.030s
+
+Wed Mar  9 07:44:19 PM CST 2022
+
+Wed Mar  9 07:44:19 PM CST 2022
+/usr/local/lib/nicad6/tools/getsource.x ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes.xml ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml
+../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes.xml
+
+real	0m0.002s
+user	0m0.000s
+sys	0m0.002s
+
+Wed Mar  9 07:44:19 PM CST 2022
+
+Wed Mar  9 07:44:19 PM CST 2022
+/usr/local/lib/nicad6/tools/tohtmlpairs.x ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml ../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.html
+functions-blind
+30%
+
+real	0m0.001s
+user	0m0.001s
+sys	0m0.000s
+
+Wed Mar  9 07:44:19 PM CST 2022
+
