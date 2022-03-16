@@ -1,0 +1,8 @@
+:root {
+    --mdc-theme-primary: #d71920;
+    --mdc-theme-secondary: #0a0a0a;
+}
+
+html {
+    --mdc-typography-font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+}
