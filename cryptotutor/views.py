@@ -55,13 +55,14 @@ def codeForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
-
+    #TODO Remove tests below when not needed
     print(type(request))
     print(request.method)	
     if request.method == 'POST':
         print("True")
     else:
         print("False")
+    # Dev tests are above here
 
     if request.method == 'POST':
         #x = request.POST.get['code']
