@@ -3,7 +3,9 @@ import os
 import difflib
 
 from django.shortcuts import render
-from .models import User,Nicad
+#from .models import User,Nicad
+from .models import CodeSubmission, User, Nicad
+
 
 ### HOME PAGE ###
 def index(request): 
@@ -53,6 +55,23 @@ def codeForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
+
+    print(type(request))
+    print(request.method)	
+    if request.method == 'POST':
+        print("True")
+    else:
+        print("False")
+
+    if request.method == 'POST':
+        #x = request.POST.get['code']
+        x = request.POST['code']
+        new_item = CodeSubmission(codeSnippet=x)
+        new_item.save()
+        with open('temp.java', 'w') as f:
+            f.writelines(x)
+            f.close()
+        Nicad.callNicad()
 
     #render html page
     return render(request, 'code-form.html', context=context)

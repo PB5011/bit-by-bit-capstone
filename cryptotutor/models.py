@@ -34,3 +34,5 @@ class Nicad(models.Model):
         #file = minidom.parse('')
         return True 
 
+class CodeSubmission(models.Model):
+    codeSnippet = models.TextField()
