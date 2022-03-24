@@ -15,7 +15,6 @@ def index(request):
     f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     context = {'questions':json.load(f)}
     f.close()
-    test = Nicad.callNicad()
 
     f.close()
 
@@ -55,22 +54,18 @@ def codeForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
-    #TODO Remove tests below when not needed
-    print(type(request))
-    print(request.method)	
-    if request.method == 'POST':
-        print("True")
-    else:
-        print("False")
-    # Dev tests are above here
 
     if request.method == 'POST':
-        #x = request.POST.get['code']
         x = request.POST['code']
+        #Fixed issue with codesubmission, can now use it for date and names.
         new_item = CodeSubmission(codeSnippet=x)
         new_item.save()
-        with open('temp.java', 'w') as f:
-            f.writelines(x)
+        with open('./cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java', 'w') as f:
+            f.writelines('public class temp { \n')
+            f.writelines('public static void main(String[] args) { \n')
+            f.writelines(new_item.codeSnippet)
+            f.writelines('\n}\n')
+            f.writelines('}')
             f.close()
         Nicad.callNicad()
 
