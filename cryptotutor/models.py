@@ -30,8 +30,6 @@ class Nicad(models.Model):
 
     #methods
     def callNicad():
-        subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions", "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+        subprocess.Popen(["nicad6", "functions", "java", "../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+        #file = minidom.parse('')
         return True 
-
-class CodeSubmission(models.Model):
-    codeSnippet = models.TextField()
