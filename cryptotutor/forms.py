@@ -8,7 +8,7 @@ from cryptotutor.models import *
 class QuestionForm(ModelForm):
     class Meta:
         model = Question
-        fields = ['qStudentID','qStudentName','projectLink', 'description']
+        fields = ['StudentID','StudentName','projectLink', 'description']
 
 class CodeForm(ModelForm):
     class Meta:
