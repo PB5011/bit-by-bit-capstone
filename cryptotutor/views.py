@@ -1,6 +1,7 @@
 import json
 import os
 import difflib
+from lxml import objectify
 
 from django.shortcuts import render
 #from .models import User,Nicad
@@ -90,3 +91,24 @@ def diffViewer(request):
 
     #render html page - will need to add context/data once it's retrieved above
     return render(request, 'diff-viewer.html', context=context)
+
+
+### NICAD RESULTS  ###
+def nicadResults(request):
+    fileLoc = "/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml"
+
+    f = open(os.getcwd() + fileLoc)
+    xml = f.read()
+    f.close()
+    clones = objectify.fromstring(xml)
+
+    for clazz in clones['class']:
+        print("classid", clazz.attrib)
+
+    context = {
+        "xmlResultFilePath" : os.getcwd() + fileLoc,
+        "result": clones
+    }
+
+    #render html page - will need to add context/data once it's retrieved above
+    return render(request, 'nicad-results.html', context=context)
