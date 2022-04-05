@@ -55,16 +55,16 @@ def questionForm(request):
 #         print("False")
 
     if request.method == 'POST':
-        ID = request.POST['student_id']
+        studentID = request.POST['student_id']
         name = request.POST['student_name']
         link = request.POST['vcs']
         description = request.POST['description']
-        new_item = Question(StudentID=ID, StudentName=name, 
+        new_item = Question(StudentID=studentID, StudentName=name, 
                             projectLink=link, description=description)
-        print(new_item)
-        print(ID)
-        print(name)
-        print(description)
+#         print(new_item)
+#         print(studentID)
+#         print(name)
+#         print(description)
         new_item.save()
 
 
