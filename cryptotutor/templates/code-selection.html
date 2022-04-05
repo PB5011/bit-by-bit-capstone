@@ -3,57 +3,19 @@
 {% block content %}
 <h1>Code Selection</h1>
 
-<div class="mdc-card mdc-layout-grid code-select-card">
-    <div class="mdc-card__primary-action" tabindex="0">
-      <div class="mdc-card__ripple"></div>
-    </div>
-    <div class="question-content">
-        <div class="mdc-typography--headline5 question-content-title">sample_1.html</div>
-        <pre>
-            <code>
-                &lt;!DOCTYPE html&gt;
-                &lt;html&gt;
-                    &lt;head&gt;
-                        &lt;title&gt;Page Title&lt;/title&gt;
-                    &lt;/head&gt;
-                    &lt;body&gt;
-                    
-                        &lt;h1&gt;This is a Heading&lt;/h1&gt;
-                        &lt;p&gt;This is a paragraph.&lt;/p&gt;
-                    
-                    &lt;/body&gt;
-                &lt;/html&gt;
-            </code>
-          </pre>
-      </div>
-      <div class="mdc-card__actions select-card-action">
-        <button class="mdc-button mdc-card__action mdc-card__action--button mdc-button--raised">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Select</span>
-        </button>
-    </div>
-</div>
+<form method="post">
 
+{% for clazz in result.class %}
+{% for src in clazz.source %}
 <div class="mdc-card mdc-layout-grid code-select-card">
     <div class="mdc-card__primary-action" tabindex="0">
       <div class="mdc-card__ripple"></div>
     </div>
     <div class="question-content">
-        <div class="mdc-typography--headline5 question-content-title">sample_2.html</div>
+        <div class="mdc-typography--headline5 question-content-title">Solution {{ src.attrib.pcid }} : Lines {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
         <pre>
             <code>
-                &lt;!DOCTYPE html&gt;
-                &lt;html&gt;
-                    &lt;head&gt;
-                        &lt;title&gt;Page Title&lt;/title&gt;
-                    &lt;/head&gt;
-                    &lt;body&gt;
-                    
-                        &lt;h1&gt;This is a Heading&lt;/h1&gt;
-                        &lt;p&gt;This is a paragraph.&lt;/p&gt;
-                    
-                    &lt;/body&gt;
-                &lt;/html&gt;
+                {{ src.text|linebreaksbr }}
             </code>
           </pre>
       </div>
@@ -64,41 +26,14 @@
         </button>
     </div>
 </div>
-
-<div class="mdc-card mdc-layout-grid code-select-card">
-    <div class="mdc-card__primary-action" tabindex="0">
-      <div class="mdc-card__ripple"></div>
-    </div>
-    <div class="question-content">
-        <div class="mdc-typography--headline5 question-content-title">sample_3.html</div>
-        <pre>
-            <code>
-                &lt;!DOCTYPE html&gt;
-                &lt;html&gt;
-                    &lt;head&gt;
-                        &lt;title&gt;Page Title&lt;/title&gt;
-                    &lt;/head&gt;
-                    &lt;body&gt;
-                    
-                        &lt;h1&gt;This is a Heading&lt;/h1&gt;
-                        &lt;p&gt;This is a paragraph.&lt;/p&gt;
-                    
-                    &lt;/body&gt;
-                &lt;/html&gt;
-            </code>
-          </pre>
-      </div>
-      <div class="mdc-card__actions select-card-action">
-        <button class="mdc-button mdc-card__action mdc-card__action--button mdc-button--raised">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Select</span>
-        </button>
-    </div>
-</div>
+{% endfor %}
+{% endfor %}
 
 <button class="mdc-button mdc-button--raised">
     <div class="mdc-button__ripple"></div>
     <span class="mdc-button__label">Submit Selections</span>
-  </button>
+</button>
+
+</form>
 
 {% endblock %}

@@ -64,8 +64,20 @@ def codeForm(request):
 def codeSelection(request):
     """View function for selecting code for the diff viewer."""
 
-    #TODO: get whatever is necessary for the page
-    context = {}
+    fileLoc = "/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml"
+
+    f = open(os.getcwd() + fileLoc)
+    xml = f.read()
+    f.close()
+    clones = objectify.fromstring(xml)
+
+    for clazz in clones['class']:
+        print("classid", clazz.attrib)
+
+    context = {
+        "xmlResultFilePath" : os.getcwd() + fileLoc,
+        "result": clones
+    }
 
     #render html page
     return render(request, 'code-selection.html', context=context)
