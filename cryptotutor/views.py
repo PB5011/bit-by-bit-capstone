@@ -6,7 +6,7 @@ from lxml import objectify
 from django.shortcuts import render
 #from .models import User,Nicad
 
-from .models import CodeSubmission, User, Nicad
+from .models import CodeSubmission, User, Nicad, Question
 
 
 
@@ -46,6 +46,29 @@ def questionForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
+#     this is just debugging -- keeping it for later in case needed, will delete
+#     print(type(request))
+#     print(request.method)
+#     print(request)      
+#     if request.method == 'POST':
+#         print("True")
+#     else:
+#         print("False")
+
+    if request.method == 'POST':
+        studentID = request.POST['student_id']
+        name = request.POST['student_name']
+        link = request.POST['vcs']
+        description = request.POST['description']
+        new_item = Question(StudentID=studentID, StudentName=name, 
+                            projectLink=link, description=description)
+#         print(new_item)
+#         print(studentID)
+#         print(name)
+#         print(description)
+        new_item.save()
+
+
 
     #render html page
     return render(request, 'question-form.html', context=context)
