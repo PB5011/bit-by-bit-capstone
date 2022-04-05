@@ -1,9 +1,6 @@
 {% extends "base_generic.html" %}
 
 {% block customhead %}
-<link rel="stylesheet" href="/static/styling/questionform.css">
-<script src="/static/js/tinymce/tinymce.min.js"></script>
-<script>tinymce.init({selector:'textarea'});</script>
 {% endblock %}
 
 {% block content %}
@@ -23,28 +20,31 @@
         <br>Total functions-blind: {{ result.cloneinfo.attrib.npcs }}
     </div>
 </div>
+{% for clazz in result.class %}
 <br><br>
-<div class="mdc-typography--headline5 question-content-title">Class {{ result.class.attrib.classid }}</div>
-<div> {{ result.class.attrib.nclones }} fragments, nominal size {{ result.class.attrib.nlines }}, similarity {{ result.class.attrib.similarity }}%</div>
+<div class="mdc-typography--headline5 question-content-title">Class {{ clazz.attrib.classid }}</div>
+<div> {{ clazz.attrib.nclones }} fragments, nominal size {{ clazz.attrib.nlines }}, similarity {{ clazz.attrib.similarity }}%</div>
 <div class="content">
+  {% for src in clazz.source %}
   <div class="mdc-card question-card">
-        <div class="mdc-layout-grid mdc-layout-grid--align-left">
-          <div class="mdc-layout-grid__inner">
-            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
-              <div>
-                <div class="question-content">
-                  <div class="mdc-typography--body1">
-                      <div> {{ result.class.source.attrib.file }} : {{ result.class.source.attrib.startline }} - {{ result.class.source.attrib.endline }}</div>
-                      <br><br>
-                      <div>{{ result.class.source.text|linebreaksbr }}</div>
-                  </div>
-                  <div></div>
-                </div>
+    <div class="mdc-layout-grid mdc-layout-grid--align-left">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
+          <div>
+            <div class="question-content">
+              <div class="mdc-typography--body1">
+                  <div> {{ src.attrib.file }} : {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
+                  <div>{{ src.text|linebreaksbr }}</div>
               </div>
+              <div></div>
             </div>
           </div>
-        </div>    
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
-
+{% endfor %}
 
 {% endblock %}
