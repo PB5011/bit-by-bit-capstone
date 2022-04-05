@@ -95,7 +95,7 @@ def diffViewer(request):
 
 ### NICAD RESULTS  ###
 def nicadResults(request):
-    fileLoc = "/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml"
+    fileLoc = '/' + request.GET.get('file', '/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml')
 
     f = open(os.getcwd() + fileLoc)
     xml = f.read()
