@@ -55,8 +55,6 @@ def questionForm(request):
 #         print("False")
 
     if request.method == 'POST':
-        #x = request.POST.get['code']
-        #x = request.POST['code']
         ID = request.POST['student_id']
         name = request.POST['student_name']
         link = request.POST['vcs']
