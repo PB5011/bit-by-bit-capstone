@@ -35,3 +35,4 @@ class Nicad(models.Model):
 
 class CodeSubmission(models.Model):
     codeSnippet = models.TextField()
+
