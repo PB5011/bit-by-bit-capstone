@@ -5,7 +5,9 @@ from lxml import objectify
 
 from django.shortcuts import render
 #from .models import User,Nicad
-from .models import User,Nicad
+
+from .models import CodeSubmission, User, Nicad
+
 
 
 ### HOME PAGE ###
@@ -55,6 +57,20 @@ def codeForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
+
+    if request.method == 'POST':
+        x = request.POST['code']
+        #Fixed issue with codesubmission, can now use it for date and names.
+        new_item = CodeSubmission(codeSnippet=x)
+        new_item.save()
+        with open('./cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java', 'w') as f:
+            f.writelines('public class temp { \n')
+            f.writelines('public static void main(String[] args) { \n')
+            f.writelines(new_item.codeSnippet)
+            f.writelines('\n}\n')
+            f.writelines('}')
+            f.close()
+        Nicad.callNicad()
 
     #render html page
     return render(request, 'code-form.html', context=context)
