@@ -34,9 +34,10 @@
             <div class="question-content">
               <div class="mdc-typography--body1">
                   <div> {{ src.attrib.file }} : {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
-                  <div>{{ src.text|linebreaksbr }}</div>
+                  <pre>
+                    <code>{{ src.text|linebreaksbr }}</code>
+                  </pre>
               </div>
-              <div></div>
             </div>
           </div>
         </div>
