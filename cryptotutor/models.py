@@ -30,6 +30,20 @@ class Nicad(models.Model):
 
     #methods
     def callNicad():
-        subprocess.Popen(["nicad6", "functions", "java", "../bit-by-bit-capstone/cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
-        #file = minidom.parse('')
+        subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions", "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
         return True 
+
+class CodeSubmission(models.Model):
+    codeSnippet = models.TextField()
+
+class Question(models.Model):
+
+    # CATEGORIES = (
+    #     ('T1', 'Tag1'),
+    #     ('T2', 'Tag2'),
+    #     ('T3', 'Tag3'),
+    # ) # change as needed, not implemented yet
+    StudentID = models.CharField(max_length=10) # probs should be intege>
+    StudentName = models.CharField(max_length=50)
+    projectLink = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
