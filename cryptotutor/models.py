@@ -36,3 +36,14 @@ class Nicad(models.Model):
 class CodeSubmission(models.Model):
     codeSnippet = models.TextField()
 
+class Question(models.Model):
+
+    # CATEGORIES = (
+    #     ('T1', 'Tag1'),
+    #     ('T2', 'Tag2'),
+    #     ('T3', 'Tag3'),
+    # ) # change as needed, not implemented yet
+    StudentID = models.CharField(max_length=10) # probs should be intege>
+    StudentName = models.CharField(max_length=50)
+    projectLink = models.CharField(max_length=50)
+    description = models.CharField(max_length=100)
