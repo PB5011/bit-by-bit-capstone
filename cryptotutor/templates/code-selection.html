@@ -4,6 +4,7 @@
 <h1>Code Selection</h1>
 
 <form method="post">
+  {% csrf_token %}
 
 {% for clazz in result.class %}
 {% for src in clazz.source %}
@@ -12,27 +13,30 @@
       <div class="mdc-card__ripple"></div>
     </div>
     <div class="question-content">
-        <div class="mdc-typography--headline5 question-content-title">Solution {{ src.attrib.pcid }} : Lines {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
-        <pre>
-            <code>
-                {{ src.text|linebreaksbr }}
-            </code>
-          </pre>
+      <div class="mdc-typography--headline5 question-content-title">Solution {{ src.attrib.pcid }} : Lines {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
+      <pre>
+          <code>
+              {{ src.text|linebreaksbr }}
+          </code>
+        </pre>
+    </div>
+    <div class="mdc-card__actions select-card-action">
+      <div class="mdc-touch-target-wrapper">
+        <div class="mdc-radio mdc-radio--touch">
+          <input class="mdc-radio__native-control" type="radio" name="file" value="{{src.attrib.file}}" checked>
+          <div class="mdc-radio__background">
+            <div class="mdc-radio__outer-circle"></div>
+            <div class="mdc-radio__inner-circle"></div>
+          </div>
+          <div class="mdc-radio__ripple"></div>
+        </div>
       </div>
-      <div class="mdc-card__actions select-card-action">
-        <button class="mdc-button mdc-card__action mdc-card__action--button mdc-button--raised">
-          <div class="mdc-button__ripple"></div>
-          <span class="mdc-button__label">Select</span>
-        </button>
     </div>
 </div>
 {% endfor %}
 {% endfor %}
 
-<button class="mdc-button mdc-button--raised">
-    <div class="mdc-button__ripple"></div>
-    <span class="mdc-button__label">Submit Selections</span>
-</button>
+<input type="submit" class="mdc-button mdc-button--raised" value="Submit">
 
 </form>
 

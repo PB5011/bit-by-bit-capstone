@@ -3,7 +3,7 @@ import os
 import difflib
 from lxml import objectify
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 #from .models import User,Nicad
 
 from .models import CodeSubmission, User, Nicad, Question
@@ -94,6 +94,7 @@ def codeForm(request):
             f.writelines('}')
             f.close()
         Nicad.callNicad()
+        return redirect('code-selection')
 
     #render html page
     return render(request, 'code-form.html', context=context)
@@ -118,6 +119,18 @@ def codeSelection(request):
         "result": clones
     }
 
+    if request.method == 'POST':
+        compareFilePath = request.POST['file']
+        #need to get rid of everything before /cryptotutor
+        compareFilePath = "/" + compareFilePath.split('/', 2)[2] #make sure everybody tests this; unsure if the file
+        request.session['compareFile'] = compareFilePath # setting in the session
+        print("request submitted to compare code with file path: ", compareFilePath)
+        #navigate to diff viewer
+        return redirect('diff-viewer')
+        #give the diff viewer the two files... somehow
+        
+
+
     #render html page
     return render(request, 'code-selection.html', context=context)
 
@@ -126,13 +139,20 @@ def codeSelection(request):
 def diffViewer(request):
     """View function for the diff viewer."""
 
-    #TODO: get whatever is necessary for the page
-    file1file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json"
-    file2file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json"
+    #test files to make sure view/diff works
+    #file1file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json"
+    #file2file = os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json"
+
+    #file1lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json",'U').readlines()
+    #file2lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json",'U').readlines()
 
 
-    file1lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json",'U').readlines()
-    file2lines = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail_diff.json",'U').readlines()
+    #submitted files - need to test
+    file1file = os.getcwd() + "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java"
+    file2file = os.getcwd() + request.session['compareFile']
+
+    file1lines = open(os.getcwd() + "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java", "U").readlines()
+    file2lines = open(os.getcwd() + request.session['compareFile'], 'U').readlines()
 
     context = {
         "file1": file1file,
