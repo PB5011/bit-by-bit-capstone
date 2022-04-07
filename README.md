@@ -7,3 +7,5 @@ Team "Bit by Bit"'s Capstone Project. Our project is to help students learn the 
 Feb 28 2022 - M1 submission. Includes implementation of UI for question submission and browsing. Basic Django backend setup and full wireframe implementation. NiCad works in dev environment, although not on the webpage yet.  
 
 Mar 23 2022 - M2 submission. Includes submittable forms as well as NiCad integration. Work was done in the front and back end to facilitate further improvement and functionality. 
+
+Apr 6 2022 - M3 submission. Various work on inputting forms to database, imported sample data from client, question submission working, models finished, code submission to diff viewer working. NiCad XML integration with UI.
