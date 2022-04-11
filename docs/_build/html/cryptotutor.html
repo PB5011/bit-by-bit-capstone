@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>cryptotutor package &#8212; CryptoTutor 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="cryptotutor-package">
+<h1>cryptotutor package<a class="headerlink" href="#cryptotutor-package" title="Permalink to this headline">¶</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cryptotutor.migrations.html">cryptotutor.migrations package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cryptotutor.migrations.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cryptotutor.migrations.html#module-cryptotutor.migrations.0001_initial">cryptotutor.migrations.0001_initial module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cryptotutor.migrations.html#module-cryptotutor.migrations.0002_alter_user_id">cryptotutor.migrations.0002_alter_user_id module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cryptotutor.migrations.html#module-cryptotutor.migrations.0003_codesubmission_nicad">cryptotutor.migrations.0003_codesubmission_nicad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cryptotutor.migrations.html#module-cryptotutor.migrations">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cryptotutor.admin">
+<span id="cryptotutor-admin-module"></span><h2>cryptotutor.admin module<a class="headerlink" href="#module-cryptotutor.admin" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cryptotutor.apps">
+<span id="cryptotutor-apps-module"></span><h2>cryptotutor.apps module<a class="headerlink" href="#module-cryptotutor.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cryptotutor.apps.CryptotutorConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cryptotutor.apps.</span></span><span class="sig-name descname"><span class="pre">CryptotutorConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.apps.CryptotutorConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.apps.CryptotutorConfig.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cryptotutor'</span></em><a class="headerlink" href="#cryptotutor.apps.CryptotutorConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="cryptotutor-forms-module">
+<h2>cryptotutor.forms module<a class="headerlink" href="#cryptotutor-forms-module" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cryptotutor.models">
+<span id="cryptotutor-models-module"></span><h2>cryptotutor.models module<a class="headerlink" href="#module-cryptotutor.models" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cryptotutor.models.</span></span><span class="sig-name descname"><span class="pre">CodeSubmission</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">codeSnippet</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.CodeSubmission" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#cryptotutor.models.CodeSubmission.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#cryptotutor.models.CodeSubmission.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission.codeSnippet">
+<span class="sig-name descname"><span class="pre">codeSnippet</span></span><a class="headerlink" href="#cryptotutor.models.CodeSubmission.codeSnippet" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#cryptotutor.models.CodeSubmission.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.CodeSubmission.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cryptotutor.models.CodeSubmission.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cryptotutor.models.</span></span><span class="sig-name descname"><span class="pre">Nicad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.Nicad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class defining nicad use?</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#cryptotutor.models.Nicad.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#cryptotutor.models.Nicad.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad.callNicad">
+<span class="sig-name descname"><span class="pre">callNicad</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.Nicad.callNicad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#cryptotutor.models.Nicad.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Nicad.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cryptotutor.models.Nicad.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cryptotutor.models.Question">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cryptotutor.models.</span></span><span class="sig-name descname"><span class="pre">Question</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">StudentID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">StudentName</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">projectLink</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.Question" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#cryptotutor.models.Question.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#cryptotutor.models.Question.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.StudentID">
+<span class="sig-name descname"><span class="pre">StudentID</span></span><a class="headerlink" href="#cryptotutor.models.Question.StudentID" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.StudentName">
+<span class="sig-name descname"><span class="pre">StudentName</span></span><a class="headerlink" href="#cryptotutor.models.Question.StudentName" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#cryptotutor.models.Question.description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#cryptotutor.models.Question.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cryptotutor.models.Question.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.Question.projectLink">
+<span class="sig-name descname"><span class="pre">projectLink</span></span><a class="headerlink" href="#cryptotutor.models.Question.projectLink" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="cryptotutor.models.User">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">cryptotutor.models.</span></span><span class="sig-name descname"><span class="pre">User</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.User" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class defining a user of CryptoTutor</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.User.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#cryptotutor.models.User.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="cryptotutor.models.User.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#cryptotutor.models.User.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="cryptotutor.models.User.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.models.User.get_absolute_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the url to access a particular instance of User</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.User.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#cryptotutor.models.User.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.User.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.manager.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#cryptotutor.models.User.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.User.password">
+<span class="sig-name descname"><span class="pre">password</span></span><a class="headerlink" href="#cryptotutor.models.User.password" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="cryptotutor.models.User.username">
+<span class="sig-name descname"><span class="pre">username</span></span><a class="headerlink" href="#cryptotutor.models.User.username" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-cryptotutor.tests">
+<span id="cryptotutor-tests-module"></span><h2>cryptotutor.tests module<a class="headerlink" href="#module-cryptotutor.tests" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cryptotutor.urls">
+<span id="cryptotutor-urls-module"></span><h2>cryptotutor.urls module<a class="headerlink" href="#module-cryptotutor.urls" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-cryptotutor.views">
+<span id="cryptotutor-views-module"></span><h2>cryptotutor.views module<a class="headerlink" href="#module-cryptotutor.views" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.codeForm">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">codeForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.codeForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for submitting code for comparison.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.codeSelection">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">codeSelection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.codeSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for selecting code for the diff viewer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.diffViewer">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">diffViewer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.diffViewer" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for the diff viewer.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.index">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for home page of site.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.nicadResults">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">nicadResults</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.nicadResults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.question">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">question</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.question" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for looking at an individual question.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="cryptotutor.views.questionForm">
+<span class="sig-prename descclassname"><span class="pre">cryptotutor.views.</span></span><span class="sig-name descname"><span class="pre">questionForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#cryptotutor.views.questionForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>View function for asking a question.</p>
+</dd></dl>
+
+</section>
+<section id="module-cryptotutor">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cryptotutor" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">CryptoTutor</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Zoe Larson, Maya Lentsch, Tyler Bauer, Daniel Brinkman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.5.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/cryptotutor.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
