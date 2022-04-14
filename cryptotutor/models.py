@@ -51,55 +51,56 @@ class Question(models.Model):
     
     
 
-# class inheritedQuestion(models.Model)
-#     codeFragment = models.CharField(max_length=2048)
-#     dataTime = models.CharField(max_length=255)
-#     fileName = models.CharField(max_length=255)
-#     question = models.CharField(max_length=255)
-#     studentID = models.IntegerField(max_length=10)
-#     username = models.CharField(max_length=255)
-#     threshold = models.CharField(max_length=255)
-#     misuse = models.CharField(max_length=255)
-# 
-# class student(models.Model)
-#     address = models.CharField(max_length=255)
-#     name = models.CharField(max_length=255)
-# 
-# class inheritedUser(models.Model)
-#     password = models.CharField(max_length=255)
-#     schoolID = models.IntegerField(max_length=10)
-#     userType = models.IntegerField(max_length=10)
-#     username = models.CharField(max_length=255)
-# 
-# class answers(models.Model)
-#     answer = models.CharField(max_length=255)
-#     questionID = models.IntegerField(max_length=10)
-#     studentID = models.IntegerField(max_length=10)
-#     username = models.CharField(max_length=255)
-# 
-# class keywords(models.Model)
-#     keyword = models.CharField(max_length=255)
-# 
-# # class responses(models.Model)
-# #     responseID = unsigned int for django ?
-# #     requestID =
-# #     reviewerName =
-# #     reviewedAt =
-# #     voteUp =
-# #     voteDown =
-# #     solution = models.TextField()
-# 
-# # class Notifications(models.Model)
-# #     notificationID = unsigned int
-# #     requestID =
-# #     responseID =
-# 
-# # class Requests(models.Model)
-# #     requestID =
-# #     studentID =
-# #     studentName = models.CharField(max_length=20)
-# #     VCS = models.CharField(max_length=255)
-# #     requestedAt =
-# #     code = models.TextField()
-# #     errType = models.CharField(max_length=20)
-# #     description = models.TextField()
+class inheritedQuestion(models.Model)
+    codeFragment = models.CharField(max_length=2048)
+    dataTime = models.CharField(max_length=255)
+    fileName = models.CharField(max_length=255)
+    question = models.CharField(max_length=255)
+    studentID = models.IntegerField(max_length=10)
+    username = models.CharField(max_length=255)
+    threshold = models.CharField(max_length=255)
+    misuse = models.CharField(max_length=255)
+
+class student(models.Model)
+    address = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+
+class inheritedUser(models.Model)
+    password = models.CharField(max_length=255)
+    schoolID = models.IntegerField(max_length=10)
+    userType = models.IntegerField(max_length=10)
+    username = models.CharField(max_length=255)
+
+class answers(models.Model)
+    answer = models.CharField(max_length=255)
+    questionID = models.IntegerField(max_length=10)
+    studentID = models.IntegerField(max_length=10)
+    username = models.CharField(max_length=255)
+
+class keywords(models.Model)
+    #keywordID = models.PositiveSmallIntegerField()
+    keyword = models.CharField(max_length=255)
+
+class responses(models.Model)
+    #responseID = models.PositiveSmallIntegerField()
+    requestID = models.PositiveSmallIntegerField()
+    reviewerName = models.CharField(max_length=255)
+    reviewedAt = models.DateTimeField()
+    voteUp = models.PositiveSmallIntegerField()
+    voteDown = models.PositiveSmallIntegerField()
+    solution = models.TextField()
+
+class Notifications(models.Model)
+    #notificationID = models.PositiveSmallIntegerField()
+    requestID = models.PositiveSmallIntegerField()
+    responseID = models.PositiveSmallIntegerField()
+
+class Requests(models.Model)
+    #requestID = models.PositiveSmallIntegerField()
+    studentID = models.PositiveSmallIntegerField()
+    studentName = models.CharField(max_length=20)
+    VCS = models.CharField(max_length=255)
+    requestedAt = models.DateTimeField()
+    code = models.TextField()
+    errType = models.CharField(max_length=20)
+    description = models.TextField()
