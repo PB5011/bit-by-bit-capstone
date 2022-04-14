@@ -42,6 +42,7 @@ class Question(models.Model):
     #     ('T1', 'Tag1'),
     #     ('T2', 'Tag2'),
     #     ('T3', 'Tag3'),
+    #format: ('InternalVariableName', 'UIButtonName'),
     # ) # change as needed, not implemented yet
     StudentID = models.CharField(max_length=10) # probs should be intege>
     StudentName = models.CharField(max_length=50)
