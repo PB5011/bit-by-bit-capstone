@@ -51,7 +51,7 @@ class Question(models.Model):
     
     
 
-class inheritedQuestion(models.Model)
+class inheritedQuestion(models.Model):
     codeFragment = models.CharField(max_length=2048)
     dataTime = models.CharField(max_length=255)
     fileName = models.CharField(max_length=255)
@@ -61,28 +61,33 @@ class inheritedQuestion(models.Model)
     threshold = models.CharField(max_length=255)
     misuse = models.CharField(max_length=255)
 
-class student(models.Model)
+
+class student(models.Model):
     address = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
 
-class inheritedUser(models.Model)
+
+class inheritedUser(models.Model):
     password = models.CharField(max_length=255)
     schoolID = models.IntegerField(max_length=10)
     userType = models.IntegerField(max_length=10)
     username = models.CharField(max_length=255)
 
-class answers(models.Model)
+
+class answers(models.Model):
     answer = models.CharField(max_length=255)
     questionID = models.IntegerField(max_length=10)
     studentID = models.IntegerField(max_length=10)
     username = models.CharField(max_length=255)
 
-class keywords(models.Model)
-    #keywordID = models.PositiveSmallIntegerField()
+
+class keywords(models.Model):
+    # keywordID = models.PositiveSmallIntegerField()
     keyword = models.CharField(max_length=255)
 
-class responses(models.Model)
-    #responseID = models.PositiveSmallIntegerField()
+
+class responses(models.Model):
+    # responseID = models.PositiveSmallIntegerField()
     requestID = models.PositiveSmallIntegerField()
     reviewerName = models.CharField(max_length=255)
     reviewedAt = models.DateTimeField()
@@ -90,13 +95,15 @@ class responses(models.Model)
     voteDown = models.PositiveSmallIntegerField()
     solution = models.TextField()
 
-class Notifications(models.Model)
-    #notificationID = models.PositiveSmallIntegerField()
+
+class Notifications(models.Model):
+    # notificationID = models.PositiveSmallIntegerField()
     requestID = models.PositiveSmallIntegerField()
     responseID = models.PositiveSmallIntegerField()
 
-class Requests(models.Model)
-    #requestID = models.PositiveSmallIntegerField()
+
+class Requests(models.Model):
+    # requestID = models.PositiveSmallIntegerField()
     studentID = models.PositiveSmallIntegerField()
     studentName = models.CharField(max_length=20)
     VCS = models.CharField(max_length=255)
