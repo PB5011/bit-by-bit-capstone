@@ -62,18 +62,15 @@ class inheritedQuestion(models.Model):
     threshold = models.CharField(max_length=255)
     misuse = models.CharField(max_length=255)
 
-
 class student(models.Model):
     address = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-
 
 class inheritedUser(models.Model):
     password = models.CharField(max_length=255)
     schoolID = models.IntegerField(max_length=10)
     userType = models.IntegerField(max_length=10)
     username = models.CharField(max_length=255)
-
 
 class answers(models.Model):
     answer = models.CharField(max_length=255)

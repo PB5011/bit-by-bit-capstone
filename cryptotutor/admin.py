@@ -1,7 +1,11 @@
 from django.contrib import admin
-from .models import inheritedQuestion, student, inheritedUser, answers, keywords, responses, Notifications, Requests
+from .models import CodeSubmission, Question, inheritedQuestion, student, inheritedUser, answers, keywords, responses, Notifications, Requests
 
-# Register your models here.
+#BbB defined models
+admin.site.register(CodeSubmission)
+admin.site.register(Question)
+
+#Client defined models
 admin.site.register(inheritedQuestion)
 admin.site.register(student)
 admin.site.register(inheritedUser)
