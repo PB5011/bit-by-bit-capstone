@@ -58,6 +58,11 @@
     max-width: 1500px;
 }
 
+.login {
+    width: 300px;
+}
+
+
 
 /* question viewer styling */
 .question-sidebar-action {
