@@ -3,3 +3,5 @@ Django==4.0.2
 sqlparse==0.4.2
 lxml==4.8.0
 Sphinx==4.5.0
+behave==1.2.6
+selenium==4.1.3
