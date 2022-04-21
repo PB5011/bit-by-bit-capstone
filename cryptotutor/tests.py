@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from .models import *
+import os.path
 
 # Create your tests here.
 class CodeSubmissionTestCase(TestCase):
@@ -41,5 +42,18 @@ class CodeSubmissionTestCase(TestCase):
         new_item.save()
         self.assertEqual(new_item.address, "street address 111")
         self.assertEqual(new_item.name, "Rob Zombie")
+
+    def test_nicadCreateFiles(self):
+        new_item = CodeSubmission(codeSnippet="This is a code snippet")
+        new_item.save()
+        with open('./cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java', 'w') as f:
+            f.writelines('public class temp { \n')
+            f.writelines('public static void main(String[] args) { \n')
+            f.writelines(new_item.codeSnippet)
+            f.writelines('\n}\n')
+            f.writelines('}')
+            f.close()
+        Nicad.callNicad()
+        self.assertTrue(os.path.exists('./cryptotutor/ExtraFiles/SubmittedFiles/Submissions_blocks-blind-crossclones'))
 
     #Maybe a test about post data?
