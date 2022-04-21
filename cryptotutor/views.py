@@ -4,9 +4,7 @@ import difflib
 
 from django.shortcuts import render
 #from .models import User,Nicad
-
 from .models import CodeSubmission, User, Nicad, Question
-
 
 
 ### HOME PAGE ###
@@ -14,11 +12,24 @@ def index(request):
     """View function for home page of site."""
 
     #TODO: get whatever is necessary for the page
-    f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
-    context = {'questions':json.load(f)}
-    f.close()
+    #f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
+    #context = {'questions':json.load(f)}
+    #f.close()
+    test = Nicad.callNicad()
+    questions = []
+    # context = {'questions': Question.objects.all()}
+    print(Question.objects.all())
+    questionList = Question.objects.all()
+    for q in questionList:
+        questions.append(
+            {'title': q.title, 'author': q.StudentName, 'body': q.description,
+             'points': q.points, 'answers': q.responses, 'views': 0}
+        )
 
-    f.close()
+
+    context = {'questions': questions}
+    print(context)
+   # f.close()
 
     #render html page
     return render(request, 'index.html', context=context)
@@ -34,6 +45,9 @@ def question(request):
     f.close()
 
     f.close()
+    # context = {
+    #     'questions': Question.objects.all()
+    # }
 
     #render html page
     return render(request, 'question.html', context=context)
@@ -45,29 +59,30 @@ def questionForm(request):
 
     #TODO: get whatever is necessary for the page
     context = {}
-#     this is just debugging -- keeping it for later in case needed, will delete
-#     print(type(request))
-#     print(request.method)
-#     print(request)      
-#     if request.method == 'POST':
-#         print("True")
-#     else:
-#         print("False")
+    #print(type(request))
+    #print(request.method)
+    #print(request)      
+    #if request.method == 'POST':
+    #    print("True")
+    #else:
+    #    print("False")
 
     if request.method == 'POST':
-        studentID = request.POST['student_id']
+        #x = request.POST.get['code']
+        #x = request.POST['code']
+        ID = request.POST['student_id']
         name = request.POST['student_name']
         link = request.POST['vcs']
+        title = request.POST['title']
         description = request.POST['description']
-        new_item = Question(StudentID=studentID, StudentName=name, 
-                            projectLink=link, description=description)
-#         print(new_item)
-#         print(studentID)
-#         print(name)
-#         print(description)
+        new_item = Question(StudentID=ID, StudentName=name, 
+                            projectLink=link, title=title, description=description)
+        #print(new_item)
+        #print(title)
+        #print(name)
+        #print(description)
         new_item.save()
-
-
+    
 
     #render html page
     return render(request, 'question-form.html', context=context)
@@ -80,6 +95,11 @@ def codeForm(request):
     #TODO: get whatever is necessary for the page
     context = {}
 
+    print(type(request))
+    print(request.method)
+   # print(request)	
+   # if request.method == 'POST':
+    #    print("True")
     if request.method == 'POST':
         x = request.POST['code']
         #Fixed issue with codesubmission, can now use it for date and names.
