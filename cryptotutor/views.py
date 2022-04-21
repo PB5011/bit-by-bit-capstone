@@ -50,6 +50,27 @@ def index(request):
     #render html page
     return render(request, 'index.html', context=context)
 
+### LOGIN PAGE ###
+def login(request): 
+    """View function for home page of site.
+
+    Currently retrieves questions from a json file of sample questions. This
+    will be updated to pull questions from the client-given database.
+
+    Args:
+        request: A request to view the home page.
+
+    Returns:
+        An HttpResponse with the original request, the home page url, and the
+        context of the page. Context of the page includes the questions from the json file.
+    """
+
+    #TODO: get whatever is necessary for the page
+    context={}
+
+    #render html page
+    return render(request, 'login.html', context=context)
+
 
 ### QUESTION VIEW ###
 def question(request):
