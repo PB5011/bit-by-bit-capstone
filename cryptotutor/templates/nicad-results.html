@@ -1,0 +1,51 @@
+{% extends "base_generic.html" %}
+
+{% block customhead %}
+{% endblock %}
+
+{% block content %}
+<!-- TODO: fix label not disappearing when typing -->
+
+<div class="mdc-typography--headline6 header">
+    <h1>NiCad Results</h1>
+    <p>Viewing file: {{ xmlResultFilePath }}</p>
+</div>
+<div class="content">
+    <div>
+        System 1: {{ result.systeminfo.attrib.system }}
+        <br>System 2: {{ result.systeminfo.attrib.system2 }}
+        <br>Clone Pairs: {{ result.cloneinfo.attrib.npairs }}
+        <br>Max Diff Threshold: {{ result.systeminfo.attrib.threshold }}
+        <br>Clone Size: {{ result.systeminfo.attrib.minlines }} - {{ result.systeminfo.attrib.maxlines }} lines
+        <br>Total functions-blind: {{ result.cloneinfo.attrib.npcs }}
+    </div>
+</div>
+{% for clazz in result.class %}
+<br><br>
+<div class="mdc-typography--headline5 question-content-title">Class {{ clazz.attrib.classid }}</div>
+<div> {{ clazz.attrib.nclones }} fragments, nominal size {{ clazz.attrib.nlines }}, similarity {{ clazz.attrib.similarity }}%</div>
+<div class="content">
+  {% for src in clazz.source %}
+  <div class="mdc-card question-card">
+    <div class="mdc-layout-grid mdc-layout-grid--align-left">
+      <div class="mdc-layout-grid__inner">
+        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
+          <div>
+            <div class="question-content">
+              <div class="mdc-typography--body1">
+                  <div> {{ src.attrib.file }} : {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
+                  <pre>
+                    <code>{{ src.text|linebreaksbr }}</code>
+                  </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}
