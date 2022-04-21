@@ -31,7 +31,11 @@ def index(request):
     #f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     #context = {'questions':json.load(f)}
     #f.close()
-    test = Nicad.callNicad()
+
+    try:
+        test = Nicad.callNicad()
+    except FileNotFoundError:
+        print('WARNING: NiCad was not found on this system.')
     questions = []
     # context = {'questions': Question.objects.all()}
     #print(Question.objects.all())
@@ -188,7 +192,12 @@ def codeForm(request):
             f.writelines('\n}\n')
             f.writelines('}')
             f.close()
-        Nicad.callNicad()
+
+            try:
+                test = Nicad.callNicad()
+            except FileNotFoundError:
+                print('WARNING: NiCad was not found on this system.')
+
         return redirect('code-selection')
 
     #render html page
