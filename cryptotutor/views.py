@@ -34,7 +34,7 @@ def index(request):
     test = Nicad.callNicad()
     questions = []
     # context = {'questions': Question.objects.all()}
-    print(Question.objects.all())
+    #print(Question.objects.all())
     questionList = Question.objects.all()
     for q in questionList:
         questions.append(
@@ -44,7 +44,7 @@ def index(request):
 
 
     context = {'questions': questions}
-    print(context)
+    #print(context)
    # f.close()
 
     #render html page
@@ -171,8 +171,8 @@ def codeForm(request):
     #TODO: get whatever is necessary for the page
     context = {}
 
-    print(type(request))
-    print(request.method)
+    #print(type(request))
+    #print(request.method)
    # print(request)	
    # if request.method == 'POST':
     #    print("True")
