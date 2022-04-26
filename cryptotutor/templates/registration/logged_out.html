@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block customhead %}
+<link rel="stylesheet" href="/static/styling/questionform.css">
+<script src="/static/js/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{% endblock %}
+
+{% block content %}
+<!-- TODO: fix label not disappearing when typing -->
+
+<div class="mdc-typography--headline6 header">
+    <h1>You are now logged out.</h1>
+</div>
+<div class="content">
+    <p><a href="{% url 'login'%}">Click here to login again</a></p>
+</div>
+
+
+{% endblock %}
