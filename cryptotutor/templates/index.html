@@ -13,20 +13,20 @@
     </span>
     <input type="text" class="mdc-text-field__input" aria-labelledby="question">
   </label>
-  <button class="mdc-button foo-button">
+  <!-- <button class="mdc-button foo-button">
       <div class="mdc-button__ripple"></div>
       <span class="mdc-button__label">Newest</span>
-  </button>
+  </button> -->
   <button class="mdc-button foo-button">
       <div class="mdc-button__ripple"></div>
-      <span class="mdc-button__label">Most Popular</span>
+      <span class="mdc-button__label">Most Popular</span> <!-- TODO: add call to index/popularity-->
   </button>
   &nbsp;
-  <button class="mdc-button foo-button">
+  <!-- TODO: should pop open a filter dropdown; possibly could use filter chips here -->
+  <!-- <button class="mdc-button foo-button">
       <div class="mdc-button__ripple"></div>
       <span class="mdc-button__label">Filter</span>
-      <!-- TODO: should pop open a filter dropdown; possibly could use filter chips here -->
-  </button>
+  </button> -->
 </div>
 <div class="content">
   {% for question in questions %}

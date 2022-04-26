@@ -15,7 +15,7 @@ http requests and responses throughout the app go through.
 """
 
 ### HOME PAGE ###
-def index(request): 
+def index(request, sort_type='default'): 
     """View function for home page of site.
 
     Currently retrieves questions from a json file of sample questions. This
@@ -41,13 +41,21 @@ def index(request):
     questions = []
     # context = {'questions': Question.objects.all()}
     #print(Question.objects.all())
-    questionList = Question.objects.all()
+
+    if sort_type == 'popularity':
+        questionList = Question.objects.all().order_by('points')
+    if sort_type == 'default':
+        questionList = Question.objects.all()
+
+
     for q in questionList:
         questions.append(
             {'title': q.title, 'author': q.StudentName, 'body': q.description,
              'points': q.points, 'answers': q.responses, 'views': 0}
         )
 
+    #if using search by newest -- need to add datetime to question
+    #if using search by filter -- need to add tags to questions
 
     context = {'questions': questions}
    # print(context)
