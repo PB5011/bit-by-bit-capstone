@@ -39,6 +39,16 @@
                 <a class="mdc-deprecated-list-item" href="https://github.com/davidlentsch/bit-by-bit-capstone">
                   <span class="mdc-deprecated-list-item__text">Visit Our GitHub!</span>
                 </a>
+                {% if user.is_authenticated %}
+                <p class="mdc-deprecated-list-item">Logged in as: {{ user.get_username }}</p>
+                <a class="mdc-deprecated-list-item" href="{% url 'logout'%}?next={{request.path}}">
+                  <span class="mdc-deprecated-list-item__text">Logout</span>
+                </a>
+                {% else %}
+                <a class="mdc-deprecated-list-item" href="{% url 'login'%}?next={{request.path}}">
+                  <span class="mdc-deprecated-list-item__text">Login</span>
+                </a>
+                {% endif %}
                 <!-- FOR DEV ONLY - to simplify getting to html pages that aren't already on nav bar -->
               <div class="mdc-drawer__header">
                   <h3 class="mdc-drawer__title"><strong>DEV LINKS</strong></h3>
