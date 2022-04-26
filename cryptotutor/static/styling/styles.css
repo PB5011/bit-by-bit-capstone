@@ -15,6 +15,11 @@
     height: 100vh;
 }
 
+/* .login-button {
+    TODO: styling
+    ideally move them to top right corner of page
+} */
+
 .content-drawer {
     /* note that if this + mdc-drawer width = 100 then this column will get pushed off screen */
     width: 85%;

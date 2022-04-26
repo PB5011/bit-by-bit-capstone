@@ -2,7 +2,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('<str:sort_type>', views.index, name='index'),
     path('question/', views.question, name='question'),
     path('question-form/', views.questionForm, name='question-form'),
     path('code-form/', views.codeForm, name='code-form'),

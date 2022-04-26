@@ -19,17 +19,24 @@
 </head>    
 
 <body class="mdc-typography">
+    <!-- styled login/signup buttons -- alternative to login/signup buttons inside list -->
+    <!-- <a class="login-button mdc-button mdc-button--raised" href="/account/login/" aria-current="page">
+      Login
+    </a>
+    <a class="login-button mdc-button mdc-button--raised" href="" aria-current="page">
+      Sign Up
+    </a> -->
     <div>
         {% block sidebar %}
         <aside class="column mdc-drawer mdc-drawer-app-content">
           <div class="mdc-drawer__header">
               <h3 class="mdc-drawer__title"><strong>CryptoTutor</strong></h3>
           </div>
-            <div class="mdc-drawer__content">
-              <nav class="mdc-deprecated-list">
-                <a class="mdc-deprecated-list-item" href="{% url 'index' %}" aria-current="page">
-                  <span class="mdc-deprecated-list-item__text">Home</span>
-                </a>
+          <div class="mdc-drawer__content">
+            <nav class="mdc-deprecated-list">
+              <a class="mdc-deprecated-list-item" href="{% url 'index' sort_type='default' %}" aria-current="page">
+                <span class="mdc-deprecated-list-item__text">Home</span>
+              </a>
                 <a class="mdc-deprecated-list-item" href="{% url 'question-form' %}">
                   <span class="mdc-deprecated-list-item__text">Submit a Question</span>
                 </a>
@@ -51,21 +58,21 @@
                 {% endif %}
                 <!-- FOR DEV ONLY - to simplify getting to html pages that aren't already on nav bar -->
               <div class="mdc-drawer__header">
-                  <h3 class="mdc-drawer__title"><strong>DEV LINKS</strong></h3>
+                <h3 class="mdc-drawer__title"><strong>DEV LINKS</strong></h3>
               </div>
-                <a class="mdc-deprecated-list-item" href="{% url 'question' %}">
-                  <span class="mdc-deprecated-list-item__text">Sample Question</span>
-                </a>
-                <a class="mdc-deprecated-list-item" href="{% url 'code-selection' %}">
-                  <span class="mdc-deprecated-list-item__text">Code Selection</span>
-                </a>
-                <a class="mdc-deprecated-list-item" href="{% url 'diff-viewer' %}">
-                  <span class="mdc-deprecated-list-item__text">Diff Viewer</span>
-                </a>
-              </nav>
-            </div>
-          </aside>
-        {% endblock %}
+              <a class="mdc-deprecated-list-item" href="{% url 'question' %}">
+                <span class="mdc-deprecated-list-item__text">Sample Question</span>
+              </a>
+              <a class="mdc-deprecated-list-item" href="{% url 'code-selection' %}">
+                <span class="mdc-deprecated-list-item__text">Code Selection</span>
+              </a>
+              <a class="mdc-deprecated-list-item" href="{% url 'diff-viewer' %}">
+                <span class="mdc-deprecated-list-item__text">Diff Viewer</span>
+              </a>
+            </nav>
+          </div>
+        </aside>
+      {% endblock %}
     </div>
     <!-- main page content goes inside the block content -->
     <div class="column content-drawer">{% block content %}{% endblock %}</div>
