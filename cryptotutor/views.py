@@ -1,9 +1,11 @@
 import json
 import os
 import difflib
+from pyexpat.errors import messages
 from lxml import objectify
 
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
 #from .models import User,Nicad
 from .models import CodeSubmission, User, Nicad, Question
 
@@ -13,7 +15,7 @@ http requests and responses throughout the app go through.
 """
 
 ### HOME PAGE ###
-def index(request): 
+def index(request, sort_type='default'): 
     """View function for home page of site.
 
     Currently retrieves questions from a json file of sample questions. This
@@ -31,20 +33,32 @@ def index(request):
     #f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
     #context = {'questions':json.load(f)}
     #f.close()
-    test = Nicad.callNicad()
+
+    try:
+        test = Nicad.callNicad()
+    except FileNotFoundError:
+        print('WARNING: NiCad was not found on this system.')
     questions = []
     # context = {'questions': Question.objects.all()}
     #print(Question.objects.all())
-    questionList = Question.objects.all()
+
+    if sort_type == 'popularity':
+        questionList = Question.objects.all().order_by('points')
+    if sort_type == 'default':
+        questionList = Question.objects.all()
+
+
     for q in questionList:
         questions.append(
             {'title': q.title, 'author': q.StudentName, 'body': q.description,
              'points': q.points, 'answers': q.responses, 'views': 0}
         )
 
+    #if using search by newest -- need to add datetime to question
+    #if using search by filter -- need to add tags to questions
 
     context = {'questions': questions}
-    #print(context)
+   # print(context)
    # f.close()
 
     #render html page
@@ -188,7 +202,12 @@ def codeForm(request):
             f.writelines('\n}\n')
             f.writelines('}')
             f.close()
-        Nicad.callNicad()
+
+            try:
+                test = Nicad.callNicad()
+            except FileNotFoundError:
+                print('WARNING: NiCad was not found on this system.')
+
         return redirect('code-selection')
 
     #render html page
@@ -310,3 +329,34 @@ def nicadResults(request):
 
     #render html page - will need to add context/data once it's retrieved above
     return render(request, 'nicad-results.html', context=context)
+
+def register(request):
+    """View function for the registration form.
+
+    This function serves the view for the user registration form. It utilizes
+    the built-in Django UserCreationForm method to populate the form.
+
+    Args:
+        request: A request to view the registration page.
+        
+    Returns:
+        An HttpResponse with the original request, and the resulting registration
+        form contained within the context.
+    """
+
+    if request.method == 'POST':
+        form = UserCreationForm()
+        if form.is_valid():
+            form.save()
+            message = 'Account registered successfully. You may now login.'
+        else:
+            message = 'There was an error with your registration form. Please try again.'
+            
+    else:
+        form = UserCreationForm()
+        message = ''
+
+    context = { 'form': form, 'message': message }
+
+    return render(request, 'registration/register.html', context=context)
+
