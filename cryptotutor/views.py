@@ -330,8 +330,6 @@ def nicadResults(request):
     #render html page - will need to add context/data once it's retrieved above
     return render(request, 'nicad-results.html', context=context)
 
-
-
 def register(request):
     """View function for the registration form.
 
@@ -361,3 +359,4 @@ def register(request):
     context = { 'form': form, 'message': message }
 
     return render(request, 'registration/register.html', context=context)
+
