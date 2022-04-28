@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 import subprocess
 from xml.dom import minidom
-
+import uuid
 
 # Create your models here.
 class User(models.Model):
@@ -50,6 +50,7 @@ class Question(models.Model):
     #     ('T3', 'Tag3'),
     # format: ('InternalVariableName', 'UIButtonName'),
     # ) # change as needed, not implemented yet
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
     StudentID = models.CharField(max_length=10)  # probs should be intege>
     StudentName = models.CharField(max_length=50)
     projectLink = models.CharField(max_length=50)
@@ -57,6 +58,10 @@ class Question(models.Model):
     title = models.CharField(max_length=100, default='test')
     points = models.IntegerField(default='0')
     responses = models.PositiveSmallIntegerField(default='0')
+    
+    def __str__(self):
+        return self.id
+
 
 
 
