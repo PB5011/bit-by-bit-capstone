@@ -4,8 +4,10 @@ import difflib
 from lxml import objectify
 
 from django.shortcuts import render, redirect
+
+from cryptotutor.serializers import AnswersSerializer, QuestionSerializer
 #from .models import User,Nicad
-from .models import CodeSubmission, User, Nicad, Question
+from .models import CodeSubmission, User, Nicad, Question, answers
 
 """
 This file defines all views for the CryptoTutor web application. This is where
@@ -13,7 +15,7 @@ http requests and responses throughout the app go through.
 """
 
 ### HOME PAGE ###
-def index(request, sort_type='default'): 
+def index(request, sort_type): 
     """View function for home page of site.
 
     Currently retrieves questions from a json file of sample questions. This
@@ -45,10 +47,11 @@ def index(request, sort_type='default'):
     if sort_type == 'default':
         questionList = Question.objects.all()
 
+    # serializer_class = QuestionSerializer
 
     for q in questionList:
         questions.append(
-            {'title': q.title, 'author': q.StudentName, 'body': q.description,
+            {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
              'points': q.points, 'answers': q.responses, 'views': 0}
         )
 
@@ -64,17 +67,16 @@ def index(request, sort_type='default'):
 
 ### LOGIN PAGE ###
 def login(request): 
-    """View function for home page of site.
+    """View function for login page of site.
 
-    Currently retrieves questions from a json file of sample questions. This
-    will be updated to pull questions from the client-given database.
+    A form for users to login.
 
     Args:
-        request: A request to view the home page.
+        request: A request to view the login page.
 
     Returns:
-        An HttpResponse with the original request, the home page url, and the
-        context of the page. Context of the page includes the questions from the json file.
+        An HttpResponse with the original request, the login page url, and the
+        context of the page. The context of the page is empty because it is a simple form.
     """
 
     #TODO: get whatever is necessary for the page
@@ -85,7 +87,7 @@ def login(request):
 
 
 ### QUESTION VIEW ###
-def question(request):
+def question(request, id):
     """View function for looking at an individual question.
     
     Currently retrieves questions from a json file of sample questions and
@@ -100,15 +102,33 @@ def question(request):
         the json file.
     """
 
-    #TODO: get whatever is necessary for the page
-    f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
-    context = json.load(f)
-    f.close()
+    #this gets the sample question
+    # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
+    # context = json.load(f)
+    # f.close()
 
-    f.close()
+    # f.close()
     # context = {
     #     'questions': Question.objects.all()
     # }
+    responses = []
+
+    q = Question.objects.get(id=id)
+    # answerList = answers.objects.filter(questionID=id)
+    answerList = answers.objects.all()
+
+    #TODO: figure out why this isn't displaying anything
+    for a in answerList:
+        responses.append(
+            {'answer': a.answer, 'questionID': a.questionID, 'studentID': a.studentID, 'username': a.username}
+        )
+
+    print(responses)
+
+    context = {
+        'q': q,
+        'responses': responses
+    }
 
     #render html page
     return render(request, 'question.html', context=context)

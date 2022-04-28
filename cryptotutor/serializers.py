@@ -10,14 +10,14 @@ class CodeSubmissionSerializer(serializers.HyperlinkedModelSerializer):
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Question
-        fields = ('StudentID', 'StudentName', 'projectLink', 'description')
+        fields = ('id', 'StudentID', 'StudentName', 'projectLink', 'description', 'title', 'points', 'responses')
 
 
 #Client defined models
 class InheritedQuestionSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = inheritedQuestion
-        fields = ('codeFragment', 'dataTime', 'fileName', 'question', 'studentID', 'username', 'threshold', 'misuse')
+        fields = ('id', 'codeFragment', 'dataTime', 'fileName', 'question', 'studentID', 'username', 'threshold', 'misuse')
 
 class StudentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

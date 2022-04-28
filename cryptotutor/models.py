@@ -48,7 +48,8 @@ class Question(models.Model):
     #     ('T3', 'Tag3'),
     # format: ('InternalVariableName', 'UIButtonName'),
     # ) # change as needed, not implemented yet
-    StudentID = models.CharField(max_length=10)  # probs should be intege>
+    id = models.AutoField(primary_key=True)
+    StudentID = models.CharField(max_length=10)
     StudentName = models.CharField(max_length=50)
     projectLink = models.CharField(max_length=50)
     description = models.TextField()
