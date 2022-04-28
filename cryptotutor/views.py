@@ -1,11 +1,13 @@
 import json
 import os
 import difflib
+from pyexpat.errors import messages
 from lxml import objectify
 
 from django.shortcuts import render, redirect
 
 from cryptotutor.serializers import AnswersSerializer, QuestionSerializer
+from django.contrib.auth.forms import UserCreationForm
 #from .models import User,Nicad
 from .models import CodeSubmission, User, Nicad, Question, answers
 
@@ -347,3 +349,35 @@ def nicadResults(request):
 
     #render html page - will need to add context/data once it's retrieved above
     return render(request, 'nicad-results.html', context=context)
+
+
+
+def register(request):
+    """View function for the registration form.
+
+    This function serves the view for the user registration form. It utilizes
+    the built-in Django UserCreationForm method to populate the form.
+
+    Args:
+        request: A request to view the registration page.
+        
+    Returns:
+        An HttpResponse with the original request, and the resulting registration
+        form contained within the context.
+    """
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            message = 'Account registered successfully. You may now login.'
+        else:
+            message = 'There was an error with your registration form. Please try again.'
+            
+    else:
+        form = UserCreationForm()
+        message = ''
+
+    context = { 'form': form, 'message': message }
+
+    return render(request, 'registration/register.html', context=context)
