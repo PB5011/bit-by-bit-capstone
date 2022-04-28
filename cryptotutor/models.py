@@ -32,8 +32,10 @@ class Nicad(models.Model):
 
     # methods
     def callNicad():
-        subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions",
+        nc = subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions",
                           "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+
+        nc.wait()
         return True
 
 

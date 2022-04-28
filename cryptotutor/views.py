@@ -34,10 +34,10 @@ def index(request, sort_type='default'):
     #context = {'questions':json.load(f)}
     #f.close()
 
-    try:
-        test = Nicad.callNicad()
-    except FileNotFoundError:
-        print('WARNING: NiCad was not found on this system.')
+    #try:
+    #    test = Nicad.callNicad()
+    #except FileNotFoundError:
+    #    print('WARNING: NiCad was not found on this system.')
     questions = []
     # context = {'questions': Question.objects.all()}
     #print(Question.objects.all())
@@ -232,7 +232,7 @@ def codeSelection(request):
         file and the parsed result file.
     """
 
-    fileLoc = "/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml"
+    fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
 
     f = open(os.getcwd() + fileLoc)
     xml = f.read()
