@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
+
 <h1>Code Submission</h1>
 <p>This is where you can submit code in order to compare it to our database of other code.</p>
+{% if user.is_authenticated %}
 <form method="post">
     {% csrf_token %}
     <table>
+        <!--
         <tr>
             <td>Student ID</td>
             <td>
@@ -40,10 +43,25 @@
             </label>
             </td>
         </tr>
+    -->
+        <tr>
+            <td>Student Username</td>
+            <td>
+            <label class="mdc-text-field mdc-text-field--outlined">
+                <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="student-id"></span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+                </span>
+                <input type="text" class="mdc-text-field__input" aria-labelledby="student-name" id="student_name" name="student_name" value = "{{ user.get_username }}" readonly>
+            </label>
+            </td>
+        </tr>
         <tr>
             <td>Code Fragments</td>
             <td>
-            <!-- may want to have a file upload here instead depending on NiCad/clone detection -->
             <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
                 <span class="mdc-notched-outline">
                 <span class="mdc-notched-outline__leading"></span>
@@ -56,6 +74,7 @@
             </td>
         </tr>
         <tr>
+            <!-- Choice between functions or blocks requested if enough time, default is blocks currently-->
             <td>NiCad Threshold</td>
             <td>
                 <div class="mdc-select mdc-select--outlined">
@@ -159,6 +178,9 @@
     </table>
     <input type="submit" class="mdc-button mdc-button--raised" value="Submit">
 </form>
+{% else %}
+        <p>You must login to see this page.</p>
+        {% endif %}
 <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 <script src="/static/js/base.js"></script>
 {% endblock %}

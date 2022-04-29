@@ -212,10 +212,14 @@ def codeForm(request):
     #    print("True")
     if request.method == 'POST':
         x = request.POST['code']
+        y = request.POST['student_name']
         #Fixed issue with codesubmission, can now use it for date and names.
-        new_item = CodeSubmission(codeSnippet=x)
+        new_item = CodeSubmission(codeSnippet=x, studentUsername=y)
         new_item.save()
-        with open('./cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java', 'w') as f:
+        openLoc = './cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/temp.java'
+        if not os.path.exists('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/'):
+            os.makedirs('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/')
+        with open(openLoc, 'w') as f:
             f.writelines('public class temp { \n')
             f.writelines('public static void main(String[] args) { \n')
             f.writelines(new_item.codeSnippet)
@@ -224,7 +228,7 @@ def codeForm(request):
             f.close()
 
             try:
-                test = Nicad.callNicad()
+                test = Nicad.callNicad(new_item.studentUsername)
             except FileNotFoundError:
                 print('WARNING: NiCad was not found on this system.')
 
@@ -252,8 +256,8 @@ def codeSelection(request):
         file and the parsed result file.
     """
     try:
-        fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
-
+        fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
+        print(fileLoc)        
         f = open(os.getcwd() + fileLoc)
         xml = f.read()
         f.close()
@@ -279,8 +283,12 @@ def codeSelection(request):
         
         #render html page
         return render(request, 'code-selection.html', context=context)
+    except AttributeError:
+        return render(request, 'attribute-error.html')
+    except FileNotFoundError:
+        return render(request, 'file-not-found-error.html')
     except:
-        return render(request, 'code-error.html')
+        return render(request, 'general-error.html')
 
 
 ### DIFF VIEWER  ###
@@ -349,8 +357,12 @@ def nicadResults(request):
         }
         #render html page - will need to add context/data once it's retrieved above
         return render(request, 'nicad-results.html', context=context)
+    except AttributeError:
+        return render(request, 'attribute-error.html')
+    except FileNotFoundError:
+        return render(request, 'file-not-found-error.html')
     except:
-        return render(request, 'code-error.html')
+        return render(request, 'general-error.html')
 
   
 
@@ -383,6 +395,7 @@ def register(request):
     context = { 'form': form, 'message': message }
 
     return render(request, 'registration/register.html', context=context)
+
 
 def codeError(request):
     return render(request, 'code-error.html')

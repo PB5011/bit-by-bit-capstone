@@ -32,8 +32,9 @@ class Nicad(models.Model):
     """Class defining nicad use?"""
 
     # methods
-    def callNicad():
-        nc = subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions",
+    def callNicad(studentUsername):
+        location = "./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions"
+        nc = subprocess.Popen(["nicad6cross", "blocks", "java", location,
                           "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
 
         nc.wait()
@@ -42,6 +43,7 @@ class Nicad(models.Model):
 
 class CodeSubmission(models.Model):
     codeSnippet = models.TextField()
+    studentUsername = models.TextField()
 
 
 class Question(models.Model):

@@ -27,6 +27,7 @@
         {% endif %}
     {% endif %}
 
+    <p>Username AND Passwords are case sensitive!</p>
     <form method="post" url="{% url 'login' %}">
         {% csrf_token %}
         <table>
