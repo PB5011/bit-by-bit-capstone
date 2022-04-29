@@ -43,7 +43,8 @@
         <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
           <div>
             <div class="question-content">
-              <div class="mdc-typography--headline5 question-content-title">{{ question.title }}</div>
+              <!-- <div class="mdc-typography--headline5 question-content-title">{{ question.title }}</div> -->
+              <a class="mdc-typography--headline5 question-content-title" href="{% url 'question' id=question.id %}">{{question.title}}</a>
               <div class="mdc-typography--body1">{{ question.body|safe }}</div>
             </div>
             <div class="mdc-card__ripple"></div>

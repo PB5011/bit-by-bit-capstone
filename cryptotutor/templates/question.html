@@ -7,9 +7,11 @@
             <div class="mdc-layout-grid__inner">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
                     <div>
-                        <h2>{{ title }}</h2>
-                        <h5>Submitted by: {{ author }}</h5>
-                        <p>{{ body }}</p>
+                        <h2>{{ q.title }}</h2> <!-- no titles in the database -->
+                        <h5>Submitted by: {{ q.StudentName }}</h5>
+                        <p>{{ q.description|safe }}</p>
+                        <br><br><br>
+                        <h5>{{ q.projectLink }}</h5> <!-- TODO: style this... -->
                     </div>
                 </div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
@@ -21,6 +23,9 @@
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
                                 <span class="mdc-button__label">Upvote</span>
                             </button>
+                        </div>
+                        <div class="question-sidebar-action">
+                            <span class="mdc-button__label">{{ q.points }} points</span>
                         </div>
                         <div class="question-sidebar-action">
                             <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
@@ -57,7 +62,7 @@
                                 <span class="mdc-button__label">Submit Answer</span>
                             </button>
                         </div>
-                        <div class="question-sidebar-action">
+                        <div class="question-sidebar-action"> <!-- should only be available if logged in -->
                             <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
                                 <span class="mdc-button__ripple"></span>
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
@@ -71,16 +76,16 @@
 
 
         <div>
-            <h3>{{ answerCount }} answers</h3>
-            {% for answer in answers %}
+            <h3>{{ q.responses }} answers</h3>
+            {% for r in responses %}
                 <div class="mdc-card question-card">
                     <div class="mdc-layout-grid mdc-layout-grid--align-left">
                         <div class="mdc-layout-grid__inner">
                             <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
                                 <div>
                                     <div class="question-content">
-                                        <div class="mdc-typography--headline5 question-content-title">{{ answer.title }}</div>
-                                        <div class="mdc-typography--body1">{{ answer.body }}</div>
+                                        <!-- <div class="mdc-typography--headline5 question-content-title">{{ answer.title }}</div> -->
+                                        <div class="mdc-typography--body1">{{ r.answer }}</div>
                                         <br>
                                         <br>
 
@@ -95,7 +100,7 @@
                         <div class="mdc-card__action-buttons">
                             <button class="mdc-button">
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
-                                <span class="mdc-button__label">{{ answer.points }}</span>
+                                <span class="mdc-button__label">{{ r.points }}</span>
                             </button>
                             <button class="mdc-button">
                                 <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
@@ -112,7 +117,7 @@
                             <span class="mdc-button__label">Reply</span>
                         </button>
                         <div class="mdc-card__action-icons">
-                            <div class="mdc-typography--caption">Answer submitted by {{ answer.author }}</div>
+                            <div class="mdc-typography--caption">Answer submitted by {{ r.username }}</div>
                             <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
                                     title="Share">share
                             </button>
