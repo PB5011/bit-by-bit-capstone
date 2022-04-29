@@ -251,36 +251,36 @@ def codeSelection(request):
         the context of the page. Context of this page includes the path of the NiCad result
         file and the parsed result file.
     """
+    try:
+        fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
 
-    fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
+        f = open(os.getcwd() + fileLoc)
+        xml = f.read()
+        f.close()
+        clones = objectify.fromstring(xml)
 
-    f = open(os.getcwd() + fileLoc)
-    xml = f.read()
-    f.close()
-    clones = objectify.fromstring(xml)
+        for clazz in clones['class']:
+            print("classid", clazz.attrib)
 
-    for clazz in clones['class']:
-        print("classid", clazz.attrib)
+        context = {
+            "xmlResultFilePath" : os.getcwd() + fileLoc,
+            "result": clones
+        }
 
-    context = {
-        "xmlResultFilePath" : os.getcwd() + fileLoc,
-        "result": clones
-    }
-
-    if request.method == 'POST':
-        compareFilePath = request.POST['file']
-        #need to get rid of everything before /cryptotutor
-        compareFilePath = "/" + compareFilePath.split('/', 2)[2] #make sure everybody tests this; unsure if the file
-        request.session['compareFile'] = compareFilePath # setting in the session
-        print("request submitted to compare code with file path: ", compareFilePath)
-        #navigate to diff viewer
-        return redirect('diff-viewer')
-        #give the diff viewer the two files... somehow
+        if request.method == 'POST':
+            compareFilePath = request.POST['file']
+            #need to get rid of everything before /cryptotutor
+            compareFilePath = "/" + compareFilePath.split('/', 2)[2] #make sure everybody tests this; unsure if the file
+            request.session['compareFile'] = compareFilePath # setting in the session
+            print("request submitted to compare code with file path: ", compareFilePath)
+            #navigate to diff viewer
+            return redirect('diff-viewer')
+            #give the diff viewer the two files... somehow
         
-
-
-    #render html page
-    return render(request, 'code-selection.html', context=context)
+        #render html page
+        return render(request, 'code-selection.html', context=context)
+    except:
+        return render(request, 'code-error.html')
 
 
 ### DIFF VIEWER  ###
@@ -331,24 +331,28 @@ def nicadResults(request):
         file and the parsed result file.
     
     """
+    try:
 
-    fileLoc = '/' + request.GET.get('file', '/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml')
+        fileLoc = '/' + request.GET.get('file', '/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml')
 
-    f = open(os.getcwd() + fileLoc)
-    xml = f.read()
-    f.close()
-    clones = objectify.fromstring(xml)
+        f = open(os.getcwd() + fileLoc)
+        xml = f.read()
+        f.close()
+        clones = objectify.fromstring(xml)
 
-    for clazz in clones['class']:
-        print("classid", clazz.attrib)
+        for clazz in clones['class']:
+            print("classid", clazz.attrib)
 
-    context = {
-        "xmlResultFilePath" : os.getcwd() + fileLoc,
-        "result": clones
-    }
+        context = {
+            "xmlResultFilePath" : os.getcwd() + fileLoc,
+            "result": clones
+        }
+        #render html page - will need to add context/data once it's retrieved above
+        return render(request, 'nicad-results.html', context=context)
+    except:
+        return render(request, 'code-error.html')
 
-    #render html page - will need to add context/data once it's retrieved above
-    return render(request, 'nicad-results.html', context=context)
+  
 
 def register(request):
     """View function for the registration form.
@@ -380,3 +384,5 @@ def register(request):
 
     return render(request, 'registration/register.html', context=context)
 
+def codeError(request):
+    return render(request, 'code-error.html')
