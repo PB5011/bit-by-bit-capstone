@@ -33,8 +33,10 @@ class Nicad(models.Model):
 
     # methods
     def callNicad():
-        subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions",
+        nc = subprocess.Popen(["nicad6cross", "blocks", "java", "./cryptotutor/ExtraFiles/SubmittedFiles/Submissions",
                           "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+
+        nc.wait()
         return True
 
 
@@ -61,8 +63,6 @@ class Question(models.Model):
     
     def __str__(self):
         return self.id
-
-
 
 class inheritedQuestion(models.Model):
     codeFragment = models.CharField(max_length=2048)
