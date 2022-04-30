@@ -277,16 +277,16 @@ def codeSelection(request):
         #render html page
         return render(request, 'code-selection.html', context=context)
     except AttributeError:
-        #Nicad.cleanNicad(str(request.user))
-        traceback.print_exc()
+        Nicad.cleanNicad(str(request.user))
+        #traceback.print_exc()
         return render(request, 'attribute-error.html')
     except FileNotFoundError:
-        #Nicad.cleanNicad(str(request.user))
-        traceback.print_exc()
+        Nicad.cleanNicad(str(request.user))
+        #traceback.print_exc()
         return render(request, 'file-not-found-error.html')
     except:
-        #Nicad.cleanNicad(str(request.user))
-        traceback.print_exc()
+        Nicad.cleanNicad(str(request.user))
+        #traceback.print_exc()
         return render(request, 'general-error.html')
 
 
