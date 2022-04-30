@@ -1,7 +1,4 @@
-from django import forms
-from django.db import models
 from django.forms import ModelForm
-
 from cryptotutor.models import *
 
 
@@ -12,5 +9,5 @@ class QuestionForm(ModelForm):
 
 class CodeForm(ModelForm):
     class Meta:
-        model = CodeSub
+        #model = CodeSub
         fields = ['studentID','studentName','codeFragments']

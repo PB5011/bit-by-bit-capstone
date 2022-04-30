@@ -1,20 +1,22 @@
-import json
-import os
-import difflib
-from pyexpat.errors import messages
+import os,difflib,glob,traceback
 from lxml import objectify
 
 from django.shortcuts import render, redirect
 
 from cryptotutor.serializers import AnswersSerializer, QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
-#from .models import User,Nicad
 from .models import CodeSubmission, User, Nicad, Question, answers
 
 """
 This file defines all views for the CryptoTutor web application. This is where
 http requests and responses throughout the app go through.
 """
+
+"""
+This will check pull a list of profanity used to log out and remove a user if they made a bad username.
+"""
+
+
 
 ### HOME PAGE ###
 def index(request, sort_type): 
@@ -30,19 +32,11 @@ def index(request, sort_type):
         An HttpResponse with the original request, the home page url, and the
         context of the page. Context of the page includes the questions from the json file.
     """
-
     #TODO: get whatever is necessary for the page
-    #f = open(os.getcwd() + "/cryptotutor/static/json/sample_questions.json")
-    #context = {'questions':json.load(f)}
-    #f.close()
-
-    #try:
-    #    test = Nicad.callNicad()
-    #except FileNotFoundError:
-    #    print('WARNING: NiCad was not found on this system.')
+    
     questions = []
-    # context = {'questions': Question.objects.all()}
-    #print(Question.objects.all())
+
+
 
     if sort_type == 'popularity':
         questionList = Question.objects.all().order_by('points')
@@ -62,7 +56,6 @@ def index(request, sort_type):
 
     context = {'questions': questions}
    # print(context)
-   # f.close()
 
     #render html page
     return render(request, 'index.html', context=context)
@@ -125,7 +118,7 @@ def question(request, id):
             {'answer': a.answer, 'questionID': a.questionID, 'studentID': a.studentID, 'username': a.username}
         )
 
-    print(responses)
+    #print(responses)
 
     context = {
         'q': q,
@@ -166,14 +159,12 @@ def questionForm(request):
     #    print("False")
 
     if request.method == 'POST':
-        #x = request.POST.get['code']
-        #x = request.POST['code']
-        ID = request.POST['student_id']
+        #ID = request.POST['student_id']
         name = request.POST['student_name']
         link = request.POST['vcs']
         title = request.POST['title']
         description = request.POST['description']
-        new_item = Question(StudentID=ID, StudentName=name, 
+        new_item = Question(StudentName=name, 
                             projectLink=link, title=title, description=description)
         #print(new_item)
         #print(title)
@@ -213,10 +204,12 @@ def codeForm(request):
     if request.method == 'POST':
         x = request.POST['code']
         y = request.POST['student_name']
+        z = request.POST['threshold']
         #Fixed issue with codesubmission, can now use it for date and names.
-        new_item = CodeSubmission(codeSnippet=x, studentUsername=y)
+        new_item = CodeSubmission(codeSnippet=x, studentUsername=y, threshold=z)
         new_item.save()
         openLoc = './cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/temp.java'
+        Nicad.cleanNicad(new_item.studentUsername)
         if not os.path.exists('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/'):
             os.makedirs('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/')
         with open(openLoc, 'w') as f:
@@ -228,9 +221,9 @@ def codeForm(request):
             f.close()
 
             try:
-                test = Nicad.callNicad(new_item.studentUsername)
+                test = Nicad.callNicad(new_item.studentUsername, new_item.threshold)
             except FileNotFoundError:
-                print('WARNING: NiCad was not found on this system.')
+                print('WARNING: NiCad or the configurations were not found on this system.')
 
         return redirect('code-selection')
 
@@ -256,9 +249,10 @@ def codeSelection(request):
         file and the parsed result file.
     """
     try:
-        fileLoc = "/cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-blind-crossclones/Submissions_blocks-blind-crossclones-0.30-classes-withsource.xml"
-        print(fileLoc)        
-        f = open(os.getcwd() + fileLoc)
+        list = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_*/Submissions_blocks-blind-crossclones-*-classes-withsource.xml")
+        fileLoc = str(list[0])
+        print(fileLoc)
+        f = open(fileLoc)
         xml = f.read()
         f.close()
         clones = objectify.fromstring(xml)
@@ -267,7 +261,7 @@ def codeSelection(request):
             print("classid", clazz.attrib)
 
         context = {
-            "xmlResultFilePath" : os.getcwd() + fileLoc,
+            "xmlResultFilePath" : fileLoc,
             "result": clones
         }
 
@@ -280,14 +274,19 @@ def codeSelection(request):
             #navigate to diff viewer
             return redirect('diff-viewer')
             #give the diff viewer the two files... somehow
-        
         #render html page
         return render(request, 'code-selection.html', context=context)
     except AttributeError:
+        #Nicad.cleanNicad(str(request.user))
+        traceback.print_exc()
         return render(request, 'attribute-error.html')
     except FileNotFoundError:
+        #Nicad.cleanNicad(str(request.user))
+        traceback.print_exc()
         return render(request, 'file-not-found-error.html')
     except:
+        #Nicad.cleanNicad(str(request.user))
+        traceback.print_exc()
         return render(request, 'general-error.html')
 
 
@@ -307,11 +306,11 @@ def diffViewer(request):
         selected file, and the diff view comparing them.
     """
 
-    file1file = os.getcwd() + "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java"
-    file2file = os.getcwd() + request.session['compareFile']
+    file1file = "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java"
+    file2file = os.getcwd() + "/cryptotutor" + request.session['compareFile']
 
-    file1lines = open(os.getcwd() + "/cryptotutor/ExtraFiles/SubmittedFiles/Submissions/temp.java", "U").readlines()
-    file2lines = open(os.getcwd() + request.session['compareFile'], 'U').readlines()
+    file1lines = open("./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java", "U").readlines()
+    file2lines = open(os.getcwd() + "/cryptotutor" + request.session['compareFile'], 'U').readlines()
 
     context = {
         "file1": file1file,
@@ -341,9 +340,10 @@ def nicadResults(request):
     """
     try:
 
-        fileLoc = '/' + request.GET.get('file', '/cryptotutor/ExtraFiles/TestFiles_functions-blind-crossclones/TestFiles_functions-blind-crossclones-0.30-classes-withsource.xml')
-
-        f = open(os.getcwd() + fileLoc)
+        list = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_*/Submissions_*")
+        fileLoc = str(list[1])
+        print(fileLoc)
+        f = open(fileLoc)
         xml = f.read()
         f.close()
         clones = objectify.fromstring(xml)
@@ -352,16 +352,19 @@ def nicadResults(request):
             print("classid", clazz.attrib)
 
         context = {
-            "xmlResultFilePath" : os.getcwd() + fileLoc,
+            "xmlResultFilePath" : fileLoc,
             "result": clones
         }
         #render html page - will need to add context/data once it's retrieved above
         return render(request, 'nicad-results.html', context=context)
     except AttributeError:
+        Nicad.cleanNicad(str(request.user))
         return render(request, 'attribute-error.html')
     except FileNotFoundError:
+        Nicad.cleanNicad(str(request.user))
         return render(request, 'file-not-found-error.html')
     except:
+        Nicad.cleanNicad(str(request.user))
         return render(request, 'general-error.html')
 
   

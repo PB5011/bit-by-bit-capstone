@@ -9,8 +9,13 @@
     <h1 class="header-headline">Diff Viewer</h1>
 </div>
 
+<a href="{% url 'code-form' %}">
+    <input class="mdc-button mdc-button--raised" type="button" value="Compare More Code" />
+ </a>
+
 <div class="diff-content">
     {{ diff|safe }}
 </div>
+
 
 {% endblock %}

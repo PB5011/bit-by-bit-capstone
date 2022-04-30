@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import CodeSubmission, Question, inheritedQuestion, student, inheritedUser, answers, keywords, responses, Notifications, Requests
+from .models import *
 
 #Bit-by-Bit defined models
 class CodeSubmissionSerializer(serializers.HyperlinkedModelSerializer):

@@ -1,9 +1,6 @@
+import subprocess,uuid,glob,os
 from django.db import models
 from django.urls import reverse
-import subprocess
-from xml.dom import minidom
-import uuid
-
 
 # Create your models here.
 class User(models.Model):
@@ -29,21 +26,43 @@ class User(models.Model):
 
 
 class Nicad(models.Model):
-    """Class defining nicad use?"""
+    """Class defining nicad use"""
 
     # methods
-    def callNicad(studentUsername):
+    def callNicad(studentUsername, threshold):
         location = "./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions"
         nc = subprocess.Popen(["nicad6cross", "blocks", "java", location,
-                          "./cryptotutor/ExtraFiles/TestFiles", "default-report"], shell=False)
+                          "./cryptotutor/ExtraFiles/TestFiles", threshold], shell=False)
 
         nc.wait()
         return True
+
+    def cleanNicad(studentUsername):
+        list1 = glob.glob("./cryptotutor/ExtraFiles/TestFiles_*")
+        list2 = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions_*")
+        list3 = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions_*/Submissions_*")
+        for f in list1:
+            try:
+                os.remove(f)
+            except:
+                print("")
+        for f in list2:
+            try:
+                os.remove(f)
+            except:
+                print("")
+        for f in list3:
+            try:
+                os.remove(f)
+            except:
+                print("")
+        
 
 
 class CodeSubmission(models.Model):
     codeSnippet = models.TextField()
     studentUsername = models.TextField()
+    threshold = models.TextField()
 
 
 class Question(models.Model):
@@ -54,8 +73,8 @@ class Question(models.Model):
     # format: ('InternalVariableName', 'UIButtonName'),
     # ) # change as needed, not implemented yet
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4(), editable=False)
-    StudentID = models.CharField(max_length=10) 
+    id = models.AutoField(primary_key=True)
+    #StudentID = models.CharField(max_length=10) 
     StudentName = models.CharField(max_length=50)
     projectLink = models.CharField(max_length=50)
     description = models.TextField()
@@ -71,7 +90,7 @@ class inheritedQuestion(models.Model):
     dataTime = models.CharField(max_length=255)
     fileName = models.CharField(max_length=255)
     question = models.CharField(max_length=255)
-    studentID = models.IntegerField()
+    #studentID = models.IntegerField()
     username = models.CharField(max_length=255)
     threshold = models.CharField(max_length=255)
     misuse = models.CharField(max_length=255)

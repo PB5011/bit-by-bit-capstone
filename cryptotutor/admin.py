@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CodeSubmission, Question, inheritedQuestion, student, inheritedUser, answers, keywords, responses, Notifications, Requests
+from .models import *
 
 #BbB defined models
 admin.site.register(CodeSubmission)
