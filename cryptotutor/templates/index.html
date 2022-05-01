@@ -1,71 +1,58 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="mdc-typography--headline6 header">
-  <h1 class="header-headline">All Questions</h1>
-  <label class="mdc-text-field mdc-text-field--outlined search">
-    <span class="mdc-notched-outline">
-      <span class="mdc-notched-outline__leading"></span>
-      <span class="mdc-notched-outline__notch">
-        <span class="mdc-floating-label" id="question">Search Questions</span>
-      </span>
-      <span class="mdc-notched-outline__trailing"></span>
-    </span>
-    <input type="text" class="mdc-text-field__input" aria-labelledby="question">
-  </label>
-  <!-- <button class="mdc-button foo-button">
-      <div class="mdc-button__ripple"></div>
-      <span class="mdc-button__label">Newest</span>
-  </button> -->
-  <button class="mdc-button foo-button">
-      <div class="mdc-button__ripple"></div>
-      <span class="mdc-button__label">Most Popular</span> <!-- TODO: add call to index/popularity-->
-  </button>
-  &nbsp;
-  <!-- TODO: should pop open a filter dropdown; possibly could use filter chips here -->
-  <!-- <button class="mdc-button foo-button">
-      <div class="mdc-button__ripple"></div>
-      <span class="mdc-button__label">Filter</span>
-  </button> -->
+<div class="ctutor-content-header">
+  <h1>All Questions</h1>
 </div>
-<div class="content">
+<div class="ctutor-search row g-2">
+  <div class="col-auto">
+    <input class="form-control form-control-lg" type="text" placeholder="Search questions...">
+  </div>
+  <div class="col-auto">
+    <div class="form-floating">
+      <select class="form-select" id="floatingSelect" aria-label="Sort by">
+        <option selected value="most_recent">Most Recent</option>
+        <option value="most_popular">Most Popular</option>
+        <option value="most_commented">Most Commented</option>
+      </select>
+      <label for="floatingSelect">Sort by</label>
+    </div>
+  </div>
+  <!-- TODO: should pop open a filter dropdown; possibly could use filter chips here -->
+</div>
+
+<div class="ctutor-content">
   {% for question in questions %}
-  <div class="mdc-card question-card">
-    <div class="mdc-layout-grid mdc-layout-grid--align-left">
-      <div class="mdc-layout-grid__inner">
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
+  <div class="ctutor-question-card">
+    <div class="card w-100 mb-3">
+      <div class="row g-0">
+        <div class="col-md-2 ctutor-question-card-stats">
           {{ question.points }} votes
           <br>{{ question.answers }} answers
           <br>{{ question.views }} views
           <br><br>Submitted by:<br>
           {{ question.author }}
         </div>
-        <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10"> 
-          <div>
-            <div class="question-content">
-              <!-- <div class="mdc-typography--headline5 question-content-title">{{ question.title }}</div> -->
-              <a class="mdc-typography--headline5 question-content-title" href="{% url 'question' id=question.id %}">{{question.title}}</a>
-              <div class="mdc-typography--body1">{{ question.body|safe }}</div>
-            </div>
-            <div class="mdc-card__ripple"></div>
+        <div class="col-md-10">
+          <div class="card-body">
+            <a class="card-title" href="{% url 'question' id=question.id %}"><h4>{{question.title}}</h4></a>
+            <p class="card-text">{{ question.body|safe }}</p>
           </div>
         </div>
       </div>
-    </div>
+      <div class="card-footer text-muted">
+        <div class="row g-0">
+          <div class="col-md-2">
+            <button class="btn btn-light" type="button"><i class="bi bi-arrow-up"></i></button>
+            <span class="ctutor-question-card-votes">0</span>
+            <button class="btn btn-light" type="button"><i class="bi bi-arrow-down"></i></button>
+          </div>
+          <div class="col-md-10 d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-light" type="button"><i class="bi bi-share-fill"></i></button>
+            <button class="btn btn-light" type="button"><i class="bi bi-three-dots"></i></button>
+          </div>
+        </div>
 
-    <div class="mdc-card__actions">
-      <div class="mdc-card__action-buttons">
-        <button class="mdc-button">
-          <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
-          <span class="mdc-button__label">{{ question.points }}</span>
-        </button>
-        <button class="mdc-button">
-          <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
-        </button>
-      </div>
-      <div class="mdc-card__action-icons">
-        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="Share">share</button>
-        <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon" title="More options">more_vert</button>
       </div>
     </div>
   </div>

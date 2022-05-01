@@ -83,7 +83,11 @@
     </div>
     {% endblock %}
     <!-- main page content goes inside the block content -->
-    <div class="ctutor-main-content-view">{% block content %}{% endblock %}</div>
+    <div class="ctutor-main-body">
+      <div class="ctutor-main-content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
     </main>
     <!-- bootstrap js -->
     <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
