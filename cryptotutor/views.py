@@ -16,6 +16,20 @@ http requests and responses throughout the app go through.
 This will check pull a list of profanity used to log out and remove a user if they made a bad username.
 """
 
+### HOME PAGE HELPER ###
+def indexHelper(request):
+    """View function for home page without a sort parameter
+    
+    A wrapper function for handling requests without a sort_type.
+
+    Args:
+        request: A request to view the home page.
+
+    Returns:
+        An HttpResponse with the original request, the home page url, and the
+        context of the page. Context of the page includes the questions from the json file.
+    """
+    return index(request, 'default')
 
 
 ### HOME PAGE ###
