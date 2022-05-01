@@ -1,5 +1,10 @@
 {% extends "base_generic.html" %}
 
+{% block customhead %}
+<script src="/static/js/tinymce/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{% endblock %}
+
 {% block content %}
     <div class="content">
 
@@ -7,11 +12,11 @@
             <div class="mdc-layout-grid__inner">
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
                     <div>
-                        <h2>{{ q.title }}</h2> <!-- no titles in the database -->
+                        <h2>{{ q.title }}</h2>
                         <h5>Submitted by: {{ q.StudentName }}</h5>
                         <p>{{ q.description|safe }}</p>
                         <br><br><br>
-                        <h5>{{ q.projectLink }}</h5> <!-- TODO: style this... -->
+                        <h5>{{ q.projectLink }}</h5>
                     </div>
                 </div>
                 <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
@@ -76,7 +81,7 @@
 
 
         <div>
-            <h3>{{ q.responses }} answers</h3>
+            <h3>{{ q.responseNumber }} answers</h3>
             {% for r in responses %}
                 <div class="mdc-card question-card">
                     <div class="mdc-layout-grid mdc-layout-grid--align-left">
@@ -128,6 +133,26 @@
                     </div>
                 </div>
             {% endfor %}
+            <div>
+                {% if user.is_authenticated %}
+                <h3>Your Answer</h3>
+                <div>
+                    <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
+                        <span class="mdc-notched-outline">
+                        <span class="mdc-notched-outline__leading"></span>
+                        <span class="mdc-notched-outline__trailing"></span>
+                        </span>
+                        <span class="mdc-text-field__resizer">
+                        <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
+                        </span>
+                    </label>
+                </div>
+                <br>
+                <input type="submit" class="mdc-button mdc-button--raised" value="Submit Answer">
+                {% else %}
+                <p>You must login to submit a response.</p>
+                {% endif %}
+            </div>
         </div>
     </div>
 {% endblock %}

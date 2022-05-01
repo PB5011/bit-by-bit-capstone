@@ -1,11 +1,12 @@
+from http.client import responses
 import os,difflib,glob,traceback
 from lxml import objectify
 
 from django.shortcuts import render, redirect
 
-from cryptotutor.serializers import AnswersSerializer, QuestionSerializer
+from cryptotutor.serializers import QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
-from .models import CodeSubmission, User, Nicad, Question, answers
+from .models import CodeSubmission, User, Nicad, Question, Responses
 
 """
 This file defines all views for the CryptoTutor web application. This is where
@@ -50,11 +51,9 @@ def index(request, sort_type):
     
     questions = []
 
-
-
     if sort_type == 'popularity':
         questionList = Question.objects.all().order_by('points')
-    if sort_type == 'default':
+    else: #default sorting
         questionList = Question.objects.all()
 
     # serializer_class = QuestionSerializer
@@ -62,7 +61,7 @@ def index(request, sort_type):
     for q in questionList:
         questions.append(
             {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
-             'points': q.points, 'answers': q.responses, 'views': 0}
+             'points': q.points, 'answers': q.responseNumber, 'views': 0}
         )
 
     #if using search by newest -- need to add datetime to question
@@ -117,27 +116,26 @@ def question(request, id):
     # f.close()
 
     # f.close()
-    # context = {
-    #     'questions': Question.objects.all()
-    # }
-    responses = []
+
+    answers = []
 
     q = Question.objects.get(id=id)
-    # answerList = answers.objects.filter(questionID=id)
-    answerList = answers.objects.all()
+    answerList = Responses.objects.filter(questionID=id)
+    # answerList = Responses.objects.all()
 
-    #TODO: figure out why this isn't displaying anything
+    #TODO: add some responses and make sure this works
     for a in answerList:
-        responses.append(
-            {'answer': a.answer, 'questionID': a.questionID, 'studentID': a.studentID, 'username': a.username}
+        answers.append(
+            {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
+            'time': a.reviewedAt, 'id': a.id}
         )
-
-    #print(responses)
 
     context = {
         'q': q,
-        'responses': responses
+        'responses': answers
     }
+
+    #TODO: form for adding a response
 
     #render html page
     return render(request, 'question.html', context=context)
@@ -162,7 +160,6 @@ def questionForm(request):
         and the context of the page. This page requires no context to be rendered. 
     """
 
-    #TODO: get whatever is necessary for the page
     context = {}
     #print(type(request))
     #print(request.method)

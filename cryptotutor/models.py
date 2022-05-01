@@ -60,9 +60,10 @@ class Nicad(models.Model):
 
 
 class CodeSubmission(models.Model):
+    id = models.AutoField(primary_key=True)
     codeSnippet = models.TextField()
-    studentUsername = models.TextField()
-    threshold = models.TextField()
+    studentUsername = models.TextField(default="anonymous")
+    threshold = models.TextField(default="0") #if it's ever 0 in the DB then there's a problem somewhere
 
 
 class Question(models.Model):
@@ -75,17 +76,18 @@ class Question(models.Model):
 
     id = models.AutoField(primary_key=True)
     #StudentID = models.CharField(max_length=10) 
-    StudentName = models.CharField(max_length=50)
-    projectLink = models.CharField(max_length=50)
-    description = models.TextField()
+    StudentName = models.CharField(max_length=50, default='')
+    projectLink = models.CharField(max_length=50, default='')
+    description = models.TextField(default='')
     title = models.CharField(max_length=100, default='test')
     points = models.IntegerField(default='0')
-    responses = models.PositiveSmallIntegerField(default='0')
+    responseNumber = models.PositiveSmallIntegerField(default='0')
     
     def __str__(self):
         return self.id
 
 class inheritedQuestion(models.Model):
+    id = models.AutoField(primary_key=True)
     codeFragment = models.CharField(max_length=2048)
     dataTime = models.CharField(max_length=255)
     fileName = models.CharField(max_length=255)
@@ -97,47 +99,35 @@ class inheritedQuestion(models.Model):
 
 
 class student(models.Model):
+    id = models.AutoField(primary_key=True)
     address = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
 
 
 class inheritedUser(models.Model):
+    id = models.AutoField(primary_key=True)
     password = models.CharField(max_length=255)
     schoolID = models.IntegerField()
     userType = models.IntegerField()
     username = models.CharField(max_length=255)
 
 
-class answers(models.Model):
-    answer = models.CharField(max_length=255)
-    questionID = models.IntegerField()
-    studentID = models.IntegerField()
-    username = models.CharField(max_length=255)
-
-
 class keywords(models.Model):
-    # keywordID = models.PositiveSmallIntegerField()
+    id = models.AutoField(primary_key=True)
     keyword = models.CharField(max_length=255)
 
 
-class responses(models.Model):
-    # responseID = models.PositiveSmallIntegerField()
-    requestID = models.PositiveSmallIntegerField()
-    reviewerName = models.CharField(max_length=255)
-    reviewedAt = models.DateTimeField()
-    voteUp = models.PositiveSmallIntegerField()
-    voteDown = models.PositiveSmallIntegerField()
-    solution = models.TextField()
-
-
-class Notifications(models.Model):
-    # notificationID = models.PositiveSmallIntegerField()
-    requestID = models.PositiveSmallIntegerField()
-    responseID = models.PositiveSmallIntegerField()
+class Responses(models.Model):
+    id = models.AutoField(primary_key=True)
+    reviewerName = models.CharField(max_length=255, default='')
+    reviewedAt = models.DateTimeField(default='')
+    points = models.IntegerField(default=0)
+    solution = models.TextField(default='')
+    questionID = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 
 class Requests(models.Model):
-    # requestID = models.PositiveSmallIntegerField()
+    id = models.AutoField(primary_key=True)
     studentID = models.PositiveSmallIntegerField()
     studentName = models.CharField(max_length=20)
     VCS = models.CharField(max_length=255)
@@ -145,3 +135,8 @@ class Requests(models.Model):
     code = models.TextField()
     errType = models.CharField(max_length=20)
     description = models.TextField()
+
+class Notifications(models.Model):
+    id = models.AutoField(primary_key=True)
+    requestID = models.ForeignKey(Requests, on_delete=models.CASCADE)
+    responseID = models.ForeignKey(Responses, on_delete=models.CASCADE)
