@@ -4,81 +4,88 @@
     {% block title %}<title>CryptoTutor</title>{% endblock %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- material styling/scripts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     
-    <!-- Add additional CSS in static file -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styling/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'styling/uno-material-theme.css' %}">
+    <!-- bootstrap -->
+    <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <!-- Add additional CSS in static file -->
+    <link rel="stylesheet" href="{% static 'css/cryptotutor.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'styling/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'styling/uno-material-theme.css' %}"> -->
+
     {% block customhead %}{% endblock %}
 </head>    
 
-<body class="mdc-typography">
-    <!-- styled login/signup buttons -- alternative to login/signup buttons inside list -->
-    <!-- <a class="login-button mdc-button mdc-button--raised" href="/account/login/" aria-current="page">
-      Login
-    </a>
-    <a class="login-button mdc-button mdc-button--raised" href="" aria-current="page">
-      Sign Up
-    </a> -->
-    <div>
-        {% block sidebar %}
-        <aside class="column mdc-drawer mdc-drawer-app-content">
-          <div class="mdc-drawer__header">
-              <h3 class="mdc-drawer__title"><strong>CryptoTutor</strong></h3>
-          </div>
-          <div class="mdc-drawer__content">
-            <nav class="mdc-deprecated-list">
-              <a class="mdc-deprecated-list-item" href="{% url 'index' sort_type='default' %}" aria-current="page">
-                <span class="mdc-deprecated-list-item__text">Home</span>
-              </a>
-                <a class="mdc-deprecated-list-item" href="{% url 'question-form' %}">
-                  <span class="mdc-deprecated-list-item__text">Submit a Question</span>
-                </a>
-                <a class="mdc-deprecated-list-item" href="{% url 'code-form' %}">
-                    <span class="mdc-deprecated-list-item__text">Compare Code</span>
-                  </a>
-                <a class="mdc-deprecated-list-item" href="https://github.com/davidlentsch/bit-by-bit-capstone">
-                  <span class="mdc-deprecated-list-item__text">Visit Our GitHub!</span>
-                </a>
-                {% if user.is_authenticated %}
-                <p class="mdc-deprecated-list-item">Logged in as: {{ user.get_username }}</p>
-                <a class="mdc-deprecated-list-item" href="{% url 'logout'%}?next={{request.path}}">
-                  <span class="mdc-deprecated-list-item__text">Logout</span>
-                </a>
-                {% else %}
-                <a class="mdc-deprecated-list-item" href="{% url 'login'%}?next={{request.path}}">
-                  <span class="mdc-deprecated-list-item__text">Login</span>
-                </a>
-                <a class="mdc-deprecated-list-item" href="{% url 'register'%}">
-                  <span class="mdc-deprecated-list-item__text">Register</span>
-                </a>
-                {% endif %}
-                <!-- FOR DEV ONLY - to simplify getting to html pages that aren't already on nav bar -->
-              <div class="mdc-drawer__header">
-                <h3 class="mdc-drawer__title"><strong>DEV LINKS</strong></h3>
-              </div>
-              <a class="mdc-deprecated-list-item" href="{% url 'question' id=1 %}">
-                <span class="mdc-deprecated-list-item__text">Sample Question</span>
-              </a>
-              <a class="mdc-deprecated-list-item" href="{% url 'code-selection' %}">
-                <span class="mdc-deprecated-list-item__text">Code Selection</span>
-              </a>
-              <a class="mdc-deprecated-list-item" href="{% url 'diff-viewer' %}">
-                <span class="mdc-deprecated-list-item__text">Diff Viewer</span>
-              </a>
-            </nav>
-          </div>
-        </aside>
-      {% endblock %}
+<body>
+  <main>
+    {% block sidebar %}
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark ctutor-sidebar">
+      <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+        <span class="fs-4">CryptoTutor</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a href="{% url 'cryptotutor' %}" class="nav-link {% if request.resolver_match.view_name == 'cryptotutor' or request.resolver_match.view_name == 'index' %}active{% else %}text-white{% endif %}">
+            <i class="bi-house-door-fill"></i>
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'question-form' %}" class="nav-link {% if request.resolver_match.view_name == 'question-form' %}active{% else %}text-white{% endif %}">
+            <i class="bi-pencil-square"></i>
+            Submit A Question
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'code-form' %}" class="nav-link {% if request.resolver_match.view_name == 'code-form' %}active{% else %}text-white{% endif %}">
+            <i class="bi-bezier2"></i>
+            Compare Code
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/davidlentsch/bit-by-bit-capstone" class="nav-link text-white">
+            <i class="bi-github"></i>
+            Visit Our GitHub!
+          </a>
+        </li>
+      </ul>
+      <hr>
+      {% if user.is_authenticated %}
+      <div class="dropdown">
+        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="bi-person-circle"></i>
+          <strong>Logged in as: {{ user.get_username }}</strong>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Sign out</a></li>
+        </ul>
+      </div>
+      {% else %}
+      <ul class="nav nav-pills">
+        <li>
+          <a href="{% url 'login'%}?next={{request.path}}" class="nav-link {% if request.resolver_match.view_name == 'login' %}active{% else %}text-white{% endif %}">
+            <i class="bi-box-arrow-in-right"></i>
+            Login
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'register'%}" class="nav-link {% if request.resolver_match.view_name == 'register' %}active{% else %}text-white{% endif %}">
+            <i class="bi-plus-circle"></i>
+            Register
+          </a>
+        </li>
+      </ul>
+      {% endif %}       
     </div>
+    {% endblock %}
     <!-- main page content goes inside the block content -->
-    <div class="column content-drawer">{% block content %}{% endblock %}</div>
-</body>
-
+    <div class="ctutor-main-content-view">{% block content %}{% endblock %}</div>
+    </main>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+  </body>
 </html>

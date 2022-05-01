@@ -1,0 +1,26 @@
+body {
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100vh;
+    /* max-height: 100vh; */
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.ctutor-sidebar {
+    position: fixed;
+    height: 100vh;
+    width: 250px;
+}
+
+.ctutor-main-content-view {
+    padding-left: 250px;
+}
+
+.ctutor-content {
+    padding: 50px;
+}
