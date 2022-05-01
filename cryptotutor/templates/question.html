@@ -6,153 +6,74 @@
 {% endblock %}
 
 {% block content %}
-    <div class="content">
-
-        <div class="mdc-layout-grid mdc-layout-grid--align-left">
-            <div class="mdc-layout-grid__inner">
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-                    <div>
-                        <h2>{{ q.title }}</h2>
-                        <h5>Submitted by: {{ q.StudentName }}</h5>
-                        <p>{{ q.description|safe }}</p>
-                        <br><br><br>
-                        <h5>{{ q.projectLink }}</h5>
-                    </div>
-                </div>
-                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2 mdc-layout-grid--fixed-column-width">
-                    <div>
-                        <h2>Actions</h2>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
-                                <span class="mdc-button__label">Upvote</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <span class="mdc-button__label">{{ q.points }} points</span>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
-                                <span class="mdc-button__label">Downvote</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">bookmark</i>
-                                <span class="mdc-button__label">Save for Later</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">edit</i>
-                                <span class="mdc-button__label">Edit Question</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">share</i>
-                                <span class="mdc-button__label">Share</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action">
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">post_add</i>
-                                <span class="mdc-button__label">Submit Answer</span>
-                            </button>
-                        </div>
-                        <div class="question-sidebar-action"> <!-- should only be available if logged in -->
-                            <button class="mdc-button mdc-button--outlined mdc-button--icon-leading question-sidebar-action-button">
-                                <span class="mdc-button__ripple"></span>
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">delete</i>
-                                <span class="mdc-button__label">Delete Question</span>
-                            </button>
-                        </div>
-                    </div>
+    <div class="ctutor-content">
+        <div class="row">
+            <div class="col-9">
+                <h2>{{ q.title }}</h2>
+                <h6>Submitted by: {{ q.StudentName }}</h6>
+                <h6>Project link: <a href="{{ q.projectLink }}">{{ q.projectLink }}</a></h6>
+                <p>{{ q.description|safe }}</p>
+            </div>
+            <div class="col-3">
+                <h4>Actions</h4>
+                <div class="d-grid gap-2">
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-up-circle"></i> Upvote</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-down-circle"></i> Downvote</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-bookmark"></i> Save for Later</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i> Edit Question</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-share"></i> Share</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-plus-lg"></i> Submit Answer</button>
+                    <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-trash"></i> Delete Question</button>
                 </div>
             </div>
         </div>
-
-
         <div>
             <h3>{{ q.responseNumber }} answers</h3>
-            {% for r in responses %}
-                <div class="mdc-card question-card">
-                    <div class="mdc-layout-grid mdc-layout-grid--align-left">
-                        <div class="mdc-layout-grid__inner">
-                            <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-                                <div>
-                                    <div class="question-content">
-                                        <!-- <div class="mdc-typography--headline5 question-content-title">{{ answer.title }}</div> -->
-                                        <div class="mdc-typography--body1">{{ r.answer }}</div>
-                                        <br>
-                                        <br>
-
-                                    </div>
-                                    <div class="mdc-card__ripple"></div>
-                                </div>
-                            </div>
-                        </div>
+        </div>  
+        {% for r in responses %}
+        <div class="ctutor-answer-card">
+            <div class="card w-100 mb-3">
+                <div class="card-body">
+                    <p class="card-text">{{ r.answer }} Test test test</p>
+                    <p class="text-muted">Answer submitted by {{ r.username }}</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="row g-0">
+                    <div class="col-md-6">
+                        <button class="btn btn-light" type="button"><i class="bi bi-arrow-up"></i></button>
+                        <span class="ctutor-answer-card-votes">{{ r.points }}</span>
+                        <button class="btn btn-light" type="button"><i class="bi bi-arrow-down"></i></button>
+                        <button class="btn btn-outline-secondary" type="button"><i class="bi bi-check-lg"></i> Mark as Answer</button>
+                        <button class="btn btn-outline-secondary" type="button"><i class="bi bi-reply"></i> Reply</button>
                     </div>
-
-                    <div class="mdc-card__actions">
-                        <div class="mdc-card__action-buttons">
-                            <button class="mdc-button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_upward</i>
-                                <span class="mdc-button__label">{{ r.points }}</span>
-                            </button>
-                            <button class="mdc-button">
-                                <i class="material-icons mdc-button__icon" aria-hidden="true">arrow_downward</i>
-                            </button>
-                        </div>
-                        <button class="mdc-button mdc-button--outlined mdc-button--icon-leading">
-                            <span class="mdc-button__ripple"></span>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">check</i>
-                            <span class="mdc-button__label">Mark as Answer</span>
-                        </button>
-                        <button class="mdc-button mdc-button--outlined mdc-button--icon-leading">
-                            <span class="mdc-button__ripple"></span>
-                            <i class="material-icons mdc-button__icon" aria-hidden="true">reply</i>
-                            <span class="mdc-button__label">Reply</span>
-                        </button>
-                        <div class="mdc-card__action-icons">
-                            <div class="mdc-typography--caption">Answer submitted by {{ r.username }}</div>
-                            <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
-                                    title="Share">share
-                            </button>
-                            <button class="material-icons mdc-icon-button mdc-card__action mdc-card__action--icon"
-                                    title="More options">more_vert
-                            </button>
-                        </div>
+                    <div class="col-md-6 d-md-flex justify-content-md-end">
+                        <button class="btn btn-light" type="button"><i class="bi bi-share-fill"></i></button>
+                        <button class="btn btn-light" type="button"><i class="bi bi-three-dots"></i></button>
                     </div>
                 </div>
-            {% endfor %}
-            <div>
-                {% if user.is_authenticated %}
-                <h3>Your Answer</h3>
-                <div>
-                    <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
-                        <span class="mdc-notched-outline">
-                        <span class="mdc-notched-outline__leading"></span>
-                        <span class="mdc-notched-outline__trailing"></span>
-                        </span>
-                        <span class="mdc-text-field__resizer">
-                        <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
-                        </span>
-                    </label>
-                </div>
-                <br>
-                <input type="submit" class="mdc-button mdc-button--raised" value="Submit Answer">
-                {% else %}
-                <p>You must login to submit a response.</p>
-                {% endif %}
+              </div>
             </div>
+          </div>
+        {% endfor %}
+        <div class="ctutor-answer-write-section">
+            {% if user.is_authenticated %}
+            <h3>Your Answer</h3>
+            <div>
+                <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
+                    <span class="mdc-notched-outline">
+                    <span class="mdc-notched-outline__leading"></span>
+                    <span class="mdc-notched-outline__trailing"></span>
+                    </span>
+                    <span class="mdc-text-field__resizer">
+                    <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
+                    </span>
+                </label>
+            </div>
+            <br>
+            <input type="submit" class="btn btn-primary" value="Submit Answer">
+            {% else %}
+            <p>You must login to submit a response.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

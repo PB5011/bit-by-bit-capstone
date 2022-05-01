@@ -53,3 +53,18 @@ main {
     padding-left: 10px;
     padding-right: 10px;
 }
+
+.ctutor-answer-card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 1100px;
+}
+
+.ctutor-answer-card-votes {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.ctutor-answer-write-section {
+    padding-top: 40px;
+}
