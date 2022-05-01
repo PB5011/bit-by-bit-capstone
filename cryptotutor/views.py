@@ -1,4 +1,4 @@
-from http.client import responses
+from datetime import datetime
 import os,difflib,glob,traceback
 from lxml import objectify
 
@@ -6,55 +6,38 @@ from django.shortcuts import render, redirect
 
 from cryptotutor.serializers import QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
-from .models import CodeSubmission, User, Nicad, Question, Responses
+from django.db.models import F
+from .models import CodeSubmission, Nicad, Question, Responses
 
 """
 This file defines all views for the CryptoTutor web application. This is where
 http requests and responses throughout the app go through.
 """
 
-"""
-This will check pull a list of profanity used to log out and remove a user if they made a bad username.
-"""
-
-### HOME PAGE HELPER ###
-def indexHelper(request):
-    """View function for home page without a sort parameter
-    
-    A wrapper function for handling requests without a sort_type.
-
-    Args:
-        request: A request to view the home page.
-
-    Returns:
-        An HttpResponse with the original request, the home page url, and the
-        context of the page. Context of the page includes the questions from the json file.
-    """
-    return index(request, 'default')
-
-
 ### HOME PAGE ###
-def index(request, sort_type): 
+def index(request, sort_type=''): 
     """View function for home page of site.
 
-    Currently retrieves questions from a json file of sample questions. This
-    will be updated to pull questions from the client-given database.
+    Retrieves all questions from the database. Sorting is not yet implemented because of
+    prerequisites, but code has been left in and commented out to give a reference point
+    of how it would be implemented using the sort_type URL param.
 
     Args:
         request: A request to view the home page.
 
     Returns:
         An HttpResponse with the original request, the home page url, and the
-        context of the page. Context of the page includes the questions from the json file.
+        context of the page. Context of the page includes all questions from the database.
     """
-    #TODO: get whatever is necessary for the page
     
     questions = []
 
-    if sort_type == 'popularity':
-        questionList = Question.objects.all().order_by('points')
-    else: #default sorting
-        questionList = Question.objects.all()
+    # if sort_type == 'popularity':
+        # questionList = Question.objects.all().order_by('points')
+    # else if sort_type == 'newest': - requires dateTime to be added to questions
+    # else if filtering by tags - requires keywords/tags to be added
+    # else: #default sorting
+    questionList = Question.objects.all()
 
     # serializer_class = QuestionSerializer
 
@@ -63,9 +46,6 @@ def index(request, sort_type):
             {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
              'points': q.points, 'answers': q.responseNumber, 'views': 0}
         )
-
-    #if using search by newest -- need to add datetime to question
-    #if using search by filter -- need to add tags to questions
 
     context = {'questions': questions}
    # print(context)
@@ -87,7 +67,6 @@ def login(request):
         context of the page. The context of the page is empty because it is a simple form.
     """
 
-    #TODO: get whatever is necessary for the page
     context={}
 
     #render html page
@@ -115,10 +94,8 @@ def question(request, id):
     # context = json.load(f)
     # f.close()
 
-    # f.close()
-
+    #retrieving questions and answers
     answers = []
-
     q = Question.objects.get(id=id)
     answerList = Responses.objects.filter(questionID=id)
     # answerList = Responses.objects.all()
@@ -135,7 +112,19 @@ def question(request, id):
         'responses': answers
     }
 
-    #TODO: form for adding a response
+    #form for adding a response
+    if request.method == 'POST':
+        username = request.user.username
+        time = datetime.now()
+        p = 0
+        s = request.POST['solution']
+        new_item = Responses(reviewerName = username, reviewedAt = time, points = p, solution = s, questionID = q)
+
+        new_item.save()
+
+        Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
+
+        return redirect('question', id=id)
 
     #render html page
     return render(request, 'question.html', context=context)
@@ -366,7 +355,6 @@ def nicadResults(request):
             "xmlResultFilePath" : fileLoc,
             "result": clones
         }
-        #render html page - will need to add context/data once it's retrieved above
         return render(request, 'nicad-results.html', context=context)
     except AttributeError:
         Nicad.cleanNicad(str(request.user))

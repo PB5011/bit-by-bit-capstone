@@ -29,7 +29,7 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li>
-          <a href="{% url 'cryptotutor' %}" class="nav-link {% if request.resolver_match.view_name == 'cryptotutor' or request.resolver_match.view_name == 'index' %}active{% else %}text-white{% endif %}">
+          <a href="{% url 'index' %}" class="nav-link {% if request.resolver_match.view_name == 'cryptotutor' or request.resolver_match.view_name == 'index' %}active{% else %}text-white{% endif %}">
             <i class="bi-house-door-fill"></i>
             Home
           </a>
