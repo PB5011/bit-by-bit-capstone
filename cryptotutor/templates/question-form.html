@@ -16,94 +16,29 @@
     {% if user.is_authenticated %}
     <form method="post">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Student Username</td>
-                <td>
-                <label class="mdc-text-field mdc-text-field--outlined">
-                    <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <!-- <span class="mdc-floating-label" id="student-name">ex. John Doe</span> -->
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                    </span>
-                    <input type="text" class="mdc-text-field__input" aria-labelledby="student-name" id="student_name" name="student_name" value = "{{ user.get_username }}" readonly>
-                </label>
-                </td>
-            </tr>
-            <tr>
-                <td>Question Title</td>
-                <td>
-                <label class="mdc-text-field mdc-text-field--outlined">
-                    <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <!-- <span class="mdc-floating-label" id="student-id">ex. 123456</span> -->
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                    </span>
-                    <input type="text" class="mdc-text-field__input" aria-labelledby="title" id="title" name="title">
-                </label>
-                </td>
-            </tr>
-            <tr>
-                <td>Project VCS Link</td>
-                <td>
-                <label class="mdc-text-field mdc-text-field--outlined">
-                    <span class="mdc-notched-outline">
-                    <span class="mdc-notched-outline__leading"></span>
-                    <span class="mdc-notched-outline__notch">
-                        <!-- <span class="mdc-floating-label" id="vcs-link">ex. https://github.com/johndoe/project</span> -->
-                    </span>
-                    <span class="mdc-notched-outline__trailing"></span>
-                    </span>
-                    <input type="text" class="mdc-text-field__input" aria-labelledby="vcs-link" id="vcs" name="vcs">
-                </label>
-                </td>
-            </tr>
-            <tr>
-                <td>Categories</td>
-                <td>
-                <!-- turning this into a dropdown list that allows searching and multi select (a la sending an email to multiple recipients) would be best imo-->
-                <!-- mdc-chip-set gets the styling, NOT mdc-evolution-chip -->
-                <div class="mdc-chip-set mdc-chip-set--filter">
-                    <div class="mdc-chip">
-                        <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
-                        <!-- will need to add actions/buttons -->
-                        <div class="mdc-chip__text">Tag One</div>
-                    </div>
-                    <div class="mdc-chip">
-                        <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
-                        <div class="mdc-chip__text">Tag Two</div>
-                    </div>
-                    <div class="mdc-chip">
-                        <span class="mdc-chip__ripple mdc-chip__ripple--primary"></span>
-                        <div class="mdc-chip__text">Tag Three</div>
-                    </div>
-                </div>
-                </td>
-            </tr>
-        </table>
+        <div class="mb-3">
+            <label for="student_name" class="form-label">Student Username</label>
+            <input type="text" class="form-control" id="student_name" value="{{ user.get_username }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Question Title</label>
+            <input type="text" class="form-control" id="title" aria-describedby="titleHelp">
+            <div id="titleHelp" class="form-text">Enter a brief description of your question here.</div>
+        </div>
+        <div class="mb-3">
+            <label for="vcs" class="form-label">Project VCS Link</label>
+            <input type="text" class="form-control" id="vcs" aria-describedby="vcsHelp">
+            <div id="vcsHelp" class="form-text">Enter the link to your project's version control system, such as a GitHub link.</div>
+        </div>
         <div>
-            <p>Description</p>
-            <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
-                <span class="mdc-notched-outline">
-                <span class="mdc-notched-outline__leading"></span>
-                <span class="mdc-notched-outline__trailing"></span>
-                </span>
-                <span class="mdc-text-field__resizer">
-                <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
-                </span>
-            </label>
+            <label for="descripton" class="form-label">Description</label>
+            <textarea rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
         </div>
         <br>
-        <input type="submit" class="mdc-button mdc-button--raised" value="Submit">
+        <input type="submit" class="btn btn-primary" value="Submit">
     <form>
+    {% else %}
+    <p>You must login to see this page.</p>
+    {% endif %}
 </div>
-{% else %}
-        <p>You must login to see this page.</p>
-        {% endif %}
-
-
 {% endblock %}
