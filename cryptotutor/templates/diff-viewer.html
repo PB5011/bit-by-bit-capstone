@@ -1,21 +1,20 @@
 {% extends "base_generic.html" %}
 
 {% block customhead %}
-<link rel="stylesheet" href="/static/styling/diffviewer.css">
+<link rel="stylesheet" href="{% static 'css/diffviewer.css' %}">
 {% endblock %}
 
 {% block content %}
-<div class="mdc-typography--headline6 header">
-    <h1 class="header-headline">Diff Viewer</h1>
+<div class="ctutor-content-header">
+    <h1>Diff Viewer</h1>
+</div>
+<div class="ctutor-main-content-inner">
+    <a href="{% url 'code-form' %}">
+        <input class="btn btn-primary" type="button" value="Compare More Code" />
+    </a>
+    <div class="diff-content">{{ diff|safe }}</div>
 </div>
 
-<a href="{% url 'code-form' %}">
-    <input class="mdc-button mdc-button--raised" type="button" value="Compare More Code" />
- </a>
-
-<div class="diff-content">
-    {{ diff|safe }}
-</div>
 
 
 {% endblock %}
