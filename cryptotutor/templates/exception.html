@@ -1,0 +1,52 @@
+{% extends "base_generic.html" %}
+
+{% block customhead %}
+
+{% endblock %}
+
+{% block content %}
+<div class="ctutor-content-header">
+    <h1>Oops</h1>
+</div>
+<div class="ctutor-main-content-inner">
+    <p>A server side error occurred while trying to load this page. Please try again later.</p>
+    {% if message %}
+    <p><strong>Error Description:</strong></p>
+    <p>{{ message }}</p>
+    {% endif %}
+    {% if exception %}
+    {% if previousUrl %}
+    <a href="{{ previousUrl }}">
+        <button class="btn btn-primary" type="button"><i class="bi bi-arrow-left ctutor-icon-button"></i> Go Back</button>
+    </a>
+    {% else %}
+    <a href="{% url 'index' %}">
+        <button class="btn btn-primary" type="button"><i class="bi bi-house-door ctutor-icon-button"></i> Home</button>
+    </a>
+    {% endif %}
+    <br><br>
+    <hr>
+    <br>
+    <h3>Developer Information</h3>
+    <br>
+    <p><strong>Exception:</strong>
+        <p>
+            Type: {{ exType }}<br>
+            Error: {{ exception }}
+        </p>
+    </p>
+    {% endif %}
+    {% if stackTrace %}
+    <p><strong>Stack Trace:</strong>
+        <pre><code>{{ stackTrace }}</code></pre>
+    </p>
+    {% endif %}
+    {% if log %}
+    <p><strong>Log:</strong>
+        <p>Path: {{ logPath }}<br>
+            <pre><code>{{ log }}</code></pre>
+        </p>
+    </p>
+    {% endif %}
+</div>
+{% endblock %}

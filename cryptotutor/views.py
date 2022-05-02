@@ -31,29 +31,35 @@ def index(request, sort_type=''):
         An HttpResponse with the original request, the home page url, and the
         context of the page. Context of the page includes all questions from the database.
     """
-    
-    questions = []
+    try:
+        questions = []
 
-    # if sort_type == 'popularity':
-        # questionList = Question.objects.all().order_by('points')
-    # else if sort_type == 'newest': - requires dateTime to be added to questions
-    # else if filtering by tags - requires keywords/tags to be added
-    # else: #default sorting
-    questionList = Question.objects.all()
+        # if sort_type == 'popularity':
+            # questionList = Question.objects.all().order_by('points')
+        # else if sort_type == 'newest': - requires dateTime to be added to questions
+        # else if filtering by tags - requires keywords/tags to be added
+        # else: #default sorting
+        questionList = Question.objects.all()
 
-    # serializer_class = QuestionSerializer
+        # serializer_class = QuestionSerializer
 
-    for q in questionList:
-        questions.append(
-            {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
-             'points': q.points, 'answers': q.responseNumber, 'views': 0}
-        )
+        for q in questionList:
+            questions.append(
+                {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
+                'points': q.points, 'answers': q.responseNumber, 'views': 0}
+            )
 
-    context = {'questions': questions}
-   # print(context)
+        context = {'questions': questions}
+        # print(context)
 
-    #render html page
-    return render(request, 'index.html', context=context)
+        #render html page
+        return render(request, 'index.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the home page. If this error persists, please report this issue on the project GitHub repository.")
+
 
 ### LOGIN PAGE ###
 def login(request): 
@@ -69,13 +75,18 @@ def login(request):
         context of the page. The context of the page is empty because it is a simple form.
     """
 
-    form = AuthenticationForm()
+    try:
+        form = AuthenticationForm()
+        context = { 'form': form }
 
-    context = { 'form': form }
+        #render html page
+        return render(request, 'login.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the login page. If this error persists, please report this issue on the project GitHub repository.")
 
-
-    #render html page
-    return render(request, 'login.html', context=context)
 
 
 ### QUESTION VIEW ###
@@ -94,46 +105,51 @@ def question(request, id):
         the json file.
     """
 
-    #this gets the sample question
-    # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
-    # context = json.load(f)
-    # f.close()
+    try:
+        #this gets the sample question
+        # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
+        # context = json.load(f)
+        # f.close()
 
-    #retrieving questions and answers
-    answers = []
-    q = Question.objects.get(id=id)
-    answerList = Responses.objects.filter(questionID=id)
-    # answerList = Responses.objects.all()
+        #retrieving questions and answers
+        answers = []
+        q = Question.objects.get(id=id)
+        answerList = Responses.objects.filter(questionID=id)
+        # answerList = Responses.objects.all()
 
-    #TODO: add some responses and make sure this works
-    for a in answerList:
-        answers.append(
-            {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
-            'time': a.reviewedAt, 'id': a.id}
-        )
+        #TODO: add some responses and make sure this works
+        for a in answerList:
+            answers.append(
+                {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
+                'time': a.reviewedAt, 'id': a.id}
+            )
 
-    context = {
-        'q': q,
-        'responses': answers
-    }
+        context = {
+            'q': q,
+            'responses': answers
+        }
 
-    #form for adding a response
-    if request.method == 'POST':
-        username = request.user.username
-        time = datetime.now()
-        p = 0
-        s = request.POST['solution']
-        new_item = Responses(reviewerName = username, reviewedAt = time, points = p, solution = s, questionID = q)
+        #form for adding a response
+        if request.method == 'POST':
+            username = request.user.username
+            time = datetime.now()
+            p = 0
+            s = request.POST['solution']
+            new_item = Responses(reviewerName = username, reviewedAt = time, points = p, solution = s, questionID = q)
 
-        new_item.save()
+            new_item.save()
 
-        Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
+            Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
 
-        return redirect('question', id=id)
+            return redirect('question', id=id)
 
-    #render html page
-    return render(request, 'question.html', context=context)
-
+        #render html page
+        return render(request, 'question.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the question page. If this error persists, please report this issue on the project GitHub repository.")
 
 ### QUESTION FORM ###
 def questionForm(request):
@@ -153,33 +169,38 @@ def questionForm(request):
         An HttpResponse with the original request, the question submission page url,
         and the context of the page. This page requires no context to be rendered. 
     """
+    try:
+        context = {}
+        #print(type(request))
+        #print(request.method)
+        #print(request)      
+        #if request.method == 'POST':
+        #    print("True")
+        #else:
+        #    print("False")
 
-    context = {}
-    #print(type(request))
-    #print(request.method)
-    #print(request)      
-    #if request.method == 'POST':
-    #    print("True")
-    #else:
-    #    print("False")
+        if request.method == 'POST':
+            #ID = request.POST['student_id']
+            name = request.POST['student_name']
+            link = request.POST['vcs']
+            title = request.POST['title']
+            description = request.POST['description']
+            new_item = Question(StudentName=name, 
+                                projectLink=link, title=title, description=description)
+            #print(new_item)
+            #print(title)
+            #print(name)
+            #print(description)
+            new_item.save()
+        
 
-    if request.method == 'POST':
-        #ID = request.POST['student_id']
-        name = request.POST['student_name']
-        link = request.POST['vcs']
-        title = request.POST['title']
-        description = request.POST['description']
-        new_item = Question(StudentName=name, 
-                            projectLink=link, title=title, description=description)
-        #print(new_item)
-        #print(title)
-        #print(name)
-        #print(description)
-        new_item.save()
-    
-
-    #render html page
-    return render(request, 'question-form.html', context=context)
+        #render html page
+        return render(request, 'question-form.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the question submission form. If this error persists, please report this issue on the project GitHub repository.")
 
 
 ### CODE FORM ###
@@ -198,42 +219,43 @@ def codeForm(request):
         the context of the page. This page requires no context to be rendered.
     """
 
-    #TODO: get whatever is necessary for the page
-    context = {}
+    try:
+        context = {}
 
-    #print(type(request))
-    #print(request.method)
-   # print(request)	
-   # if request.method == 'POST':
-    #    print("True")
-    if request.method == 'POST':
-        x = request.POST['code']
-        y = request.POST['student_name']
-        z = request.POST['threshold']
-        #Fixed issue with codesubmission, can now use it for date and names.
-        new_item = CodeSubmission(codeSnippet=x, studentUsername=y, threshold=z)
-        new_item.save()
-        openLoc = './cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/temp.java'
-        Nicad.cleanNicad(new_item.studentUsername)
-        if not os.path.exists('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/'):
-            os.makedirs('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/')
-        with open(openLoc, 'w') as f:
-            f.writelines('public class temp { \n')
-            f.writelines('public static void main(String[] args) { \n')
-            f.writelines(new_item.codeSnippet)
-            f.writelines('\n}\n')
-            f.writelines('}')
-            f.close()
+        if request.method == 'POST':
+            x = request.POST['code']
+            y = request.POST['student_name']
+            z = request.POST['threshold']
+            #Fixed issue with codesubmission, can now use it for date and names.
+            new_item = CodeSubmission(codeSnippet=x, studentUsername=y, threshold=z)
+            new_item.save()
+            openLoc = './cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/temp.java'
+            Nicad.cleanNicad(new_item.studentUsername)
+            if not os.path.exists('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/'):
+                os.makedirs('./cryptotutor/ExtraFiles/SubmittedFiles/' + new_item.studentUsername + '/Submissions/')
+            with open(openLoc, 'w') as f:
+                f.writelines('public class temp { \n')
+                f.writelines('public static void main(String[] args) { \n')
+                f.writelines(new_item.codeSnippet)
+                f.writelines('\n}\n')
+                f.writelines('}')
+                f.close()
 
-            try:
-                test = Nicad.callNicad(new_item.studentUsername, new_item.threshold)
-            except FileNotFoundError:
-                print('WARNING: NiCad or the configurations were not found on this system.')
+                try:
+                    test = Nicad.callNicad(new_item.studentUsername, new_item.threshold)
+                except FileNotFoundError:
+                    print('WARNING: NiCad or the configurations were not found on this system.')
 
-        return redirect('code-selection')
+            return redirect('code-selection')
 
-    #render html page
-    return render(request, 'code-form.html', context=context)
+        #render html page
+        return render(request, 'code-form.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "There was an error with the code submission. If this error persists, please report this issue on the project GitHub repository.")
+
 
 
 ### CODE SELECTION ###
@@ -281,18 +303,21 @@ def codeSelection(request):
             #give the diff viewer the two files... somehow
         #render html page
         return render(request, 'code-selection.html', context=context)
-    except AttributeError:
-        Nicad.cleanNicad(str(request.user))
-        #traceback.print_exc()
-        return render(request, 'attribute-error.html')
-    except FileNotFoundError:
-        Nicad.cleanNicad(str(request.user))
-        #traceback.print_exc()
-        return render(request, 'file-not-found-error.html')
-    except:
-        Nicad.cleanNicad(str(request.user))
-        #traceback.print_exc()
-        return render(request, 'general-error.html')
+    except AttributeError as ae:
+        return error(request, 
+            ae, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "No results found. You may need to change the threshold percentage or include more code.")
+    except FileNotFoundError as fnfe:
+        return error(request, 
+            fnfe, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "Unable to compare code. Please verify that your code has correct syntax, isn't wrapped in any functions, and is greater than one line.")
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "A general error has occurred. If this error persists, please report this issue on the project GitHub repository.")
 
 
 ### DIFF VIEWER  ###
@@ -310,21 +335,26 @@ def diffViewer(request):
         context of the page. The context of this page includes the submitted file, the
         selected file, and the diff view comparing them.
     """
+    try:
+        file1file = "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java"
+        file2file = os.getcwd() + "/cryptotutor" + request.session['compareFile']
 
-    file1file = "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java"
-    file2file = os.getcwd() + "/cryptotutor" + request.session['compareFile']
+        file1lines = open("./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java", "U").readlines()
+        file2lines = open(os.getcwd() + "/cryptotutor" + request.session['compareFile'], 'U').readlines()
 
-    file1lines = open("./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions/temp.java", "U").readlines()
-    file2lines = open(os.getcwd() + "/cryptotutor" + request.session['compareFile'], 'U').readlines()
+        context = {
+            "file1": file1file,
+            "file2": file2file,
+            "diff": difflib.HtmlDiff().make_table(file1lines,file2lines,file1file,file2file)
+        }
 
-    context = {
-        "file1": file1file,
-        "file2": file2file,
-        "diff": difflib.HtmlDiff().make_table(file1lines,file2lines,file1file,file2file)
-    }
-
-    #render html page - will need to add context/data once it's retrieved above
-    return render(request, 'diff-viewer.html', context=context)
+        #render html page - will need to add context/data once it's retrieved above
+        return render(request, 'diff-viewer.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "There was an error rendering the diff viewer. If this error persists, please report this issue on the project GitHub repository.")
 
 
 ### NICAD RESULTS  ###
@@ -361,18 +391,21 @@ def nicadResults(request):
             "result": clones
         }
         return render(request, 'nicad-results.html', context=context)
-    except AttributeError:
-        print(traceback.format_exc())
-        Nicad.cleanNicad(str(request.user))
-        return render(request, 'attribute-error.html')
-    except FileNotFoundError:
-        print(traceback.format_exc())
-        Nicad.cleanNicad(str(request.user))
-        return render(request, 'file-not-found-error.html')
-    except:
-        print(traceback.format_exc())
-        Nicad.cleanNicad(str(request.user))
-        return render(request, 'general-error.html')
+    except AttributeError as ae:
+        return error(request, 
+            ae, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "No results found. You may need to change the threshold percentage or include more code.")
+    except FileNotFoundError as fnfe:
+        return error(request, 
+            fnfe, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "Unable to compare code. Please verify that your code has correct syntax, isn't wrapped in any functions, and is greater than one line.")
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            "./cryptotutor/ExtraFiles/SubmittedFiles/" + str(request.user) + "/Submissions_blocks-crossclones-*.log", 
+            "A general error has occurred. If this error persists, please report this issue on the project GitHub repository.")
 
   
 
@@ -389,22 +422,28 @@ def register(request):
         An HttpResponse with the original request, and the resulting registration
         form contained within the context.
     """
-
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            message = 'Account registered successfully. You may now login.'
+    try:
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                message = 'Account registered successfully. You may now login.'
+            else:
+                message = 'There was an error with your registration form. Please try again.'
+                
         else:
-            message = 'There was an error with your registration form. Please try again.'
-            
-    else:
-        form = UserCreationForm()
-        message = ''
+            form = UserCreationForm()
+            message = ''
 
-    context = { 'form': form, 'message': message }
+        context = { 'form': form, 'message': message }
 
-    return render(request, 'registration/register.html', context=context)
+        return render(request, 'registration/register.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the registration page. If this error persists, please report this issue on the project GitHub repository.")
+
 
 
 def codeError(request):
@@ -422,19 +461,54 @@ def changePassword(request):
         An HttpResponse with the original request, the change password page url, and the
         context of the page.
     """
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = PasswordChangeForm(request.user, request.POST)
-            if form.is_valid():
-                user = form.save()
-                update_session_auth_hash(request, user)
-                return redirect('change_password')
+    try:
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                form = PasswordChangeForm(request.user, request.POST)
+                if form.is_valid():
+                    user = form.save()
+                    update_session_auth_hash(request, user)
+                    return redirect('change_password')
+            else:
+                form = PasswordChangeForm(request.user)
         else:
-            form = PasswordChangeForm(request.user)
-    else:
-        return redirect('login')
+            return redirect('login')
 
-    context = { 'form': form }
+        context = { 'form': form }
 
-    #render html page
-    return render(request, 'registration/password_change_form.html', context=context)
+        #render html page
+        return render(request, 'registration/password_change_form.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the password change page. If this error persists, please report this issue on the project GitHub repository.")
+
+
+
+def error(request, exception, log, additionalMessage):  
+    try:  
+        logPath = glob.glob(log)
+        logText = None
+
+        try:
+            f = open(logPath[0], 'r')
+            logText = f.read()
+            f.close()
+        except:
+            logText = None
+
+        context = { 'exception': exception, 
+            'exType': type(exception).__name__, 
+            'stackTrace': traceback.format_exc(), 
+            'log': logText, 
+            'logPath': logPath, 
+            'message': additionalMessage,
+            'previousUrl': request.META.get('HTTP_REFERER')
+        }
+
+        Nicad.cleanNicad(str(request.user))
+    except Exception as ex:
+        context = {'message': "An error occurred. Additionally, an additional exception occurred while rendering the error page. Please report this issue on the project GitHub."}
+
+    return render(request, 'exception.html', context=context)
