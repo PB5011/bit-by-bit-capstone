@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('<str:sort_type>', views.index, name='index'),
-    path('', views.indexHelper, name='cryptotutor'),
+    path('', views.index, name='index'),
     path('question/<int:id>', views.question, name='question'),
     path('question-form/', views.questionForm, name='question-form'),
     path('code-form/', views.codeForm, name='code-form'),

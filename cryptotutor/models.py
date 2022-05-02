@@ -2,27 +2,17 @@ import subprocess,uuid,glob,os
 from django.db import models
 from django.urls import reverse
 
-# Create your models here.
-class User(models.Model):
-    """Class defining a user of CryptoTutor"""
+"""
+    This file contains all models used in the cryptotutor application. Models provide information
+    about data, including the essential fields and behaviors of the data being stored. Each model maps
+    to a single database table. The only model not related to the database is the NiCad model, used to define
+    methods related to the NiCad process.
 
-    # fields
-    # TODO: flesh these out past the very basics
-    username = models.CharField(max_length=20)
-    password = models.CharField(max_length=50)
-
-    # metadata
-    class Meta:
-        ordering = ['username', 'password']
-
-    # methods
-    def get_absolute_url(self):
-        """returns the url to access a particular instance of User"""
-        return reverse('model-detail-view', args=[str(self.id)])
-
-    def __str__(self):
-        """String for representing the User object (in Admin site etc.)"""
-        return self.username + self.password
+    There are a number of models commented out; these were included in the original code, but
+    became out of scope or redundant at some point in development. They've been kept in the code
+    in case future developers decide that these models are better (in the case of inherited models)
+    or in case the features that they are used for are implemented (in the case of notifications, etc.)
+    """
 
 
 class Nicad(models.Model):
@@ -60,6 +50,7 @@ class Nicad(models.Model):
 
 
 class CodeSubmission(models.Model):
+    """Model for CodeSubmission"""
     id = models.AutoField(primary_key=True)
     codeSnippet = models.TextField()
     studentUsername = models.TextField(default="anonymous")
@@ -67,13 +58,13 @@ class CodeSubmission(models.Model):
 
 
 class Question(models.Model):
+    """Model for Questions"""
     # CATEGORIES = (
     #     ('T1', 'Tag1'),
     #     ('T2', 'Tag2'),
     #     ('T3', 'Tag3'),
     # format: ('InternalVariableName', 'UIButtonName'),
     # ) # change as needed, not implemented yet
-
     id = models.AutoField(primary_key=True)
     #StudentID = models.CharField(max_length=10) 
     StudentName = models.CharField(max_length=50, default='')
@@ -86,38 +77,8 @@ class Question(models.Model):
     def __str__(self):
         return self.id
 
-class inheritedQuestion(models.Model):
-    id = models.AutoField(primary_key=True)
-    codeFragment = models.CharField(max_length=2048)
-    dataTime = models.CharField(max_length=255)
-    fileName = models.CharField(max_length=255)
-    question = models.CharField(max_length=255)
-    #studentID = models.IntegerField()
-    username = models.CharField(max_length=255)
-    threshold = models.CharField(max_length=255)
-    misuse = models.CharField(max_length=255)
-
-
-class student(models.Model):
-    id = models.AutoField(primary_key=True)
-    address = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
-
-
-class inheritedUser(models.Model):
-    id = models.AutoField(primary_key=True)
-    password = models.CharField(max_length=255)
-    schoolID = models.IntegerField()
-    userType = models.IntegerField()
-    username = models.CharField(max_length=255)
-
-
-class keywords(models.Model):
-    id = models.AutoField(primary_key=True)
-    keyword = models.CharField(max_length=255)
-
-
 class Responses(models.Model):
+    """Model for (Question) Responses"""
     id = models.AutoField(primary_key=True)
     reviewerName = models.CharField(max_length=255, default='')
     reviewedAt = models.DateTimeField(default='')
@@ -125,8 +86,8 @@ class Responses(models.Model):
     solution = models.TextField(default='')
     questionID = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-
 class Requests(models.Model):
+    """Model for Requests"""
     id = models.AutoField(primary_key=True)
     studentID = models.PositiveSmallIntegerField()
     studentName = models.CharField(max_length=20)
@@ -136,7 +97,36 @@ class Requests(models.Model):
     errType = models.CharField(max_length=20)
     description = models.TextField()
 
-class Notifications(models.Model):
-    id = models.AutoField(primary_key=True)
-    requestID = models.ForeignKey(Requests, on_delete=models.CASCADE)
-    responseID = models.ForeignKey(Responses, on_delete=models.CASCADE)
+
+### NOT IN USE ###
+# class inheritedQuestion(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     codeFragment = models.CharField(max_length=2048)
+#     dataTime = models.CharField(max_length=255)
+#     fileName = models.CharField(max_length=255)
+#     question = models.CharField(max_length=255)
+#     #studentID = models.IntegerField()
+#     username = models.CharField(max_length=255)
+#     threshold = models.CharField(max_length=255)
+#     misuse = models.CharField(max_length=255)
+
+# class inheritedUser(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     password = models.CharField(max_length=255)
+#     schoolID = models.IntegerField()
+#     userType = models.IntegerField()
+#     username = models.CharField(max_length=255)
+
+# class keywords(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     keyword = models.CharField(max_length=255)
+
+# class Notifications(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     requestID = models.ForeignKey(Requests, on_delete=models.CASCADE)
+#     responseID = models.ForeignKey(Responses, on_delete=models.CASCADE)
+
+# class student(models.Model):
+#     id = models.AutoField(primary_key=True)
+#     address = models.CharField(max_length=255)
+#     name = models.CharField(max_length=255)

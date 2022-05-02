@@ -34,7 +34,7 @@
         <div class="ctutor-answer-card">
             <div class="card w-100 mb-3">
                 <div class="card-body">
-                    <p class="card-text">{{ r.answer }} Test test test</p>
+                    <p class="card-text">{{ r.answer|safe }}</p>
                     <p class="text-muted">Answer submitted by {{ r.username }}</p>
                 </div>
                 <div class="card-footer text-muted">
@@ -58,6 +58,8 @@
         <div class="ctutor-answer-write-section">
             {% if user.is_authenticated %}
             <h3>Your Answer</h3>
+            <form method="post">
+            {% csrf_token %}
             <div>
                 <label class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label">
                     <span class="mdc-notched-outline">
@@ -65,15 +67,15 @@
                     <span class="mdc-notched-outline__trailing"></span>
                     </span>
                     <span class="mdc-text-field__resizer">
-                    <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="description" name="description"></textarea>
+                    <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="solution" name="solution"></textarea>
                     </span>
                 </label>
             </div>
             <br>
-            <input type="submit" class="btn btn-primary" value="Submit Answer">
+            <input type="submit" class="mdc-button mdc-button--raised" value="Submit Answer">
+            </form>
             {% else %}
             <p>You must login to submit a response.</p>
             {% endif %}
-        </div>
     </div>
 {% endblock %}
