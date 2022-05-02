@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block customhead %}
+
+{% endblock %}
+
+{% block content %}
+<h1>Code Submission Error!</h1>
+<p>Something went wrong! If this issue persists, please create an issue on our Github page!</p>
+<a href="{% url 'code-form' %}">
+    <input class="mdc-button mdc-button--raised" type="button" value="Try Again" />
+ </a>
+<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+<script src="/static/js/base.js"></script>
+{% endblock %}
