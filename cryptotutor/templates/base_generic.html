@@ -24,7 +24,7 @@
     <!-- Sidebar -->
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark ctutor-sidebar">
       <a class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <span class="fs-4">CryptoTutor</span>
+        <span class="fs-4"><i class="bi-mortarboard"></i> CryptoTutor</span>
       </a>
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
@@ -50,6 +50,33 @@
           <a href="https://github.com/davidlentsch/bit-by-bit-capstone" class="nav-link text-white">
             <i class="bi-github"></i>
             Visit Our GitHub!
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a class="nav-link text-white">
+            <i class="bi-cone-striped"></i>
+            Debug Links
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'question' id=1 %}" class="nav-link {% if request.resolver_match.view_name == 'question' %}active{% else %}text-white{% endif %}">
+            <i class="bi-question-lg"></i>
+            Sample Question
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'code-selection' %}" class="nav-link {% if request.resolver_match.view_name == 'code-selection' %}active{% else %}text-white{% endif %}">
+            <i class="bi-code-slash"></i>
+            Code Selection
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'diff-viewer' %}" class="nav-link {% if request.resolver_match.view_name == 'diff-viewer' %}active{% else %}text-white{% endif %}">
+            <i class="bi-plus-slash-minus"></i>
+            Diff Viewer
           </a>
         </li>
       </ul>

@@ -11,6 +11,11 @@ main {
     overflow-y: auto;
 }
 
+i {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .ctutor-sidebar {
     position: fixed;
     height: 100vh;
@@ -23,6 +28,10 @@ main {
 
 .ctutor-main-content {
     width: calc(100vw - 250px);
+    padding: 25px;
+}
+
+.ctutor-main-content-inner {
     padding: 25px;
 }
 

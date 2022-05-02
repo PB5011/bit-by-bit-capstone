@@ -87,8 +87,10 @@ def login(request):
         context of the page. The context of the page is empty because it is a simple form.
     """
 
-    #TODO: get whatever is necessary for the page
-    context={}
+    form = AuthenticationForm()
+
+    context = { 'form': form, 'message': message }
+
 
     #render html page
     return render(request, 'login.html', context=context)
