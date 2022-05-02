@@ -18,16 +18,16 @@
         {% csrf_token %}
         <div class="mb-3">
             <label for="student_name" class="form-label">Student Username</label>
-            <input type="text" class="form-control" id="student_name" value="{{ user.get_username }}" readonly>
+            <input type="text" class="form-control" id="student_name" name="student_name" value="{{ user.get_username }}" readonly>
         </div>
         <div class="mb-3">
             <label for="title" class="form-label">Question Title</label>
-            <input type="text" class="form-control" id="title" aria-describedby="titleHelp">
+            <input type="text" class="form-control" id="title" name="title" aria-describedby="titleHelp">
             <div id="titleHelp" class="form-text">Enter a brief description of your question here.</div>
         </div>
         <div class="mb-3">
             <label for="vcs" class="form-label">Project VCS Link</label>
-            <input type="text" class="form-control" id="vcs" aria-describedby="vcsHelp">
+            <input type="text" class="form-control" id="vcs" name="vcs" aria-describedby="vcsHelp">
             <div id="vcsHelp" class="form-text">Enter the link to your project's version control system, such as a GitHub link.</div>
         </div>
         <div>

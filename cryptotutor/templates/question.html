@@ -28,7 +28,11 @@
         </div>
     </div>
     <div>
+        {% if q.responseNumber == 1%}
+        <h3>{{ q.responseNumber }} answer</h3>
+        {% else %}
         <h3>{{ q.responseNumber }} answers</h3>
+        {% endif %}
     </div>
     {% if q.responseNumber == 0 %}
     <p>There aren't any answers yet. Why not write one below?</p>
