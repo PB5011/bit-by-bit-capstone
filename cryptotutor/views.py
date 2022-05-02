@@ -360,12 +360,15 @@ def nicadResults(request):
         }
         return render(request, 'nicad-results.html', context=context)
     except AttributeError:
+        print(traceback.format_exc())
         Nicad.cleanNicad(str(request.user))
         return render(request, 'attribute-error.html')
     except FileNotFoundError:
+        print(traceback.format_exc())
         Nicad.cleanNicad(str(request.user))
         return render(request, 'file-not-found-error.html')
     except:
+        print(traceback.format_exc())
         Nicad.cleanNicad(str(request.user))
         return render(request, 'general-error.html')
 

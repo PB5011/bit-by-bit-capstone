@@ -21,6 +21,7 @@ class Nicad(models.Model):
     # methods
     def callNicad(studentUsername, threshold):
         location = "./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions"
+        print("running nicad6cross blocks java", location, "./cryptotutor/ExtraFiles/TestFiles", threshold)
         nc = subprocess.Popen(["nicad6cross", "blocks", "java", location,
                           "./cryptotutor/ExtraFiles/TestFiles", threshold], shell=False)
 

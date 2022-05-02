@@ -4,7 +4,7 @@
 }
 
 table.diff {
-    font-family: Courier; 
+    font-family: 'Roboto Mono', monospace;
     border: medium;
 }
 .diff_header {

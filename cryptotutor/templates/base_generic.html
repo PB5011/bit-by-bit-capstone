@@ -12,8 +12,6 @@
 
     <!-- Add additional CSS in static file -->
     <link rel="stylesheet" href="{% static 'css/cryptotutor.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'styling/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'styling/uno-material-theme.css' %}"> -->
 
     {% block customhead %}{% endblock %}
 </head>    
@@ -77,6 +75,12 @@
           <a href="{% url 'diff-viewer' %}" class="nav-link {% if request.resolver_match.view_name == 'diff-viewer' %}active{% else %}text-white{% endif %}">
             <i class="bi-plus-slash-minus"></i>
             Diff Viewer
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'nicad-results' %}" class="nav-link {% if request.resolver_match.view_name == 'nicad-results' %}active{% else %}text-white{% endif %}">
+            <i class="bi-activity"></i>
+            NiCad Results
           </a>
         </li>
       </ul>

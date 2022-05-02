@@ -1,6 +1,10 @@
 {% extends "base_generic.html" %}
 
 {% block customhead %}
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{% static 'css/diffviewer.css' %}">
 {% endblock %}
 
@@ -10,7 +14,7 @@
 </div>
 <div class="ctutor-main-content-inner">
     <a href="{% url 'code-form' %}">
-        <input class="btn btn-primary" type="button" value="Compare More Code" />
+        <button class="btn btn-primary" type="button">Compare More Code</button>
     </a>
     <div class="diff-content">{{ diff|safe }}</div>
 </div>

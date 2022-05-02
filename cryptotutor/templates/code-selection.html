@@ -1,43 +1,43 @@
 {% extends "base_generic.html" %}
 
-{% block content %}
-<h1>Code Selection</h1>
+{% block customhead %}
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+{% endblock %}
 
-<form method="post">
+{% block content %}
+<div class="ctutor-content-header">
+  <h1>Code Selection</h1>
+</div>
+<div class="ctutor-main-content-inner">
+  <form method="post">
   {% csrf_token %}
 
-{% for clazz in result.class %}
-{% for src in clazz.source %}
-<div class="mdc-card mdc-layout-grid code-select-card">
-    <div class="mdc-card__primary-action" tabindex="0">
-      <div class="mdc-card__ripple"></div>
-    </div>
-    <div class="question-content">
-      <div class="mdc-typography--headline5 question-content-title">Solution {{ src.attrib.pcid }} : Lines {{ src.attrib.startline }} - {{ src.attrib.endline }}</div>
-      <pre>
-          <code>
-              {{ src.text|linebreaksbr }}
-          </code>
-        </pre>
-    </div>
-    <div class="mdc-card__actions select-card-action">
-      <div class="mdc-touch-target-wrapper">
-        <div class="mdc-radio mdc-radio--touch">
-          <input class="mdc-radio__native-control" type="radio" name="file" value="{{src.attrib.file}}" checked>
-          <div class="mdc-radio__background">
-            <div class="mdc-radio__outer-circle"></div>
-            <div class="mdc-radio__inner-circle"></div>
-          </div>
-          <div class="mdc-radio__ripple"></div>
+  {% for clazz in result.class %}
+  {% for src in clazz.source %}
+  <div class="ctutor-code-select-card">
+    <div class="card w-100 mb-3">
+        <div class="card-body">
+            <p class="card-text">Solution {{ src.attrib.pcid }} : Lines {{ src.attrib.startline }} - {{ src.attrib.endline }}</p>
+            <pre>
+              <code>
+                  {{ src.text|linebreaksbr }}
+              </code>
+            </pre>
         </div>
-      </div>
+        <div class="card-footer">
+            <input class="form-check-input" type="radio" name="file" id="file" value="{{src.attrib.file}}" checked>
+            <label class="form-check-label" for="file">
+              Select this code snippet
+            </label>
+        </div>
     </div>
+  </div>
+  {% endfor %}
+  {% endfor %}
+  <input type="submit" class="btn btn-primary" value="Submit">
+  <form method="post">
 </div>
-{% endfor %}
-{% endfor %}
-
-<input type="submit" class="mdc-button mdc-button--raised" value="Submit">
-
-</form>
-
 {% endblock %}
