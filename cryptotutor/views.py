@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 
 from cryptotutor.serializers import QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib import messages
 from django.db.models import F
 from .models import CodeSubmission, Nicad, Question, Responses
 
@@ -407,3 +409,32 @@ def register(request):
 
 def codeError(request):
     return render(request, 'code-error.html')
+
+def changePassword(request):
+    """View function for changing a password.
+
+    A form for users to change their password.
+
+    Args:
+        request: A request to view the change password page.
+
+    Returns:
+        An HttpResponse with the original request, the change password page url, and the
+        context of the page.
+    """
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
+                return redirect('change_password')
+        else:
+            form = PasswordChangeForm(request.user)
+    else:
+        return redirect('login')
+
+    context = { 'form': form }
+
+    #render html page
+    return render(request, 'registration/password_change_form.html', context=context)

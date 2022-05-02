@@ -12,4 +12,5 @@ urlpatterns = [
     path('results/', views.nicadResults, name='nicad-results'),
     path('register/', views.register, name='register'),
     path('code-error', views.codeError, name='code-error'),
+    path('change-password/', views.changePassword, name='change-password')
 ]
