@@ -57,7 +57,7 @@ def index(request, sort_type=''):
     except Exception as ex:
         return error(request, 
             ex, 
-            None, 
+            '', 
             "There was an error rendering the home page. If this error persists, please report this issue on the project GitHub repository.")
 
 
@@ -498,16 +498,17 @@ def error(request, exception, log, additionalMessage):
         except:
             logText = None
 
-        context = { 'exception': exception, 
-            'exType': type(exception).__name__, 
-            'stackTrace': traceback.format_exc(), 
-            'log': logText, 
-            'logPath': logPath, 
-            'message': additionalMessage,
-            'previousUrl': request.META.get('HTTP_REFERER')
-        }
+        context = {}
+        context['exception'] = exception
+        context['exType'] = type(exception).__name__
+        context['stackTrace'] = traceback.format_exc()
+        context['log'] = logText
+        context['logPath'] = logPath
+        context['message'] = additionalMessage
+        context['previousUrl']: request.META.get('HTTP_REFERER')
 
-        Nicad.cleanNicad(str(request.user))
+        if request.user.is_authenticated:
+            Nicad.cleanNicad(str(request.user))
     except Exception as ex:
         context = {'message': "An error occurred. Additionally, an additional exception occurred while rendering the error page. Please report this issue on the project GitHub."}
 
