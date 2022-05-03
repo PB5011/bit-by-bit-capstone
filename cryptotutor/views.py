@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from cryptotutor.serializers import QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.db.models import F
 from .models import CodeSubmission, Nicad, Question, Responses
@@ -468,7 +469,7 @@ def changePassword(request):
                 if form.is_valid():
                     user = form.save()
                     update_session_auth_hash(request, user)
-                    return redirect('change_password')
+                    return redirect('index')
             else:
                 form = PasswordChangeForm(request.user)
         else:
@@ -487,16 +488,20 @@ def changePassword(request):
 
 
 def error(request, exception, log, additionalMessage):  
-    try:  
-        logPath = glob.glob(log)
-        logText = None
-
-        try:
-            f = open(logPath[0], 'r')
-            logText = f.read()
-            f.close()
-        except:
+    try: 
+        if log != None: 
+            logPath = glob.glob(log)
             logText = None
+
+            try:
+                f = open(logPath[0], 'r')
+                logText = f.read()
+                f.close()
+            except:
+                logText = None
+        else:
+            logPath, logText = None
+
 
         context = {}
         context['exception'] = exception
