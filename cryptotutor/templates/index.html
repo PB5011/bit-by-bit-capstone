@@ -15,7 +15,7 @@
           <option {% if sort_type == 'newest' %}selected{% endif %} value="{% url 'index' sort_type='newest' %}">Newest</option>
           <option {% if sort_type == 'oldest' %}selected{% endif %} value="{% url 'index' sort_type='oldest' %}">Oldest</option>
           <option {% if sort_type == 'views' %}selected{% endif %} value="{% url 'index' sort_type='views' %}">Views</option>
-          <option {% if sort_type == 'popularity' %}selected{% endif %} value="{% url 'index' sort_type='popularity' %}">Points</option>
+          <!-- <option {% if sort_type == 'popularity' %}selected{% endif %} value="{% url 'index' sort_type='popularity' %}">Points</option> -->
           <option {% if sort_type == 'answers' %}selected{% endif %} value="{% url 'index' sort_type='answers' %}">Most Answers</option>
         </select>
         <label for="floatingSelect">Sort by</label>
@@ -32,7 +32,7 @@
     <div class="card w-100 mb-3">
       <div class="row g-0">
         <div class="col-md-2 ctutor-question-card-stats">
-          {{ question.points }} votes
+          <!-- {{ question.points }} votes -->
           <br>{{ question.answers }} answers
           <br>{{ question.views }} views
           <br><br>Submitted by:<br>
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="card-footer text-muted">
+      <!-- <div class="card-footer text-muted">
         <div class="row g-0">
           <div class="col-md-4">
             <button class="btn btn-light" type="button"><i class="bi bi-arrow-up"></i></button>
@@ -59,7 +59,7 @@
             <button class="btn btn-light" type="button"><i class="bi bi-three-dots"></i></button>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   {% endfor %}
