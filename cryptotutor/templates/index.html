@@ -4,20 +4,24 @@
 <div class="ctutor-content-header">
   <h1>All Questions</h1>
 </div>
-<div class="ctutor-search row g-2">
-  <!-- <div class="col-auto">
-    <input class="form-control form-control-lg" type="text" placeholder="Search questions...">
-  </div>
-  <div class="col-auto">
-    <div class="form-floating">
-      <select class="form-select" id="floatingSelect" aria-label="Sort by">
-        <option selected value="most_recent">Most Recent</option>
-        <option value="most_popular">Most Popular</option>
-        <option value="most_commented">Most Commented</option>
-      </select>
-      <label for="floatingSelect">Sort by</label>
+<div class="ctutor-search row g-6">
+  {% comment %} <div class="col-auto">
+    <input class="form-con trol form-control-lg" type="text" placeholder="Search questions...">
+  </div> {% endcomment %}
+  <div class="col-3">
+    <div class="row">
+      <div class="form-floating col">
+        <select class="form-select" id="floatingSelect" aria-label="Sort by">
+          <option {% if sort_type == 'newest' %}selected{% endif %} value="{% url 'index' sort_type='newest' %}">Newest</option>
+          <option {% if sort_type == 'oldest' %}selected{% endif %} value="{% url 'index' sort_type='oldest' %}">Oldest</option>
+          <option {% if sort_type == 'views' %}selected{% endif %} value="{% url 'index' sort_type='views' %}">Views</option>
+          <option {% if sort_type == 'popularity' %}selected{% endif %} value="{% url 'index' sort_type='popularity' %}">Points</option>
+        </select>
+        <label for="floatingSelect">Sort by</label>
+      </div>
+      <button type="button" class="btn btn-primary col-2" onclick="document.location.href = document.getElementById('floatingSelect').value;">Go</button>
     </div>
-  </div> -->
+  </div>
   <!-- TODO: should pop open a filter dropdown; possibly could use filter chips here -->
 </div>
 
@@ -32,6 +36,8 @@
           <br>{{ question.views }} views
           <br><br>Submitted by:<br>
           {{ question.author }}
+          <br><br>Created:<br>
+          {{ question.createdDate }}
         </div>
         <div class="col-md-10">
           <div class="card-body">

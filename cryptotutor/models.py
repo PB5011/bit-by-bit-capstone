@@ -1,4 +1,4 @@
-import subprocess,uuid,glob,os
+import subprocess,uuid,glob,os,datetime
 from django.db import models
 from django.urls import reverse
 
@@ -75,6 +75,7 @@ class Question(models.Model):
     points = models.IntegerField(default='0')
     responseNumber = models.PositiveSmallIntegerField(default='0')
     views = models.PositiveIntegerField(default='0')
+    createdDate = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
         return self.id

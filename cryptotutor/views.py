@@ -34,23 +34,30 @@ def index(request, sort_type=''):
     """
     try:
         questions = []
+        
+        print(sort_type)
 
-        # if sort_type == 'popularity':
-            # questionList = Question.objects.all().order_by('points')
-        # else if sort_type == 'newest': - requires dateTime to be added to questions
-        # else if filtering by tags - requires keywords/tags to be added
-        # else: #default sorting
-        questionList = Question.objects.all()
+        if sort_type == 'popularity':
+            questionList = reversed(Question.objects.all().order_by('points'))
+        elif sort_type == 'views':
+            questionList = reversed(Question.objects.all().order_by('views'))
+        elif sort_type == 'newest':
+            questionList = reversed(Question.objects.all().order_by('createdDate'))
+        elif sort_type == 'oldest':
+            questionList = Question.objects.all().order_by('createdDate')
+        else:
+            questionList = reversed(Question.objects.all().order_by('createdDate'))
+        
 
         # serializer_class = QuestionSerializer
 
         for q in questionList:
             questions.append(
                 {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
-                'points': q.points, 'answers': q.responseNumber, 'views': 0}
+                'points': q.points, 'answers': q.responseNumber, 'views': q.views, 'createdDate': q.createdDate}
             )
 
-        context = {'questions': questions}
+        context = {'questions': questions, 'sort_type': sort_type}
         # print(context)
 
         #render html page
