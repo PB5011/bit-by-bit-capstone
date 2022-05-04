@@ -18,12 +18,16 @@
             <h4>Actions</h4>
             <div class="d-grid gap-2">
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-up-circle"></i> Upvote</button>
+                <h4>{{q.points}}</h4>
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-down-circle"></i> Downvote</button>
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-bookmark"></i> Save for Later</button>
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i> Edit Question</button>
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-share"></i> Share</button>
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-plus-lg"></i> Submit Answer</button>
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-trash"></i> Delete Question</button>
+                {% if user.is_authenticated and request.user == q.StudentName %}
+                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i> Edit Question</button>
+                <form action="{% url 'delete-question' id=q.id %}" method="GET">
+                    <button class="btn btn btn-outline-primary" type="submit" name="delete-btn"><i class="bi bi-trash"></i> Delete Question</button>
+                </form>
+                {% endif %}
             </div>
         </div>
     </div>
