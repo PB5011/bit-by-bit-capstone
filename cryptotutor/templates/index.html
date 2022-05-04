@@ -16,6 +16,7 @@
           <option {% if sort_type == 'oldest' %}selected{% endif %} value="{% url 'index' sort_type='oldest' %}">Oldest</option>
           <option {% if sort_type == 'views' %}selected{% endif %} value="{% url 'index' sort_type='views' %}">Views</option>
           <option {% if sort_type == 'popularity' %}selected{% endif %} value="{% url 'index' sort_type='popularity' %}">Points</option>
+          <option {% if sort_type == 'answers' %}selected{% endif %} value="{% url 'index' sort_type='answers' %}">Most Answers</option>
         </select>
         <label for="floatingSelect">Sort by</label>
       </div>

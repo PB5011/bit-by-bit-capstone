@@ -45,6 +45,8 @@ def index(request, sort_type=''):
             questionList = reversed(Question.objects.all().order_by('createdDate'))
         elif sort_type == 'oldest':
             questionList = Question.objects.all().order_by('createdDate')
+        elif sort_type == 'answers':
+            questionList = reversed(Question.objects.all().order_by('responseNumber'))
         else:
             questionList = reversed(Question.objects.all().order_by('createdDate'))
         
