@@ -28,6 +28,10 @@ def index(request, sort_type=''):
     Args:
         request: A request to view the home page.
 
+        sort_type: The type of sorting to be applied to the questions. Defaults to newest questions
+        first; options include popularity determined by points, popularity determined by views,
+        time (newest and oldest first), and number of answers.
+
     Returns:
         An HttpResponse with the original request, the home page url, and the
         context of the page. Context of the page includes all questions from the database.
@@ -109,13 +113,15 @@ def question(request, id):
     Args:
         request: A request to view the individual question's page.
 
+        id: The id of the question to be viewed.
+
     Returns:
         An HttpResponse with the original request, the question page url, and the
         context of the page. Context of the page includes the questions and answers from
         the json file.
     """
 
-    # try:
+    try:
         #this gets the sample question
         # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
         # context = json.load(f)
@@ -125,55 +131,60 @@ def question(request, id):
         Question.objects.filter(id=id).update(views=F('views') + 1)
 
         #retrieving questions and answers
-    answers = []
-    q = Question.objects.get(id=id)
-    answerList = Responses.objects.filter(questionID=id)
-    # answerList = Responses.objects.all()
+        answers = []
+        q = Question.objects.get(id=id)
+        answerList = Responses.objects.filter(questionID=id)
+        # answerList = Responses.objects.all()
 
-    #TODO: add some responses and make sure this works
-    for a in answerList:
-        answers.append(
-            {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
-            'time': a.reviewedAt, 'id': a.id}
-        )
+        #TODO: add some responses and make sure this works
+        for a in answerList:
+            answers.append(
+                {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
+                'time': a.reviewedAt, 'id': a.id}
+            )
 
-    context = {
-        'q': q,
-        'responses': answers
-    }
+        context = {
+            'q': q,
+            'responses': answers
+        }
 
-    #form for adding a response
-    if request.method == 'POST':
-        username = request.user.username
-        time = datetime.now()
-        p = 0
-        s = request.POST['solution']
-        new_item = Responses(reviewerName = username, reviewedAt = time, points = p, solution = s, questionID = q)
+        #form for adding a response
+        if request.method == 'POST':
+            username = request.user.username
+            time = datetime.now()
+            p = 0
+            s = request.POST['solution']
+            new_item = Responses(reviewerName = username, reviewedAt = time, points = p, solution = s, questionID = q)
 
-        new_item.save()
+            new_item.save()
 
-        Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
+            Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
 
-        return redirect('question', id=id)
+            return redirect('question', id=id)
 
-    if (request.GET.get('delete_btn')):
-        Question.objects.filter(id=id).delete()
-
-        return redirect('index')
-
-    #render html page
-    return render(request, 'question.html', context=context)
-    # except Exception as ex:
-    #     return error(request, 
-    #         ex, 
-    #         None, 
-    #         "There was an error rendering the question page. If this error persists, please report this issue on the project GitHub repository.")
+        #render html page
+        return render(request, 'question.html', context=context)
+    except Exception as ex:
+        return error(request, 
+            ex, 
+            None, 
+            "There was an error rendering the question page. If this error persists, please report this issue on the project GitHub repository.")
 
 
 ###DELETE QUESTION###
 def delete_question(request, id):
-    """This function deletes the question from the database. Note that this function is only available when the user
-    that is logged in is the user who asked the question."""
+    """
+    This function deletes the question from the database. Note that this function is
+    only available when the user that is logged in is the user who asked the question.
+    
+    Args:
+        request: A request to delete the specified question.
+
+        id: The id of the question to delete.
+        
+    Returns:
+        A redirect to the home page.
+    """
 
     if request.method == "GET":
         Question.objects.filter(id=id).delete()
@@ -534,14 +545,14 @@ def error(request, exception, log, additionalMessage):
             logPath, logText = None
 
 
-        context = {}
+        context = { 'previousUrl': request.META.get('HTTP_REFERER') }
         context['exception'] = exception
         context['exType'] = type(exception).__name__
         context['stackTrace'] = traceback.format_exc()
         context['log'] = logText
         context['logPath'] = logPath
         context['message'] = additionalMessage
-        context['previousUrl']: request.META.get('HTTP_REFERER')
+        # context['previousUrl']: request.META.get('HTTP_REFERER')
 
         if request.user.is_authenticated:
             Nicad.cleanNicad(str(request.user))
