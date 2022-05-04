@@ -12,6 +12,7 @@
             <h2>{{ q.title }}</h2>
             <h6>Submitted by: {{ q.StudentName }}</h6>
             <h6>Project link: <a href="{{ q.projectLink }}">{{ q.projectLink }}</a></h6>
+            <h6>{{ q.views }} views</h6>
             <p>{{ q.description|safe }}</p>
         </div>
         <div class="col-3">

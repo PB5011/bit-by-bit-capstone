@@ -74,6 +74,7 @@ class Question(models.Model):
     title = models.CharField(max_length=100, default='test')
     points = models.IntegerField(default='0')
     responseNumber = models.PositiveSmallIntegerField(default='0')
+    views = models.PositiveIntegerField(default='0')
     
     def __str__(self):
         return self.id

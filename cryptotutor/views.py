@@ -112,6 +112,9 @@ def question(request, id):
         # context = json.load(f)
         # f.close()
 
+        # Add a view before loading the object
+        Question.objects.filter(id=id).update(views=F('views') + 1)
+
         #retrieving questions and answers
         answers = []
         q = Question.objects.get(id=id)
