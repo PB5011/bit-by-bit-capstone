@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from cryptotutor.serializers import QuestionSerializer
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.contrib import messages
 from django.db.models import F
 from .models import CodeSubmission, Nicad, Question, Responses
@@ -33,23 +34,32 @@ def index(request, sort_type=''):
     """
     try:
         questions = []
+        
+        print(sort_type)
 
-        # if sort_type == 'popularity':
-            # questionList = Question.objects.all().order_by('points')
-        # else if sort_type == 'newest': - requires dateTime to be added to questions
-        # else if filtering by tags - requires keywords/tags to be added
-        # else: #default sorting
-        questionList = Question.objects.all()
+        if sort_type == 'popularity':
+            questionList = reversed(Question.objects.all().order_by('points'))
+        elif sort_type == 'views':
+            questionList = reversed(Question.objects.all().order_by('views'))
+        elif sort_type == 'newest':
+            questionList = reversed(Question.objects.all().order_by('createdDate'))
+        elif sort_type == 'oldest':
+            questionList = Question.objects.all().order_by('createdDate')
+        elif sort_type == 'answers':
+            questionList = reversed(Question.objects.all().order_by('responseNumber'))
+        else:
+            questionList = reversed(Question.objects.all().order_by('createdDate'))
+        
 
         # serializer_class = QuestionSerializer
 
         for q in questionList:
             questions.append(
                 {'id': q.id, 'title': q.title, 'author': q.StudentName, 'body': q.description,
-                'points': q.points, 'answers': q.responseNumber, 'views': 0}
+                'points': q.points, 'answers': q.responseNumber, 'views': q.views, 'createdDate': q.createdDate}
             )
 
-        context = {'questions': questions}
+        context = {'questions': questions, 'sort_type': sort_type}
         # print(context)
 
         #render html page
@@ -57,7 +67,7 @@ def index(request, sort_type=''):
     except Exception as ex:
         return error(request, 
             ex, 
-            None, 
+            '', 
             "There was an error rendering the home page. If this error persists, please report this issue on the project GitHub repository.")
 
 
@@ -110,6 +120,9 @@ def question(request, id):
         # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
         # context = json.load(f)
         # f.close()
+
+        # Add a view before loading the object
+        Question.objects.filter(id=id).update(views=F('views') + 1)
 
         #retrieving questions and answers
     answers = []
@@ -487,7 +500,7 @@ def changePassword(request):
                 if form.is_valid():
                     user = form.save()
                     update_session_auth_hash(request, user)
-                    return redirect('change_password')
+                    return redirect('index')
             else:
                 form = PasswordChangeForm(request.user)
         else:
@@ -506,27 +519,32 @@ def changePassword(request):
 
 
 def error(request, exception, log, additionalMessage):  
-    try:  
-        logPath = glob.glob(log)
-        logText = None
-
-        try:
-            f = open(logPath[0], 'r')
-            logText = f.read()
-            f.close()
-        except:
+    try: 
+        if log != None: 
+            logPath = glob.glob(log)
             logText = None
 
-        context = { 'exception': exception, 
-            'exType': type(exception).__name__, 
-            'stackTrace': traceback.format_exc(), 
-            'log': logText, 
-            'logPath': logPath, 
-            'message': additionalMessage,
-            'previousUrl': request.META.get('HTTP_REFERER')
-        }
+            try:
+                f = open(logPath[0], 'r')
+                logText = f.read()
+                f.close()
+            except:
+                logText = None
+        else:
+            logPath, logText = None
 
-        Nicad.cleanNicad(str(request.user))
+
+        context = {}
+        context['exception'] = exception
+        context['exType'] = type(exception).__name__
+        context['stackTrace'] = traceback.format_exc()
+        context['log'] = logText
+        context['logPath'] = logPath
+        context['message'] = additionalMessage
+        context['previousUrl']: request.META.get('HTTP_REFERER')
+
+        if request.user.is_authenticated:
+            Nicad.cleanNicad(str(request.user))
     except Exception as ex:
         context = {'message': "An error occurred. Additionally, an additional exception occurred while rendering the error page. Please report this issue on the project GitHub."}
 
