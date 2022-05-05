@@ -1,5 +1,5 @@
 #Download base image
-FROM ubuntu:22.04
+FROM ubuntu:21.10
 
 # Set ENV
 ENV nginx_vhost /etc/nginx/sites-available/default
