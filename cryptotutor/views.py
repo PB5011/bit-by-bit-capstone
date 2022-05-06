@@ -161,6 +161,9 @@ def question(request, id):
             Question.objects.all().filter(id=id).update(responseNumber=F('responseNumber') + 1)
 
             return redirect('question', id=id)
+        
+        print(q.StudentName)
+        print(request.user)
 
         #render html page
         return render(request, 'question.html', context=context)
