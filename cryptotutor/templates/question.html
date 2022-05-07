@@ -15,22 +15,22 @@
             <h6>{{ q.views }} views</h6>
             <p>{{ q.description|safe }}</p>
         </div>
+        {% if user.is_authenticated and request.user.username == q.StudentName %}
         <div class="col-3">
             <h4>Actions</h4>
             <div class="d-grid gap-2">
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-up-circle"></i> Upvote</button>
+                <!-- <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-up-circle"></i> Upvote</button>
                 <h4>{{q.points}}</h4>
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-arrow-down-circle"></i> Downvote</button>
                 <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-bookmark"></i> Save for Later</button>
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-share"></i> Share</button>
-                {% if user.is_authenticated and request.user == q.StudentName %}
-                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i> Edit Question</button>
+                <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-share"></i> Share</button> -->
+                <!-- <button class="btn btn btn-outline-primary" type="button"><i class="bi bi-pencil-square"></i> Edit Question</button> -->
                 <form action="{% url 'delete-question' id=q.id %}" method="GET">
                     <button class="btn btn btn-outline-primary" type="submit" name="delete-btn"><i class="bi bi-trash"></i> Delete Question</button>
                 </form>
-                {% endif %}
             </div>
         </div>
+        {% endif %}
     </div>
     <div>
         {% if q.responseNumber == 1%}
@@ -49,7 +49,7 @@
                 <p class="card-text">{{ r.answer|safe }}</p>
                 <p class="text-muted">Answer submitted by {{ r.username }}</p>
             </div>
-            <div class="card-footer text-muted">
+            <!-- <div class="card-footer text-muted">
                 <div class="row g-0">
                 <div class="col-md-6">
                     <button class="btn btn-light" type="button"><i class="bi bi-arrow-up"></i></button>
@@ -62,25 +62,25 @@
                     <button class="btn btn-light" type="button"><i class="bi bi-share-fill"></i></button>
                     <button class="btn btn-light" type="button"><i class="bi bi-three-dots"></i></button>
                 </div>
-            </div>
+            </div> -->
             </div>
         </div>
     </div>
     {% endfor %}
-</div>
-<div class="ctutor-answer-write-section">
-    {% if user.is_authenticated %}
-    <h3>Your Answer</h3>
-    <form method="post">
-    {% csrf_token %}
-    <div>
-        <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="solution" name="solution"></textarea>
+    <div class="ctutor-answer-write-section">
+        {% if user.is_authenticated %}
+        <h3>Your Answer</h3>
+        <form method="post">
+        {% csrf_token %}
+        <div>
+            <textarea class="mdc-text-field__input" rows="8" cols="40" aria-label="code-fragments" id="solution" name="solution"></textarea>
+        </div>
+        <br>
+        <input type="submit" class="btn btn-primary" value="Submit Answer">
+        </form>
+        {% else %}
+        <p>You must login to submit a response.</p>
+        {% endif %}
     </div>
-    <br>
-    <input type="submit" class="btn btn-primary" value="Submit Answer">
-    </form>
-    {% else %}
-    <p>You must login to submit a response.</p>
-    {% endif %}
 </div>
 {% endblock %}

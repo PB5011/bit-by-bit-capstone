@@ -26,11 +26,6 @@ class ResponsesSerializer(serializers.HyperlinkedModelSerializer):
         model = Responses
         fields = ('id', 'reviewerName', 'reviewedAt', 'points', 'solution', 'questionID')
 
-class RequestsSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = Requests
-        fields = ('id', 'studentID', 'studentName', 'VCS', 'requestedAt', 'code', 'errType', 'description')
-
 
 ### NOT IN USE ###
 # class InheritedQuestionSerializer(serializers.HyperlinkedModelSerializer):
@@ -57,3 +52,8 @@ class RequestsSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = student
 #         fields = ('id', 'address', 'name')
+
+# class RequestsSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = Requests
+#         fields = ('id', 'studentID', 'studentName', 'VCS', 'requestedAt', 'code', 'errType', 'description')

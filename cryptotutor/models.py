@@ -89,16 +89,6 @@ class Responses(models.Model):
     solution = models.TextField(default='')
     questionID = models.ForeignKey(Question, on_delete=models.CASCADE)
 
-class Requests(models.Model):
-    """Model for Requests"""
-    id = models.AutoField(primary_key=True)
-    studentID = models.PositiveSmallIntegerField()
-    studentName = models.CharField(max_length=20)
-    VCS = models.CharField(max_length=255)
-    requestedAt = models.DateTimeField()
-    code = models.TextField()
-    errType = models.CharField(max_length=20)
-    description = models.TextField()
 
 
 ### NOT IN USE ###
@@ -133,3 +123,14 @@ class Requests(models.Model):
 #     id = models.AutoField(primary_key=True)
 #     address = models.CharField(max_length=255)
 #     name = models.CharField(max_length=255)
+
+# class Requests(models.Model):
+#     """Model for Requests"""
+#     id = models.AutoField(primary_key=True)
+#     studentID = models.PositiveSmallIntegerField()
+#     studentName = models.CharField(max_length=20)
+#     VCS = models.CharField(max_length=255)
+#     requestedAt = models.DateTimeField()
+#     code = models.TextField()
+#     errType = models.CharField(max_length=20)
+#     description = models.TextField()
