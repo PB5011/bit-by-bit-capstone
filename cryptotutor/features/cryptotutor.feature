@@ -1,7 +1,8 @@
 #see https://behave.readthedocs.io/en/stable/tutorial.html
 
-Feature: checking links from home
+Feature: cryptotutor tests
 
+#Sub-Feature: checking links
 Scenario: reload the home page
     Given I go to the cryptotutor home page
     When I click on the home link
@@ -24,25 +25,33 @@ Scenario: load the github
 
 
 
-# Feature: form submissions
-#multiple features in one file not supported; either split into multiple or leave as is
-#not sure if the scenarios below make sense/are compatible w the steps, but they should cover the general idea... open for change as necessary
-# Scenario: submit a question
-#     Given I go to the cryptotutor home page
-#     When I click on the question submission link
-#     When I enter information into the form
-#     When I press submit
-#     Then I will go to the home page
-#     Then I will see my question on the home page
+#Sub-Feature: form submissions
 
-# Scenario: compare code
-#     Given I go to the cryptotutor home page
-#     When I click on the compare code link
-#     When I enter information into the form
-#     Then I will go to the code selection page
-#     Then I will see my code there
-#     When I select code
-#     When I press submit
-#     Then I will go to the diff viewer
-#     Then I will see the diff view
-#     Then I will see my code
+Scenario: submit a question
+    Given I go to the cryptotutor home page
+    Given I am logged in
+    When I click on the question submission link
+    When I enter information into the question submission form
+    Then I will go to the home page sorted by newest
+    Then I will see my question on the home page
+
+Scenario: answer a question
+    Given I go to the cryptotutor home page
+    Given I am logged in
+    When I click on a question and type in an answer
+    Then I will see my answer
+
+#note that this code was written when the test files consisted of files using System.out.println; may need to be changed to successfully
+#get a clone from NiCad when the comparison files are more robust
+Scenario: compare code
+    Given I go to the cryptotutor home page
+    When I click on the compare code link
+    When I enter information into the code submission form
+    When I go to the code selection page and select code
+    Then I will go to the diff viewer and see my code
+
+Scenario: submit code that will give no clones
+    Given I go to the cryptotutor home page
+    When I click on the compare code link
+    When I enter not enough information into the code submission form
+    Then I should get an AttributeError error

@@ -5,7 +5,6 @@ admin.site.register(CodeSubmission)
 admin.site.register(Question)
 admin.site.register(Responses)
 
-#Client defined models
 # admin.site.register(inheritedQuestion)
 # admin.site.register(student)
 # admin.site.register(inheritedUser)

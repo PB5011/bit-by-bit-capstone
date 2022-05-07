@@ -90,7 +90,6 @@ class Responses(models.Model):
     questionID = models.ForeignKey(Question, on_delete=models.CASCADE)
 
 
-
 ### NOT IN USE ###
 # class inheritedQuestion(models.Model):
 #     id = models.AutoField(primary_key=True)

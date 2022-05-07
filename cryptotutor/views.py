@@ -122,11 +122,6 @@ def question(request, id):
     """
 
     try:
-        #this gets the sample question
-        # f = open(os.getcwd() + "/cryptotutor/static/json/sample_question_detail.json")
-        # context = json.load(f)
-        # f.close()
-
         # Add a view before loading the object
         Question.objects.filter(id=id).update(views=F('views') + 1)
 
@@ -134,9 +129,7 @@ def question(request, id):
         answers = []
         q = Question.objects.get(id=id)
         answerList = Responses.objects.filter(questionID=id)
-        # answerList = Responses.objects.all()
 
-        #TODO: add some responses and make sure this works
         for a in answerList:
             answers.append(
                 {'answer': a.solution, 'questionID': a.questionID, 'username': a.reviewerName, 'points': a.points,
@@ -215,29 +208,18 @@ def questionForm(request):
     """
     try:
         context = {}
-        #print(type(request))
-        #print(request.method)
-        #print(request)      
-        #if request.method == 'POST':
-        #    print("True")
-        #else:
-        #    print("False")
 
         if request.method == 'POST':
-            #ID = request.POST['student_id']
             name = request.POST['student_name']
             link = request.POST['vcs']
             title = request.POST['title']
             description = request.POST['description']
             new_item = Question(StudentName=name, 
                                 projectLink=link, title=title, description=description)
-            #print(new_item)
-            #print(title)
-            #print(name)
-            #print(description)
+
             new_item.save()
 
-            return redirect('index')
+            return redirect('index', sort_type='newest')
         
 
         #render html page
@@ -341,12 +323,11 @@ def codeSelection(request):
         if request.method == 'POST':
             compareFilePath = request.POST['file']
             #need to get rid of everything before /cryptotutor
-            compareFilePath = "/" + compareFilePath.split('/', 2)[2] #make sure everybody tests this; unsure if the file
+            compareFilePath = "/" + compareFilePath.split('/', 2)[2]
             request.session['compareFile'] = compareFilePath # setting in the session
             print("request submitted to compare code with file path: ", compareFilePath)
             #navigate to diff viewer
             return redirect('diff-viewer')
-            #give the diff viewer the two files... somehow
         #render html page
         return render(request, 'code-selection.html', context=context)
     except AttributeError as ae:
@@ -489,11 +470,6 @@ def register(request):
             ex, 
             None, 
             "There was an error rendering the registration page. If this error persists, please report this issue on the project GitHub repository.")
-
-
-
-def codeError(request):
-    return render(request, 'code-error.html')
 
 def changePassword(request):
     """View function for changing a password.
