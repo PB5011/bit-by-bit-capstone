@@ -1,6 +1,11 @@
 from django.urls import path, include
 from . import views
 
+"""
+This file defines all URL patterns for the CryptoTutor web application. URLs are mapped
+between this class and the associated view function for Django to process.
+"""
+
 urlpatterns = [
     path('<str:sort_type>', views.index, name='index'),
     path('', views.index, name='index'),

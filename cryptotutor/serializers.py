@@ -12,16 +12,19 @@ from .models import *
     or in case the features that they are used for are implemented (in the case of notifications, etc.)
 """
 class CodeSubmissionSerializer(serializers.HyperlinkedModelSerializer):
+    """ Serializer for the CodeSubmission model """ 
     class Meta:
         model = CodeSubmission
         fields = ('id', 'codeSnippet', 'studentUsername', 'threshold')
 
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
+    """ Serializer for the Question model """
     class Meta:
         model = Question
         fields = ('id', 'StudentName', 'projectLink', 'description', 'title', 'points', 'responses')
 
 class ResponsesSerializer(serializers.HyperlinkedModelSerializer):
+    """ Serializer for the Responses model """
     class Meta:
         model = Responses
         fields = ('id', 'reviewerName', 'reviewedAt', 'points', 'solution', 'questionID')

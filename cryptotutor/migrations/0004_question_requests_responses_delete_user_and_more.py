@@ -5,6 +5,8 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+    """Django migration class to create multiple models for use within the CryptoTutor project."""
+
 
     dependencies = [
         ('cryptotutor', '0003_codesubmission_nicad'),

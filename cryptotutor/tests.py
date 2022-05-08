@@ -2,14 +2,22 @@ from django.test import TestCase, Client
 from .models import *
 import os.path
 
+"""
+This file contains a series of test cases for testing the backend database and
+the various core functions of the application.
+"""
+
 # Create your tests here.
 class CodeSubmissionTestCase(TestCase):
+    """ Test case for code submission """
     def test_codeObject(self):
+        """ Tests that a code snippet is saved correctly to the database. """
         new_item = CodeSubmission(codeSnippet="This is a code snippet")
         new_item.save()
         self.assertEqual(new_item.codeSnippet, "This is a code snippet")
 
     def test_questionObjectPass(self):
+        """ Tests that a question is saved correctly to the database. """
         new_item = Question(StudentID = "123456",StudentName="Rob Zombie",projectLink="https://pancakes.com",description="Pancakes")
         new_item.save()
         self.assertEqual(new_item.StudentID, "123456")

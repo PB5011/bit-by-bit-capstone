@@ -44,6 +44,14 @@ cryptotutor.models module
    :undoc-members:
    :show-inheritance:
 
+cryptotutor.serializers module
+------------------------------
+
+.. automodule:: cryptotutor.serializers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 cryptotutor.tests module
 ------------------------
 

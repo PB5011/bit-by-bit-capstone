@@ -5,6 +5,7 @@ import django.utils.timezone
 
 
 class Migration(migrations.Migration):
+    """Django migration class to add a createdDate field to the question model."""
 
     dependencies = [
         ('cryptotutor', '0005_question_views'),

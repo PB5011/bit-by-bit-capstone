@@ -4,6 +4,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """Django migration class to alter fields within the CodeSubmission model and to create the Nicad model."""
+
 
     dependencies = [
         ('cryptotutor', '0002_alter_user_id'),

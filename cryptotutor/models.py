@@ -3,23 +3,34 @@ from django.db import models
 from django.urls import reverse
 
 """
-    This file contains all models used in the cryptotutor application. Models provide information
-    about data, including the essential fields and behaviors of the data being stored. Each model maps
-    to a single database table. The only model not related to the database is the NiCad model, used to define
-    methods related to the NiCad process.
+This file contains all models used in the cryptotutor application. Models provide information
+about data, including the essential fields and behaviors of the data being stored. Each model maps
+to a single database table. The only model not related to the database is the NiCad model, used to define
+methods related to the NiCad process.
 
-    There are a number of models commented out; these were included in the original code, but
-    became out of scope or redundant at some point in development. They've been kept in the code
-    in case future developers decide that these models are better (in the case of inherited models)
-    or in case the features that they are used for are implemented (in the case of notifications, etc.)
-    """
+There are a number of models commented out; these were included in the original code, but
+became out of scope or redundant at some point in development. They've been kept in the code
+in case future developers decide that these models are better (in the case of inherited models)
+or in case the features that they are used for are implemented (in the case of notifications, etc.)
+"""
 
 
 class Nicad(models.Model):
-    """Class defining nicad use"""
+    """Class defining methods involving NiCad"""
 
     # methods
     def callNicad(studentUsername, threshold):
+        """Function for running the NiCad process.
+    
+        This function calls the nicad6cross process to operate on the code that is
+        submitted by the student. The code must already exist within the submissions
+        folder, which is defined by the location variable.
+
+        :param studentUsername: The student's username
+        :param threshold: The threshold that NiCad should run at. This is an alias for
+                the configuration filename located within the NiCad installation
+                directory.
+        """
         location = "./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions"
         print("running nicad6cross blocks java", location, "./cryptotutor/ExtraFiles/TestFiles", threshold)
         nc = subprocess.Popen(["nicad6cross", "blocks", "java", location,
@@ -29,6 +40,14 @@ class Nicad(models.Model):
         return True
 
     def cleanNicad(studentUsername):
+        """Function for cleaning the student's NiCad folder.
+    
+        This function cleans the NiCad folders associated with the student's username.
+        Used primarily for when NiCad encounters errors, as it was discovered NiCad
+        output should be cleaned upon error.
+
+        :param studentUsername: The student's username.
+        """
         list1 = glob.glob("./cryptotutor/ExtraFiles/TestFiles_*")
         list2 = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions_*")
         list3 = glob.glob("./cryptotutor/ExtraFiles/SubmittedFiles/" + studentUsername + "/Submissions_*/Submissions_*")

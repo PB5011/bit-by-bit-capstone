@@ -4,6 +4,8 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """Django migration class to add a views field to the question model."""
+
 
     dependencies = [
         ('cryptotutor', '0004_question_requests_responses_delete_user_and_more'),

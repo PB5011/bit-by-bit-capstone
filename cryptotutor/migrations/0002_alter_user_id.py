@@ -4,6 +4,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """Django migration class to alter the id field of the user model in the database."""
 
     dependencies = [
         ('cryptotutor', '0001_initial'),

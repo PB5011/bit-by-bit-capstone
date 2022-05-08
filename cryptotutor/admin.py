@@ -1,3 +1,5 @@
+"""Registers models with the Django administration interface."""
+
 from django.contrib import admin
 from .models import *
 
