@@ -20,10 +20,12 @@ Requirements:
  - A Ubuntu or Debian based system with Docker pre-installed. If you do not have Docker installed, follow the instructions here: https://docs.docker.com/engine/install/
  - Python 3.9 is needed for this project.
  - Install needed packages: ```sudo apt install build-essential python3-pip python3-django python-is-python3 wget g++ git```
- - Build FreeTXL: ```sudo mkdir /tmp/freetxl-build/ && cd /tmp/freetxl-build && sudo wget http://www.txl.ca/download/29321-txl10.8a.linux64.tar.gz && sudo tar -xvf 29321-txl10.8a.linux64.tar.gz```
+ - Build FreeTXL: 
+ - ```sudo mkdir /tmp/freetxl-build/ && cd /tmp/freetxl-build && sudo wget http://www.txl.ca/download/29321-txl10.8a.linux64.tar.gz && sudo tar -xvf 29321-txl10.8a.linux64.tar.gz```
  - ```cd /tmp/freetxl-build/txl10.8a.linux64/ && sudo ./InstallTxl```
  - ```sudo rm -rf /tmp/freetxl-build```
- - Build NiCad: ```sudo mkdir /tmp/nicad-build/ && cd /tmp/nicad-build && sudo wget http://www.txl.ca/download/5659-NiCad-6.2.tar.gz && sudo tar -xvf 5659-NiCad-6.2.tar.gz```
+ - Build NiCad: 
+ - ```sudo mkdir /tmp/nicad-build/ && cd /tmp/nicad-build && sudo wget http://www.txl.ca/download/5659-NiCad-6.2.tar.gz && sudo tar -xvf 5659-NiCad-6.2.tar.gz```
  - ```cd /tmp/nicad-build/NiCad-6.2 && sudo make```
  - ```sudo mkdir /usr/local/lib/nicad6 && sudo cp -r /tmp/nicad-build/NiCad-6.2/* /usr/local/lib/nicad6```
  - ```sudo sed -i 's/LIB=./LIB=\/usr\/local\/lib\/nicad6/g' /tmp/nicad-build/NiCad-6.2/nicad6```
