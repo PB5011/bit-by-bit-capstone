@@ -28,11 +28,11 @@ Requirements:
  - ```sudo mkdir /usr/local/lib/nicad6 && sudo cp -r /tmp/nicad-build/NiCad-6.2/* /usr/local/lib/nicad6```
  - ```sudo sed -i 's/LIB=./LIB=\/usr\/local\/lib\/nicad6/g' /tmp/nicad-build/NiCad-6.2/nicad6```
  - ```sudo sed -i 's/LIB=./LIB=\/usr\/local\/lib\/nicad6/g' /tmp/nicad-build/NiCad-6.2/nicad6cross```
- - ```sudo cp /tmp/nicad-build/NiCad-6.2/nicad6 /usr/local/bin/
-sudo cp /tmp/nicad-build/NiCad-6.2/nicad6cross /usr/local/bin
-sudo chmod +x /usr/local/bin/nicad6
-sudo chmod +x /usr/local/bin/nicad6cross
-sudo rm -rf /tmp/nicad-build ```
+ - ```sudo cp /tmp/nicad-build/NiCad-6.2/nicad6 /usr/local/bin/```
+ - ```sudo cp /tmp/nicad-build/NiCad-6.2/nicad6cross /usr/local/bin```
+ - ```sudo chmod +x /usr/local/bin/nicad6```
+ - ```sudo chmod +x /usr/local/bin/nicad6cross```
+ - ```sudo rm -rf /tmp/nicad-build```
  
 Setting up the project:
 1. Users must install the specified apps from the requirement-file by running ```pip install -r requirement_file.txt```
