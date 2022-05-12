@@ -18,6 +18,25 @@ Installation is simple using Docker.
 
 Requirements:
  - A Ubuntu or Debian based system with Docker pre-installed. If you do not have Docker installed, follow the instructions here: https://docs.docker.com/engine/install/
+ - Python 3.9 is needed for this project.
+ 
+Setting up the project:
+1. Users must install the specified apps from the requirement-file by running ```pip install -r requirement_file.txt```
+2. In order to run code comparisons using NiCad, please ensure that the config files under the "nicad_configs" folder are included in the config folder at the NiCad installation location (ie usr/local/lib/nicad6/config). These commands will copy the nicad_config folder into the nicad6 config folder, then move the config files out of the nicad_config folder and into the config folder, before removing the now-empty nicad_configs folder. This should be done with the following commands:
+3. ```sudo cp -a /path/to/cryptotutor/nicad_configs /path/to/nicad6/config ```
+4. ```cd nicad_configs```
+5. ```sudo mv * ..```
+6. ```cd ..```
+7. ```sudo rm -rf nicad_configs```
+8. In order to use Firefox for front end testing, the user must ensure that their geckodriver file is located in the /usr/local/bin/geckodriver file path, or they must change that line to match their geckodriver location. In order to run the test, the user must navigate into the cryptotutor file in the terminal before running the following commands: 
+9. ```export PYTHONPATH=~/path/to/capstone```
+10. ```export DJANGO_SETTINGS_MODULE=capstone.settings```
+11. ```behave```
+12. In order to run the project locally, run the command:
+13. ```python3 manage.py runserver```
+14. If there are multiple python versions. Otherwise, replace python3 with python. Alternatively, the user could run:
+15. ```sudo apt install python-is-python3```
+16. before running the run server command
 
 Building and running the container:
 1. Clone this repository onto your local system. 
