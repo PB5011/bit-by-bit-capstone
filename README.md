@@ -11,7 +11,7 @@ Apr 6 2022 - M3 submission. Various work on inputting forms to database, importe
 
 Apr 20 2022 - M4 Submission. Added questions viewed from database, testing for front and back end, documentation, reformatting code/database for given data
 
-May 11 2022 - M5 Final Submission - Finished polishing, added documentation and testing, work done with Django REST Framework, and added features for the site.
+May 11 2022 - M5 Final Submission - For this milestone, many small tasks were finished and polished, including code cleanup, bug squashing, testing, and various feature implementation such as question deletion and question sorting for the main page.  
 
 # Installation
 Installation is simple using Docker.
